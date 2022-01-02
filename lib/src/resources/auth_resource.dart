@@ -9,6 +9,7 @@ import 'package:rpmtw_api_client/src/utilities/extension.dart';
 class AuthResource extends BaseResource {
   AuthResource({required Dio httpClient}) : super(httpClient: httpClient);
 
+  /// 透過 UUID 取得使用者資訊
   Future<User> getUserByUUID(String uuid) async {
     Response response = await httpClient.get('/auth/user/$uuid');
     int statusCode = response.statusCode ?? 500;
@@ -21,6 +22,7 @@ class AuthResource extends BaseResource {
     }
   }
 
+  /// 透過 Email 取得使用者資訊
   Future<User> getUserByEmail(String email) async {
     Response response = await httpClient.get('/auth/user/get-by-email/$email');
     int statusCode = response.statusCode ?? 500;
@@ -92,6 +94,7 @@ class AuthResource extends BaseResource {
     }
   }
 
+  /// 透過密碼與 uuid，取得使用者的 token
   Future<String> getToken(
       {required String uuid, required String password}) async {
     Map postData = {'uuid': uuid, 'password': password};
@@ -113,13 +116,14 @@ class AuthResource extends BaseResource {
     }
   }
 
+  /// 驗證密碼格式
   Future<PasswordValidatedResult> validPassword(String password) {
     return httpClient
         .get('/auth/valid-password?password=$password')
         .then((response) {
       int statusCode = response.statusCode ?? 500;
       if (statusCode == HttpStatus.ok) {
-        return PasswordValidatedResult.fromMap(response.map['data']);
+        return PasswordValidatedResult.fromJson(response.json);
       } else {
         throw Exception('Valid password failed');
       }

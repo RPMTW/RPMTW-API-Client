@@ -1,24 +1,33 @@
 import 'dart:convert';
 
-class PasswordValidatedResult {
+import 'package:rpmtw_api_client/src/models/base_model.dart';
+
+class PasswordValidatedResult extends BaseModel {
   final bool isValid;
   final int code;
-  final String message;
+  final String resultMessage;
+
   PasswordValidatedResult({
     required this.isValid,
     required this.code,
-    required this.message,
-  });
+    required this.resultMessage,
+    required int status,
+    required String statusMessage,
+  }) : super(status: status, message: statusMessage);
 
   PasswordValidatedResult copyWith({
     bool? isValid,
     int? code,
-    String? message,
+    String? resultMessage,
+    int? status,
+    String? statusMessage,
   }) {
     return PasswordValidatedResult(
       isValid: isValid ?? this.isValid,
       code: code ?? this.code,
-      message: message ?? this.message,
+      resultMessage: resultMessage ?? this.resultMessage,
+      status: status ?? this.status,
+      statusMessage: statusMessage ?? message,
     );
   }
 
@@ -26,35 +35,47 @@ class PasswordValidatedResult {
     return {
       'isValid': isValid,
       'code': code,
-      'message': message,
+      'message': resultMessage,
     };
   }
 
   factory PasswordValidatedResult.fromMap(Map<String, dynamic> map) {
+    Map data = map['data'];
     return PasswordValidatedResult(
-      isValid: map['isValid'] ?? false,
-      code: map['code']?.toInt() ?? 0,
-      message: map['message'] ?? '',
+      isValid: data['isValid'] ?? false,
+      code: data['code']?.toInt() ?? 0,
+      resultMessage: data['message'] ?? '',
+      status: map['status']?.toInt() ?? 0,
+      statusMessage: map['message'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory PasswordValidatedResult.fromJson(String source) => PasswordValidatedResult.fromMap(json.decode(source));
+  factory PasswordValidatedResult.fromJson(String source) =>
+      PasswordValidatedResult.fromMap(json.decode(source));
 
   @override
-  String toString() => 'PasswordValidatedResult(isValid: $isValid, code: $code, message: $message)';
+  String toString() =>
+      'PasswordValidatedResult(isValid: $isValid, code: $code, message: $resultMessage, status: $status, message: $message)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is PasswordValidatedResult &&
-      other.isValid == isValid &&
-      other.code == code &&
-      other.message == message;
+        other.isValid == isValid &&
+        other.code == code &&
+        other.resultMessage == resultMessage &&
+        other.status == status &&
+        other.message == message;
   }
 
   @override
-  int get hashCode => isValid.hashCode ^ code.hashCode ^ message.hashCode;
+  int get hashCode =>
+      isValid.hashCode ^
+      code.hashCode ^
+      resultMessage.hashCode ^
+      status.hashCode ^
+      message.hashCode;
 }

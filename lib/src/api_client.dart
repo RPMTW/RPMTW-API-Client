@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:rpmtw_api_client/rpmtw_api_client.dart';
-import 'package:rpmtw_api_client/src/resources/auth_resource.dart';
 
 class RPMTWApiClient {
   final Dio _httpClient;
@@ -14,5 +13,8 @@ class RPMTWApiClient {
   }
 
   AuthResource get authResource => AuthResource(httpClient: _httpClient);
+  StorageResource get storageResource =>
+      StorageResource(httpClient: _httpClient);
+
   static RPMTWApiClient get lastInstance => _apiClient;
 }
