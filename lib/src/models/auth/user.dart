@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:rpmtw_api_client/src/api_client.dart';
 import 'package:rpmtw_api_client/src/models/base_model.dart';
 
 class User extends BaseModel {
@@ -99,4 +100,7 @@ class User extends BaseModel {
         status.hashCode ^
         message.hashCode;
   }
+
+  Future<String> getToken(String password) =>
+      RPMTWApiClient.lastInstance.authResource.getToken(uuid: uuid, password: password);
 }
