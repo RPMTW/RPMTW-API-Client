@@ -12,7 +12,7 @@ class AuthResource extends BaseResource {
   /// 透過 UUID 取得使用者資訊
   Future<User> getUserByUUID(String uuid) async {
     Response response = await httpClient.get('/auth/user/$uuid');
-    int statusCode = response.statusCode ?? 500;
+    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
     if (statusCode == HttpStatus.ok) {
       return User.fromJson(response.json);
     } else if (statusCode == HttpStatus.notFound) {
@@ -25,7 +25,7 @@ class AuthResource extends BaseResource {
   /// 透過 Email 取得使用者資訊
   Future<User> getUserByEmail(String email) async {
     Response response = await httpClient.get('/auth/user/get-by-email/$email');
-    int statusCode = response.statusCode ?? 500;
+    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
     if (statusCode == HttpStatus.ok) {
       return User.fromJson(response.json);
     } else if (statusCode == HttpStatus.notFound) {
@@ -47,14 +47,18 @@ class AuthResource extends BaseResource {
     }
     Response response =
         await httpClient.post('/auth/user/create', data: postData);
-    int statusCode = response.statusCode ?? 500;
+    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
 
     if (statusCode == HttpStatus.ok) {
       return response.map['data']['token'];
     } else if (statusCode == HttpStatus.notFound) {
-      throw Exception('User not found');
+      throw CreateUserException('User not found');
     } else {
-      throw Exception('Create user failed');
+      if (statusCode == HttpStatus.badRequest) {
+        throw CreateUserException(response.map['message']);
+      } else {
+        throw CreateUserException('Create user failed');
+      }
     }
   }
 
@@ -83,7 +87,7 @@ class AuthResource extends BaseResource {
     }
     Response response =
         await httpClient.post('/auth/user/$uuid/update', data: postData);
-    int statusCode = response.statusCode ?? 500;
+    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
 
     if (statusCode == HttpStatus.ok) {
       return User.fromJson(response.json);
@@ -100,7 +104,7 @@ class AuthResource extends BaseResource {
     Map postData = {'uuid': uuid, 'password': password};
     Response response =
         await httpClient.post('/auth/get-token', data: postData);
-    int statusCode = response.statusCode ?? 500;
+    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
 
     if (statusCode == HttpStatus.ok) {
       return response.map['data']['token'];
@@ -108,7 +112,8 @@ class AuthResource extends BaseResource {
       throw Exception('User not found');
     } else {
       String message = response.map['message'];
-      if (statusCode == 400 && message.contains("Password is incorrect")) {
+      if (statusCode == HttpStatus.badRequest &&
+          message.contains("Password is incorrect")) {
         throw Exception('Password is incorrect');
       } else {
         throw Exception('Get token failed');
@@ -121,12 +126,23 @@ class AuthResource extends BaseResource {
     return httpClient
         .get('/auth/valid-password?password=$password')
         .then((response) {
-      int statusCode = response.statusCode ?? 500;
+      int statusCode = response.statusCode ?? HttpStatus.internalServerError;
       if (statusCode == HttpStatus.ok) {
         return PasswordValidatedResult.fromJson(response.json);
       } else {
         throw Exception('Valid password failed');
       }
     });
+  }
+}
+
+class CreateUserException implements Exception {
+  final String message;
+
+  CreateUserException(this.message);
+
+  @override
+  String toString() {
+    return message;
   }
 }

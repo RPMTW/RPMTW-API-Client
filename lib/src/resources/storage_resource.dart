@@ -13,7 +13,7 @@ class StorageResource extends BaseResource {
   /// 透過 UUID 取得檔案儲存資訊
   Future<Storage> getStorage(String uuid) async {
     Response response = await httpClient.get('/storage/$uuid');
-    int statusCode = response.statusCode ?? 500;
+    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
     if (statusCode == HttpStatus.ok) {
       return Storage.fromJson(response.json);
     } else if (statusCode == HttpStatus.notFound) {
@@ -35,13 +35,13 @@ class StorageResource extends BaseResource {
       throw Exception('File size is too large');
     }
 
-    int statusCode = response.statusCode ?? 500;
+    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
     if (statusCode == HttpStatus.ok) {
       return Storage.fromJson(response.json);
     } else if (statusCode == HttpStatus.notFound) {
       throw Exception('Storage not found');
     } else {
-      if (statusCode == 400 &&
+      if (statusCode == HttpStatus.badRequest &&
           response.map['message'] == "File size is too large") {
         throw Exception('File size is too large');
       } else {
@@ -58,7 +58,7 @@ class StorageResource extends BaseResource {
   Future<Uint8List> getStorageBytes(String uuid) async {
     Response response = await httpClient.get('/storage/$uuid/download',
         options: Options(responseType: ResponseType.bytes));
-    int statusCode = response.statusCode ?? 500;
+    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
     if (statusCode == HttpStatus.ok) {
       return Uint8List.fromList(response.data);
     } else if (statusCode == HttpStatus.notFound) {
