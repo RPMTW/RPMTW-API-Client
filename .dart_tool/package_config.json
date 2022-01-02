@@ -33,9 +33,9 @@
     },
     {
       "name": "byte_size",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/byte_size-1.4.1",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/byte_size-2.0.0-nullsafety.0",
       "packageUri": "lib/",
-      "languageVersion": "2.8"
+      "languageVersion": "2.12"
     },
     {
       "name": "charcode",
@@ -46,6 +46,12 @@
     {
       "name": "cli_util",
       "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/cli_util-0.3.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "clock",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/clock-1.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -111,9 +117,9 @@
     },
     {
       "name": "intl",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/intl-0.16.1",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0",
       "packageUri": "lib/",
-      "languageVersion": "2.5"
+      "languageVersion": "2.12"
     },
     {
       "name": "io",
@@ -132,12 +138,6 @@
       "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
-    },
-    {
-      "name": "locales",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/locales-0.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
     },
     {
       "name": "logging",
@@ -317,10 +317,10 @@
       "name": "rpmtw_api_client",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.15"
     }
   ],
-  "generated": "2022-01-02T10:38:59.529208Z",
+  "generated": "2022-01-02T11:25:21.295460Z",
   "generator": "pub",
   "generatorVersion": "2.16.0-80.1.beta"
 }

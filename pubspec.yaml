@@ -1,18 +1,14 @@
 name: rpmtw_api_client
 description: A starting point for Dart libraries or applications.
 version: 1.0.0
-# homepage: https://www.example.com
+homepage: https://www.rpmtw.com
 
 environment:
-  sdk: '>=2.16.0-80.1.beta <3.0.0'
-
-
-# dependencies:
-#   path: ^1.8.0
+  sdk: '>=2.15.0 <3.0.0'
 
 dev_dependencies:
   lints: ^1.0.0
   test: ^1.16.0
 dependencies: 
-  byte_size: ^1.4.1
+  byte_size: ^2.0.0-nullsafety.0
   dio: ^4.0.4

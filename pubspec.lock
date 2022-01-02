@@ -42,7 +42,7 @@ packages:
       name: byte_size
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.1"
+    version: "2.0.0-nullsafety.0"
   charcode:
     dependency: transitive
     description:
@@ -57,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.5"
+  clock:
+    dependency: transitive
+    description:
+      name: clock
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   collection:
     dependency: transitive
     description:
@@ -133,7 +140,7 @@ packages:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.1"
+    version: "0.17.0"
   io:
     dependency: transitive
     description:
@@ -155,13 +162,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  locales:
-    dependency: transitive
-    description:
-      name: locales
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
   logging:
     dependency: transitive
     description:
@@ -366,4 +366,4 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.16.0-80.1.beta <3.0.0"
+  dart: ">=2.15.0 <3.0.0"
