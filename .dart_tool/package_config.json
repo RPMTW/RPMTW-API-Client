@@ -33,7 +33,7 @@
     },
     {
       "name": "byte_size",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/byte_size-2.0.0-nullsafety.0",
+      "rootUri": "file:///home/siongsng/.pub-cache/git/byte_size-1e0ccaa83d94aa85f144134d5ca78eed2ebc7cde/",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -320,7 +320,7 @@
       "languageVersion": "2.15"
     }
   ],
-  "generated": "2022-01-02T11:25:21.295460Z",
+  "generated": "2022-01-03T12:59:41.980756Z",
   "generator": "pub",
   "generatorVersion": "2.16.0-80.1.beta"
 }
