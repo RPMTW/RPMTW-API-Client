@@ -52,7 +52,7 @@ class AuthResource extends BaseResource {
     if (statusCode == HttpStatus.ok) {
       String token = response.map['data']['token'];
       return CreateUserResult(
-          token: token, user: User.fromJson(response.map['data']));
+          token: token, user: User.fromMap(response.map['data']));
     } else if (statusCode == HttpStatus.notFound) {
       throw CreateUserException('User not found');
     } else {
