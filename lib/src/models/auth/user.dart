@@ -8,7 +8,7 @@ class User extends BaseModel {
   final String username;
   final String email;
   final bool emailVerified;
-  final String avatarStorageUUID;
+  final String? avatarStorageUUID;
 
   User(
       {required this.uuid,
@@ -61,7 +61,7 @@ class User extends BaseModel {
       username: data['username'] ?? '',
       email: data['email'] ?? '',
       emailVerified: data['emailVerified'] ?? false,
-      avatarStorageUUID: data['avatarStorageUUID'] ?? '',
+      avatarStorageUUID: data['avatarStorageUUID'],
       status: map['status'] ?? 200,
       message: map['message'] ?? '',
     );
