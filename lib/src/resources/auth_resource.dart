@@ -35,8 +35,8 @@ class AuthResource extends BaseResource {
     }
   }
 
-  /// 建立使用者帳號，如果建立成功將回傳 token
-  Future<String> createUser(
+  /// 建立使用者帳號，如果建立成功將回傳 token 與 使用者資訊
+  Future<CreateUserResult> createUser(
       {required String username,
       required String password,
       required String email,
@@ -50,7 +50,9 @@ class AuthResource extends BaseResource {
     int statusCode = response.statusCode ?? HttpStatus.internalServerError;
 
     if (statusCode == HttpStatus.ok) {
-      return response.map['data']['token'];
+      String token = response.map['data']['token'];
+      return CreateUserResult(
+          token: token, user: User.fromJson(response.map['data']));
     } else if (statusCode == HttpStatus.notFound) {
       throw CreateUserException('User not found');
     } else {
@@ -145,4 +147,11 @@ class CreateUserException implements Exception {
   String toString() {
     return message;
   }
+}
+
+class CreateUserResult {
+  final String token;
+  final User user;
+
+  CreateUserResult({required this.token, required this.user});
 }
