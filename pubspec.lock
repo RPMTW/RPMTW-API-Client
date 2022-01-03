@@ -36,15 +36,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  byte_size:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "1e0ccaa83d94aa85f144134d5ca78eed2ebc7cde"
-      url: "https://github.com/RPMTW/byte_size.git"
-    source: git
-    version: "2.0.0-nullsafety.0"
   charcode:
     dependency: transitive
     description:
@@ -94,6 +85,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  dart_byte_size:
+    dependency: "direct main"
+    description:
+      name: dart_byte_size
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   dio:
     dependency: "direct main"
     description:

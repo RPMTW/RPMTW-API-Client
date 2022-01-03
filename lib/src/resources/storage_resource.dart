@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:byte_size/byte_size.dart';
+import 'package:dart_byte_size/byte_size.dart';
 import 'package:dio/dio.dart';
 import 'package:rpmtw_api_client/src/models/storage/storage.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';

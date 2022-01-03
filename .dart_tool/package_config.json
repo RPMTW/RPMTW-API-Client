@@ -32,12 +32,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "byte_size",
-      "rootUri": "file:///home/siongsng/.pub-cache/git/byte_size-1e0ccaa83d94aa85f144134d5ca78eed2ebc7cde/",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "charcode",
       "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/charcode-1.3.1",
       "packageUri": "lib/",
@@ -76,6 +70,12 @@
     {
       "name": "crypto",
       "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "dart_byte_size",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/dart_byte_size-2.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -320,7 +320,7 @@
       "languageVersion": "2.15"
     }
   ],
-  "generated": "2022-01-03T12:59:41.980756Z",
+  "generated": "2022-01-03T13:06:15.302587Z",
   "generator": "pub",
   "generatorVersion": "2.16.0-80.1.beta"
 }
