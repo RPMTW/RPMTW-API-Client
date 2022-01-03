@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:dart_byte_size/byte_size.dart';
 import 'package:dio/dio.dart';
 import 'package:rpmtw_api_client/src/models/storage/storage.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';
@@ -28,9 +27,7 @@ class StorageResource extends BaseResource {
     Response response = await httpClient.post('/storage/create',
         data: bytes, options: Options(contentType: 'application/octet-stream'));
 
-    ByteSize byteSize = ByteSize.FromBytes(bytes.lengthInBytes);
-
-    if (byteSize.MegaBytes > 8) {
+    if (bytes.lengthInBytes > (8 * 1024 * 1024)) {
       // 檔案最大只能上傳 8 MB
       throw Exception('File size is too large');
     }
