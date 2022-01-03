@@ -5,6 +5,7 @@ import 'package:rpmtw_api_client/src/models/auth/password_validated_result.dart'
 import 'package:rpmtw_api_client/src/models/auth/user.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';
 import 'package:rpmtw_api_client/src/utilities/extension.dart';
+import 'package:rpmtw_api_client/src/utilities/utility.dart';
 
 class AuthResource extends BaseResource {
   AuthResource({required Dio httpClient}) : super(httpClient: httpClient);
@@ -45,8 +46,8 @@ class AuthResource extends BaseResource {
     if (avatarStorageUUID != null) {
       postData['avatarStorageUUID'] = avatarStorageUUID;
     }
-    Response response =
-        await httpClient.post('/auth/user/create', data: postData);
+    Response response = await httpClient.post('/auth/user/create',
+        data: postData, options: Options(headers: Utility.baseHeaders));
     int statusCode = response.statusCode ?? HttpStatus.internalServerError;
 
     if (statusCode == HttpStatus.ok) {
@@ -87,8 +88,8 @@ class AuthResource extends BaseResource {
     if (newAvatarStorageUUID != null) {
       postData['newAvatarStorageUUID'] = newAvatarStorageUUID;
     }
-    Response response =
-        await httpClient.post('/auth/user/$uuid/update', data: postData);
+    Response response = await httpClient.post('/auth/user/$uuid/update',
+        data: postData, options: Options(headers: Utility.baseHeaders));
     int statusCode = response.statusCode ?? HttpStatus.internalServerError;
 
     if (statusCode == HttpStatus.ok) {
@@ -104,8 +105,8 @@ class AuthResource extends BaseResource {
   Future<String> getToken(
       {required String uuid, required String password}) async {
     Map postData = {'uuid': uuid, 'password': password};
-    Response response =
-        await httpClient.post('/auth/get-token', data: postData);
+    Response response = await httpClient.post('/auth/get-token',
+        data: postData, options: Options(headers: Utility.baseHeaders));
     int statusCode = response.statusCode ?? HttpStatus.internalServerError;
 
     if (statusCode == HttpStatus.ok) {

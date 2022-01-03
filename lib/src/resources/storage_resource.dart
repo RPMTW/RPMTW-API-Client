@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:rpmtw_api_client/src/models/storage/storage.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';
 import 'package:rpmtw_api_client/src/utilities/extension.dart';
+import 'package:rpmtw_api_client/src/utilities/utility.dart';
 
 class StorageResource extends BaseResource {
   StorageResource({required Dio httpClient}) : super(httpClient: httpClient);
@@ -25,7 +26,10 @@ class StorageResource extends BaseResource {
   /// 透過位元建立檔案儲存，如果建立成功將返回檔案儲存資訊
   Future<Storage> createStorageByBytes(Uint8List bytes) async {
     Response response = await httpClient.post('/storage/create',
-        data: bytes, options: Options(contentType: 'application/octet-stream'));
+        data: bytes,
+        options: Options(
+            contentType: 'application/octet-stream',
+            headers: Utility.baseHeaders));
 
     if (bytes.lengthInBytes > (8 * 1024 * 1024)) {
       // 檔案最大只能上傳 8 MB
