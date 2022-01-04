@@ -1,7 +1,8 @@
-import 'package:dio/dio.dart';
+import 'package:http/http.dart';
 
 abstract class BaseResource {
-  Dio httpClient;
+  Client httpClient;
+  String baseUrl;
 
-  BaseResource({required this.httpClient});
+  BaseResource({required this.httpClient, required this.baseUrl});
 }

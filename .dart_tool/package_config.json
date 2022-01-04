@@ -68,12 +68,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "dio",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/dio-4.0.4",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "file",
       "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/file-6.1.2",
       "packageUri": "lib/",
@@ -88,6 +82,12 @@
     {
       "name": "glob",
       "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/glob-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "http",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/http-0.13.4",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -302,7 +302,7 @@
       "languageVersion": "2.15"
     }
   ],
-  "generated": "2022-01-03T13:11:46.188143Z",
+  "generated": "2022-01-04T14:12:21.723103Z",
   "generator": "pub",
   "generatorVersion": "2.16.0-80.1.beta"
 }

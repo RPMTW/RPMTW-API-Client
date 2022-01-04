@@ -1,19 +1,20 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
+import 'package:http/http.dart';
 import 'package:rpmtw_api_client/src/models/auth/password_validated_result.dart';
 import 'package:rpmtw_api_client/src/models/auth/user.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';
 import 'package:rpmtw_api_client/src/utilities/extension.dart';
-import 'package:rpmtw_api_client/src/utilities/utility.dart';
 
 class AuthResource extends BaseResource {
-  AuthResource({required Dio httpClient}) : super(httpClient: httpClient);
+  AuthResource({required Client httpClient, required String baseUrl})
+      : super(httpClient: httpClient, baseUrl: baseUrl);
 
   /// 透過 UUID 取得使用者資訊
   Future<User> getUserByUUID(String uuid) async {
-    Response response = await httpClient.get('/auth/user/$uuid');
-    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
+    Response response =
+        await httpClient.get(Uri.parse('$baseUrl/auth/user/$uuid'));
+    int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return User.fromJson(response.json);
     } else if (statusCode == HttpStatus.notFound) {
@@ -25,8 +26,9 @@ class AuthResource extends BaseResource {
 
   /// 透過 Email 取得使用者資訊
   Future<User> getUserByEmail(String email) async {
-    Response response = await httpClient.get('/auth/user/get-by-email/$email');
-    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
+    Response response = await httpClient
+        .get(Uri.parse('$baseUrl/auth/user/get-by-email/$email'));
+    int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return User.fromJson(response.json);
     } else if (statusCode == HttpStatus.notFound) {
@@ -46,9 +48,9 @@ class AuthResource extends BaseResource {
     if (avatarStorageUUID != null) {
       postData['avatarStorageUUID'] = avatarStorageUUID;
     }
-    Response response = await httpClient.post('/auth/user/create',
-        data: postData, options: Options(headers: Utility.baseHeaders));
-    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
+    Response response = await httpClient
+        .post(Uri.parse('$baseUrl/auth/user/create'), body: postData);
+    int statusCode = response.statusCode;
 
     if (statusCode == HttpStatus.ok) {
       String token = response.map['data']['token'];
@@ -88,9 +90,11 @@ class AuthResource extends BaseResource {
     if (newAvatarStorageUUID != null) {
       postData['newAvatarStorageUUID'] = newAvatarStorageUUID;
     }
-    Response response = await httpClient.post('/auth/user/$uuid/update',
-        data: postData, options: Options(headers: Utility.baseHeaders));
-    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
+    Response response = await httpClient.post(
+      Uri.parse('$baseUrl/auth/user/$uuid/update'),
+      body: postData,
+    );
+    int statusCode = response.statusCode;
 
     if (statusCode == HttpStatus.ok) {
       return User.fromJson(response.json);
@@ -105,9 +109,9 @@ class AuthResource extends BaseResource {
   Future<String> getToken(
       {required String uuid, required String password}) async {
     Map postData = {'uuid': uuid, 'password': password};
-    Response response = await httpClient.post('/auth/get-token',
-        data: postData, options: Options(headers: Utility.baseHeaders));
-    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
+    Response response = await httpClient
+        .post(Uri.parse('$baseUrl/auth/get-token'), body: postData);
+    int statusCode = response.statusCode;
 
     if (statusCode == HttpStatus.ok) {
       return response.map['data']['token'];
@@ -127,9 +131,9 @@ class AuthResource extends BaseResource {
   /// 驗證密碼格式
   Future<PasswordValidatedResult> validPassword(String password) {
     return httpClient
-        .get('/auth/valid-password?password=$password')
+        .get(Uri.parse('$baseUrl/auth/valid-password?password=$password'))
         .then((response) {
-      int statusCode = response.statusCode ?? HttpStatus.internalServerError;
+      int statusCode = response.statusCode;
       if (statusCode == HttpStatus.ok) {
         return PasswordValidatedResult.fromJson(response.json);
       } else {

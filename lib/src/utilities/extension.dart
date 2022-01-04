@@ -1,21 +1,9 @@
 import 'dart:convert' as convert;
 
-import 'package:dio/dio.dart';
+import 'package:http/http.dart';
 
 extension ResponseExtension on Response {
-  Map<String, dynamic> get map {
-    if (data is Map) {
-      return data;
-    } else {
-      return convert.json.decode(data.toString());
-    }
-  }
+  Map<String, dynamic> get map => convert.json.decode(body);
 
-  String get json {
-    if (data is Map) {
-      return convert.json.encode(data);
-    } else {
-      return data.toString();
-    }
-  }
+  String get json => body;
 }

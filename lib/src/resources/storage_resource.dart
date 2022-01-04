@@ -1,19 +1,20 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:dio/dio.dart';
+import 'package:http/http.dart';
 import 'package:rpmtw_api_client/src/models/storage/storage.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';
 import 'package:rpmtw_api_client/src/utilities/extension.dart';
-import 'package:rpmtw_api_client/src/utilities/utility.dart';
 
 class StorageResource extends BaseResource {
-  StorageResource({required Dio httpClient}) : super(httpClient: httpClient);
+  StorageResource({required Client httpClient, required String baseUrl})
+      : super(httpClient: httpClient, baseUrl: baseUrl);
 
   /// 透過 UUID 取得檔案儲存資訊
   Future<Storage> getStorage(String uuid) async {
-    Response response = await httpClient.get('/storage/$uuid');
-    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
+    Response response =
+        await httpClient.get(Uri.parse('$baseUrl/storage/$uuid'));
+    int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return Storage.fromJson(response.json);
     } else if (statusCode == HttpStatus.notFound) {
@@ -25,18 +26,17 @@ class StorageResource extends BaseResource {
 
   /// 透過位元建立檔案儲存，如果建立成功將返回檔案儲存資訊
   Future<Storage> createStorageByBytes(Uint8List bytes) async {
-    Response response = await httpClient.post('/storage/create',
-        data: bytes,
-        options: Options(
-            contentType: 'application/octet-stream',
-            headers: Utility.baseHeaders));
+    Response response = await httpClient
+        .post(Uri.parse('$baseUrl/storage/create'), body: bytes, headers: {
+      'Content-Type': 'application/octet-stream',
+    });
 
     if (bytes.lengthInBytes > (8 * 1024 * 1024)) {
       // 檔案最大只能上傳 8 MB
       throw Exception('File size is too large');
     }
 
-    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
+    int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return Storage.fromJson(response.json);
     } else if (statusCode == HttpStatus.notFound) {
@@ -57,11 +57,12 @@ class StorageResource extends BaseResource {
 
   /// 透過 UUID 取得檔案儲存的位元
   Future<Uint8List> getStorageBytes(String uuid) async {
-    Response response = await httpClient.get('/storage/$uuid/download',
-        options: Options(responseType: ResponseType.bytes));
-    int statusCode = response.statusCode ?? HttpStatus.internalServerError;
+    Response response = await httpClient.get(
+      Uri.parse('$baseUrl/storage/$uuid/download'),
+    );
+    int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return Uint8List.fromList(response.data);
+      return response.bodyBytes;
     } else if (statusCode == HttpStatus.notFound) {
       throw Exception('Storage not found');
     } else {
