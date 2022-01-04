@@ -56,8 +56,7 @@ class AuthResource extends BaseResource {
 
     if (statusCode == HttpStatus.ok) {
       String token = response.map['data']['token'];
-      return CreateUserResult(
-          token: token, user: User.fromMap(response.map['data']));
+      return CreateUserResult(token: token, user: User.fromMap(response.map));
     } else if (statusCode == HttpStatus.notFound) {
       throw CreateUserException('User not found');
     } else {
@@ -111,8 +110,9 @@ class AuthResource extends BaseResource {
   Future<String> getToken(
       {required String uuid, required String password}) async {
     Map postData = {'uuid': uuid, 'password': password};
-    Response response = await httpClient
-        .post(Uri.parse('$baseUrl/auth/get-token'), body: json.encode(postData));
+    Response response = await httpClient.post(
+        Uri.parse('$baseUrl/auth/get-token'),
+        body: json.encode(postData));
     int statusCode = response.statusCode;
 
     if (statusCode == HttpStatus.ok) {
