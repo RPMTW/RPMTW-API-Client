@@ -11,7 +11,7 @@ class User extends BaseModel {
   final String? avatarStorageUUID;
 
   String? avatarUrl(String baseUrl) =>
-      avatarStorageUUID == null ? null : '$baseUrl/auth/storage/$avatarStorageUUID/download';
+      avatarStorageUUID == null ? null : '$baseUrl/storage/$avatarStorageUUID/download';
 
   User(
       {required this.uuid,
