@@ -10,6 +10,9 @@ class User extends BaseModel {
   final bool emailVerified;
   final String? avatarStorageUUID;
 
+  String? avatarUrl(String baseUrl) =>
+      avatarStorageUUID == null ? null : '$baseUrl/auth/storage/$avatarStorageUUID/download';
+
   User(
       {required this.uuid,
       required this.username,
@@ -102,5 +105,6 @@ class User extends BaseModel {
   }
 
   Future<String> getToken(String password) =>
-      RPMTWApiClient.lastInstance.authResource.getToken(uuid: uuid, password: password);
+      RPMTWApiClient.lastInstance.authResource
+          .getToken(uuid: uuid, password: password);
 }
