@@ -6,6 +6,8 @@ class RPMTWApiClient {
   late final String _baseUrl;
   static late RPMTWApiClient _apiClient;
 
+  String get baseUrl => _baseUrl;
+
   RPMTWApiClient({bool development = false}) : _httpClient = Client() {
     _baseUrl = development ? "http://0.0.0.0:8080" : 'https://api.rpmtw.com/';
     _apiClient = this;
