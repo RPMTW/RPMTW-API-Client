@@ -68,17 +68,19 @@ class AuthResource extends BaseResource {
     }
   }
 
-  /// 更新使用者資訊，如果成功則回傳修改後的使用者資訊
+  /// 更新使用者資訊，如果成功則回傳修改後的使用者資訊，如果未提供 [password] 則需要提供 [token]
   Future<User> updateUser(
       {required String uuid,
-      required String password,
+      String? token,
+      String? password,
       String? newUsername,
       String? newPassword,
       String? newEmail,
       String? newAvatarStorageUUID}) async {
-    Map postData = {
-      "password": password,
-    };
+    Map postData = {};
+    if (password != null) {
+      postData['password'] = password;
+    }
     if (newUsername != null) {
       postData['newUsername'] = newUsername;
     }
@@ -93,6 +95,9 @@ class AuthResource extends BaseResource {
     }
     Response response = await httpClient.post(
       Uri.parse('$baseUrl/auth/user/$uuid/update'),
+      headers: {
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
       body: json.encode(postData),
     );
     int statusCode = response.statusCode;
