@@ -144,10 +144,10 @@ class AuthResource extends BaseResource {
     });
   }
 
-  Future<bool> validAuthCode({required String email, required String code}) {
+  Future<bool> validAuthCode({required String email, required int code}) {
     return httpClient
         .get(Uri.parse(
-            '$baseUrl/auth/valid-auth-code?email=$email&authCode=$code'))
+            '$baseUrl/auth/valid-auth-code?email=$email&authCode=${code.toString()}'))
         .then((response) {
       int statusCode = response.statusCode;
       if (statusCode == HttpStatus.ok) {
