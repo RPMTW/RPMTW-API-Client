@@ -143,6 +143,21 @@ class AuthResource extends BaseResource {
       }
     });
   }
+
+  Future<bool> validAuthCode({required String email, required String code}) {
+    return httpClient
+        .get(Uri.parse(
+            '$baseUrl/auth/valid-auth-code?email=$email&authCode=$code'))
+        .then((response) {
+      int statusCode = response.statusCode;
+      if (statusCode == HttpStatus.ok) {
+        Map data = response.map['data'];
+        return data['isValid'];
+      } else {
+        throw Exception('Valid auth code failed');
+      }
+    });
+  }
 }
 
 class CreateUserException implements Exception {
