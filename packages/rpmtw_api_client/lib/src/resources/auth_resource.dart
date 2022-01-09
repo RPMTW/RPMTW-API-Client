@@ -12,14 +12,14 @@ class AuthResource extends BaseResource {
       {required Client httpClient,
       required String baseUrl,
       required String? token})
-      : super(httpClient: httpClient, baseUrl: baseUrl, authToken: token);
+      : super(httpClient: httpClient, baseUrl: baseUrl, globalToken: token);
 
   /// 透過 UUID 取得使用者資訊
   Future<User> getUserByUUID(String uuid, {String? token}) async {
     Response response =
         await httpClient.get(Uri.parse('$baseUrl/auth/user/$uuid'), headers: {
-      if (authToken != null || token != null)
-        'Authorization': 'Bearer ${authToken ?? token}'
+      if (globalToken != null || token != null)
+        'Authorization': 'Bearer ${token ?? globalToken}'
     });
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
@@ -102,8 +102,8 @@ class AuthResource extends BaseResource {
     Response response = await httpClient.post(
       Uri.parse('$baseUrl/auth/user/$uuid/update'),
       headers: {
-        if (authToken != null || token != null)
-          'Authorization': 'Bearer ${authToken ?? token}'
+        if (globalToken != null || token != null)
+          'Authorization': 'Bearer ${token ?? globalToken}'
       },
       body: json.encode(postData),
     );

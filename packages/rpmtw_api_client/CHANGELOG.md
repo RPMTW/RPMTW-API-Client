@@ -1,3 +1,8 @@
+## 1.0.3
+
+- add global auth token
+- get user info token option
+
 ## 1.0.2
 
 - Support for changing user information

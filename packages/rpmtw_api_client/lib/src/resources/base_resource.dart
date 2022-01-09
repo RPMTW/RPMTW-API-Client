@@ -3,7 +3,7 @@ import 'package:http/http.dart';
 abstract class BaseResource {
   Client httpClient;
   String baseUrl;
-  String? authToken;
+  String? globalToken;
 
-  BaseResource({required this.httpClient, required this.baseUrl,required this.authToken});
+  BaseResource({required this.httpClient, required this.baseUrl,required this.globalToken});
 }

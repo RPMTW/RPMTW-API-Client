@@ -6,9 +6,9 @@ class RPMTWApiClient {
   final String _baseUrl;
   static late RPMTWApiClient _apiClient;
 
-  String? _token;
+  String? _globalToken;
 
-  void addToken(String value) => _token = value;
+  void setGlobalToken(String value) => _globalToken = value;
 
   String get baseUrl => _baseUrl;
 
@@ -18,13 +18,13 @@ class RPMTWApiClient {
             (development ? "http://0.0.0.0:8080" : 'https://api.rpmtw.com/') {
     _apiClient = this;
 
-    if (token != null) _token = token;
+    if (token != null) _globalToken = token;
   }
 
   AuthResource get authResource =>
-      AuthResource(httpClient: _httpClient, baseUrl: _baseUrl, token: _token);
+      AuthResource(httpClient: _httpClient, baseUrl: _baseUrl, token: _globalToken);
   StorageResource get storageResource => StorageResource(
-      httpClient: _httpClient, baseUrl: _baseUrl, token: _token);
+      httpClient: _httpClient, baseUrl: _baseUrl, token: _globalToken);
 
   static RPMTWApiClient get lastInstance => _apiClient;
 

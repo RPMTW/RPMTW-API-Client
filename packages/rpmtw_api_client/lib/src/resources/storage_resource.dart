@@ -11,7 +11,7 @@ class StorageResource extends BaseResource {
       {required Client httpClient,
       required String baseUrl,
       required String? token})
-      : super(httpClient: httpClient, baseUrl: baseUrl, authToken: token);
+      : super(httpClient: httpClient, baseUrl: baseUrl, globalToken: token);
 
   /// 透過 UUID 取得檔案儲存資訊
   Future<Storage> getStorage(String uuid) async {
