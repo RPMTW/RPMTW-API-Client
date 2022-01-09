@@ -8,8 +8,10 @@ class RPMTWApiClient {
 
   String get baseUrl => _baseUrl;
 
-  RPMTWApiClient({bool development = false}) : _httpClient = Client() {
-    _baseUrl = development ? "http://0.0.0.0:8080" : 'https://api.rpmtw.com/';
+  RPMTWApiClient({bool development = false, String? baseUrl})
+      : _httpClient = Client() {
+    _baseUrl = baseUrl ??
+        (development ? "http://0.0.0.0:8080" : 'https://api.rpmtw.com/');
     _apiClient = this;
   }
 
@@ -19,4 +21,9 @@ class RPMTWApiClient {
       StorageResource(httpClient: _httpClient, baseUrl: _baseUrl);
 
   static RPMTWApiClient get lastInstance => _apiClient;
+
+  static void init({bool development = false, String? baseUrl}) {
+    _apiClient = RPMTWApiClient(development: development, baseUrl: baseUrl);
+  
+  }
 }
