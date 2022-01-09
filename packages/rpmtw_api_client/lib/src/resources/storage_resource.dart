@@ -7,8 +7,11 @@ import 'package:rpmtw_api_client/src/resources/base_resource.dart';
 import 'package:rpmtw_api_client/src/utilities/extension.dart';
 
 class StorageResource extends BaseResource {
-  StorageResource({required Client httpClient, required String baseUrl})
-      : super(httpClient: httpClient, baseUrl: baseUrl);
+  StorageResource(
+      {required Client httpClient,
+      required String baseUrl,
+      required String? token})
+      : super(httpClient: httpClient, baseUrl: baseUrl, authToken: token);
 
   /// 透過 UUID 取得檔案儲存資訊
   Future<Storage> getStorage(String uuid) async {

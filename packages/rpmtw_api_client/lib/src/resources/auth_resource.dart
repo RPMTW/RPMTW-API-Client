@@ -8,13 +8,19 @@ import 'package:rpmtw_api_client/src/resources/base_resource.dart';
 import 'package:rpmtw_api_client/src/utilities/extension.dart';
 
 class AuthResource extends BaseResource {
-  AuthResource({required Client httpClient, required String baseUrl})
-      : super(httpClient: httpClient, baseUrl: baseUrl);
+  AuthResource(
+      {required Client httpClient,
+      required String baseUrl,
+      required String? token})
+      : super(httpClient: httpClient, baseUrl: baseUrl, authToken: token);
 
   /// 透過 UUID 取得使用者資訊
-  Future<User> getUserByUUID(String uuid) async {
+  Future<User> getUserByUUID(String uuid, {String? token}) async {
     Response response =
-        await httpClient.get(Uri.parse('$baseUrl/auth/user/$uuid'));
+        await httpClient.get(Uri.parse('$baseUrl/auth/user/$uuid'), headers: {
+      if (authToken != null || token != null)
+        'Authorization': 'Bearer ${authToken ?? token}'
+    });
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return User.fromJson(response.json);
@@ -96,7 +102,8 @@ class AuthResource extends BaseResource {
     Response response = await httpClient.post(
       Uri.parse('$baseUrl/auth/user/$uuid/update'),
       headers: {
-        if (token != null) 'Authorization': 'Bearer $token',
+        if (authToken != null || token != null)
+          'Authorization': 'Bearer ${authToken ?? token}'
       },
       body: json.encode(postData),
     );
