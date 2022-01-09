@@ -24,6 +24,5 @@ class RPMTWApiClient {
 
   static void init({bool development = false, String? baseUrl}) {
     _apiClient = RPMTWApiClient(development: development, baseUrl: baseUrl);
-  
   }
 }
