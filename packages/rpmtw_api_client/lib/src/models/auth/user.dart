@@ -10,8 +10,9 @@ class User extends BaseModel {
   final bool emailVerified;
   final String? avatarStorageUUID;
 
-  String? avatarUrl(String baseUrl) =>
-      avatarStorageUUID == null ? null : '$baseUrl/storage/$avatarStorageUUID/download';
+  String? avatarUrl(String baseUrl) => avatarStorageUUID == null
+      ? null
+      : '$baseUrl/storage/$avatarStorageUUID/download';
 
   User(
       {required this.uuid,
@@ -21,7 +22,7 @@ class User extends BaseModel {
       required this.avatarStorageUUID,
       required int status,
       required String message})
-      : super(status: status, message: message);
+      : super(statusCode: status, statusMessage: message);
 
   User copyWith({
     String? uuid,
@@ -29,8 +30,8 @@ class User extends BaseModel {
     String? email,
     bool? emailVerified,
     String? avatarStorageUUID,
-    int? status,
-    String? message,
+    int? statusCode,
+    String? statusMessage,
   }) {
     return User(
       uuid: uuid ?? this.uuid,
@@ -38,15 +39,16 @@ class User extends BaseModel {
       email: email ?? this.email,
       emailVerified: emailVerified ?? this.emailVerified,
       avatarStorageUUID: avatarStorageUUID ?? this.avatarStorageUUID,
-      status: status ?? this.status,
-      message: message ?? this.message,
+      status: statusCode ?? this.statusCode,
+      message: statusMessage ?? this.statusMessage,
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
-      "status": status,
-      "message": message,
+      "status": statusCode,
+      "message": statusMessage,
       "data": {
         'uuid': uuid,
         'username': username,
@@ -76,7 +78,7 @@ class User extends BaseModel {
 
   @override
   String toString() {
-    return 'User(uuid: $uuid, username: $username, email: $email, emailVerified: $emailVerified, avatarStorageUUID: $avatarStorageUUID, status: $status, message: $message)';
+    return 'User(uuid: $uuid, username: $username, email: $email, emailVerified: $emailVerified, avatarStorageUUID: $avatarStorageUUID, status: $statusCode, message: $statusMessage)';
   }
 
   @override
@@ -89,8 +91,8 @@ class User extends BaseModel {
         other.email == email &&
         other.emailVerified == emailVerified &&
         other.avatarStorageUUID == avatarStorageUUID &&
-        other.status == status &&
-        other.message == message;
+        other.statusCode == statusCode &&
+        other.statusMessage == statusMessage;
   }
 
   @override
@@ -100,8 +102,8 @@ class User extends BaseModel {
         email.hashCode ^
         emailVerified.hashCode ^
         avatarStorageUUID.hashCode ^
-        status.hashCode ^
-        message.hashCode;
+        statusCode.hashCode ^
+        statusMessage.hashCode;
   }
 
   Future<String> getToken(String password) =>

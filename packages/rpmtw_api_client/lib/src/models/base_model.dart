@@ -1,8 +1,12 @@
 abstract class BaseModel {
-  final int status;
-  final String message;
+  final int statusCode;
+  final String statusMessage;
   const BaseModel({
-    required this.status,
-    required this.message,
+    required this.statusCode,
+    required this.statusMessage,
   });
+
+  Map<String, dynamic> toMap() {
+    throw UnimplementedError();
+  }
 }

@@ -12,28 +12,29 @@ class Storage extends BaseModel {
     required this.contentType,
     required this.type,
     required this.createAt,
-    required int status,
-    required String message,
-  }) : super(status: status, message: message);
+    required int statusCode,
+    required String statusMessage,
+  }) : super(statusCode: statusCode, statusMessage: statusMessage);
 
   Storage copyWith({
     String? uuid,
     String? contentType,
     String? type,
     int? createAt,
-    int? status,
-    String? message,
+    int? statusCode,
+    String? statusMessage,
   }) {
     return Storage(
       uuid: uuid ?? this.uuid,
       contentType: contentType ?? this.contentType,
       type: type ?? this.type,
       createAt: createAt ?? this.createAt,
-      status: status ?? this.status,
-      message: message ?? this.message,
+      statusCode: statusCode ?? this.statusCode,
+      statusMessage: statusMessage ?? this.statusMessage,
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'data': {
@@ -42,8 +43,8 @@ class Storage extends BaseModel {
         'type': type,
         'createAt': createAt,
       },
-      'status': status,
-      'message': message,
+      'status': statusCode,
+      'message': statusMessage,
     };
   }
 
@@ -54,8 +55,8 @@ class Storage extends BaseModel {
       contentType: data['contentType'] ?? '',
       type: data['type'] ?? '',
       createAt: data['createAt']?.toInt() ?? 0,
-      status: map['status']?.toInt() ?? 0,
-      message: map['message'] ?? '',
+      statusCode: map['status']?.toInt() ?? 0,
+      statusMessage: map['message'] ?? '',
     );
   }
 
@@ -66,7 +67,7 @@ class Storage extends BaseModel {
 
   @override
   String toString() {
-    return 'Storage(uuid: $uuid, contentType: $contentType, type: $type, createAt: $createAt, status: $status, message: $message)';
+    return 'Storage(uuid: $uuid, contentType: $contentType, type: $type, createAt: $createAt, statusCode: $statusCode, statusMessage: $statusMessage)';
   }
 
   @override
@@ -78,8 +79,8 @@ class Storage extends BaseModel {
         other.contentType == contentType &&
         other.type == type &&
         other.createAt == createAt &&
-        other.status == status &&
-        other.message == message;
+        other.statusCode == statusCode &&
+        other.statusMessage == statusMessage;
   }
 
   @override
@@ -88,7 +89,7 @@ class Storage extends BaseModel {
         contentType.hashCode ^
         type.hashCode ^
         createAt.hashCode ^
-        status.hashCode ^
-        message.hashCode;
+        statusCode.hashCode ^
+        statusMessage.hashCode;
   }
 }

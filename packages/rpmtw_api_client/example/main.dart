@@ -6,5 +6,5 @@ void main() async {
   print(apiClient.baseUrl);
   PasswordValidatedResult result =
       await apiClient.authResource.validPassword("12345");
-  print(result.message);
+  print(result.statusMessage);
 }

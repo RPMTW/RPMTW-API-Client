@@ -1,5 +1,6 @@
 import 'package:http/http.dart';
 import 'package:rpmtw_api_client/rpmtw_api_client.dart';
+import 'package:rpmtw_api_client/src/resources/minecraft_resource.dart';
 
 class RPMTWApiClient {
   final Client _httpClient;
@@ -21,9 +22,11 @@ class RPMTWApiClient {
     if (token != null) _globalToken = token;
   }
 
-  AuthResource get authResource =>
-      AuthResource(httpClient: _httpClient, baseUrl: _baseUrl, token: _globalToken);
+  AuthResource get authResource => AuthResource(
+      httpClient: _httpClient, baseUrl: _baseUrl, token: _globalToken);
   StorageResource get storageResource => StorageResource(
+      httpClient: _httpClient, baseUrl: _baseUrl, token: _globalToken);
+  MinecraftResource get minecraftResource => MinecraftResource(
       httpClient: _httpClient, baseUrl: _baseUrl, token: _globalToken);
 
   static RPMTWApiClient get lastInstance => _apiClient;

@@ -13,24 +13,25 @@ class PasswordValidatedResult extends BaseModel {
     required this.resultMessage,
     required int status,
     required String statusMessage,
-  }) : super(status: status, message: statusMessage);
+  }) : super(statusCode: status, statusMessage: statusMessage);
 
   PasswordValidatedResult copyWith({
     bool? isValid,
     int? code,
     String? resultMessage,
-    int? status,
+    int? statusCode,
     String? statusMessage,
   }) {
     return PasswordValidatedResult(
       isValid: isValid ?? this.isValid,
       code: code ?? this.code,
       resultMessage: resultMessage ?? this.resultMessage,
-      status: status ?? this.status,
-      statusMessage: statusMessage ?? message,
+      status: statusCode ?? this.statusCode,
+      statusMessage: statusMessage ?? this.statusMessage,
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'isValid': isValid,
@@ -57,7 +58,7 @@ class PasswordValidatedResult extends BaseModel {
 
   @override
   String toString() =>
-      'PasswordValidatedResult(isValid: $isValid, code: $code, message: $resultMessage, status: $status, message: $message)';
+      'PasswordValidatedResult(isValid: $isValid, code: $code, message: $resultMessage, status: $statusCode, message: $statusMessage)';
 
   @override
   bool operator ==(Object other) {
@@ -67,8 +68,8 @@ class PasswordValidatedResult extends BaseModel {
         other.isValid == isValid &&
         other.code == code &&
         other.resultMessage == resultMessage &&
-        other.status == status &&
-        other.message == message;
+        other.statusCode == statusCode &&
+        other.statusMessage == statusMessage;
   }
 
   @override
@@ -76,6 +77,6 @@ class PasswordValidatedResult extends BaseModel {
       isValid.hashCode ^
       code.hashCode ^
       resultMessage.hashCode ^
-      status.hashCode ^
-      message.hashCode;
+      statusCode.hashCode ^
+      statusMessage.hashCode;
 }
