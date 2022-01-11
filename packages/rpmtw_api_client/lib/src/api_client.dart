@@ -1,6 +1,5 @@
 import 'package:http/http.dart';
 import 'package:rpmtw_api_client/rpmtw_api_client.dart';
-import 'package:rpmtw_api_client/src/resources/minecraft_resource.dart';
 
 class RPMTWApiClient {
   final Client _httpClient;

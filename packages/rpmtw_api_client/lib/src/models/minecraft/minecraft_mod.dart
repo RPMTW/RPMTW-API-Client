@@ -6,7 +6,6 @@ import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_integration.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_side.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/relation_mod.dart';
-
 class MinecraftMod extends BaseModel {
   final String uuid;
 
@@ -26,7 +25,7 @@ class MinecraftMod extends BaseModel {
   final List<RelationMod> relationMods;
 
   /// 模組串連的平台 (例如 CurseForge、Modrinth...)
-  final ModIntegration integration;
+  final ModIntegrationPlatform integration;
 
   /// 模組支援的執行環境 (客戶端/伺服器端)
   final List<ModSide> side;
@@ -59,7 +58,7 @@ class MinecraftMod extends BaseModel {
     String? id,
     List<MinecraftVersion>? supportVersions,
     List<RelationMod>? relationMods,
-    ModIntegration? integration,
+    ModIntegrationPlatform? integration,
     List<ModSide>? side,
     DateTime? lastUpdate,
     DateTime? createTime,
@@ -114,7 +113,7 @@ class MinecraftMod extends BaseModel {
           data['supportVersions']?.map((x) => MinecraftVersion.fromMap(x))),
       relationMods: List<RelationMod>.from(
           data['relationMods']?.map((x) => RelationMod.fromMap(x))),
-      integration: ModIntegration.fromMap(data['integration']),
+      integration: ModIntegrationPlatform.fromMap(data['integration']),
       side: List<ModSide>.from(data['side']?.map((x) => ModSide.fromMap(x))),
       lastUpdate: DateTime.fromMillisecondsSinceEpoch(data['lastUpdate']),
       createTime: DateTime.fromMillisecondsSinceEpoch(data['createTime']),

@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:rpmtw_api_client/src/models/auth/password_validated_result.dart';
 import 'package:rpmtw_api_client/src/models/auth/user.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';
+import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
 import 'package:rpmtw_api_client/src/utilities/extension.dart';
 
 class AuthResource extends BaseResource {
@@ -113,8 +114,10 @@ class AuthResource extends BaseResource {
       return User.fromJson(response.json);
     } else if (statusCode == HttpStatus.notFound) {
       throw Exception('User not found');
+    } else if (statusCode == HttpStatus.unauthorized) {
+      throw UnauthorizedException();
     } else {
-      throw Exception('Update user failed');
+      throw Exception('Update user failed ${response.body}');
     }
   }
 
