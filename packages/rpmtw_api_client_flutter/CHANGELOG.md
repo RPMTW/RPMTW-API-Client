@@ -1,3 +1,9 @@
+## 0.0.3
+
+- Added UnauthorizedException 
+- Create a minecraft mod
+- Get minecraft m by uuid or mod id
+
 ## 0.0.2
 
 - add global auth token
