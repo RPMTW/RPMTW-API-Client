@@ -1,3 +1,7 @@
+# 1.0.3+2
+
+- New API for obtaining Minecraft version manifest
+
 ## 1.0.3+1
 
 - Added UnauthorizedException 
