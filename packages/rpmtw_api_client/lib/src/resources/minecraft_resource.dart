@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart';
+import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version_manifest.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_integration.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_side.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/relation_mod.dart';
@@ -94,6 +95,18 @@ class MinecraftResource extends BaseResource {
       throw Exception('Minecraft mod not found');
     } else {
       throw Exception('Get Minecraft mod failed');
+    }
+  }
+
+  /// 取得 Minecraft 版本資訊 (由 Mojang API 提供，RPMTW API 伺服器每天快取一次資料)
+  Future<MinecraftVersionManifest> getMinecraftVersionManifest() async {
+    Response response =
+        await httpClient.get(Uri.parse('$baseUrl/minecraft/versions'));
+    int statusCode = response.statusCode;
+    if (statusCode == HttpStatus.ok) {
+      return MinecraftVersionManifest.fromJson(response.json);
+    } else {
+      throw Exception('Get Minecraft version manifest failed');
     }
   }
 }
