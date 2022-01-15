@@ -31,3 +31,4 @@ jobs:
           relativePath: packages/rpmtw_api_client_flutter
           format: true
           skipTests: true
+          flutter: true

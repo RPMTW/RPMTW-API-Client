@@ -1,3 +1,5 @@
+# 1.0.3+3
+- minecraft mod id is changed to nullable
 # 1.0.3+2
 
 - New API for obtaining Minecraft version manifest
