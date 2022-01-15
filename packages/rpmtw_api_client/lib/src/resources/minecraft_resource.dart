@@ -39,7 +39,7 @@ class MinecraftResource extends BaseResource {
       List<RelationMod>? relationMods,
       ModIntegrationPlatform? integration,
       List<ModSide>? side,
-      ModLoader? loader,
+      List<ModLoader>? loader,
       String? token}) async {
     if (token == null && globalToken == null) {
       throw UnauthorizedException();
@@ -63,10 +63,10 @@ class MinecraftResource extends BaseResource {
       postData['integration'] = integration.toMap();
     }
     if (side != null) {
-      postData['side'] = side.map((e) => e.toString()).toList();
+      postData['side'] = side.map((e) => e.toMap()).toList();
     }
     if (loader != null) {
-      postData['loader'] = loader.toString();
+      postData['loader'] = loader.map((e) => e.name).toList();
     }
 
     Response response = await httpClient.post(
