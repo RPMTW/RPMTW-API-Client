@@ -3,13 +3,13 @@ name: Publish to Pub.dev
 on: push
 
 jobs:
-  publishing_rpmtw_api_client:
+  publishing:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
 
-      - name: "Dart package"
+      - name: "Dart package rpmtw_api_client"
         uses: k-paxian/dart-package-publisher@master
         with:
           accessToken: ${{ secrets.OAUTH_ACCESS_TOKEN }}
@@ -17,14 +17,8 @@ jobs:
           relativePath: packages/rpmtw_api_client
           format: true
           skipTests: true
-  publishing_rpmtw_api_client_flutter:
-    needs: [publishing_rpmtw_api_client]
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v2
 
-      - name: "Dart package"
+      - name: "Dart package rpmtw_api_client_flutter"
         uses: k-paxian/dart-package-publisher@master
         with:
           accessToken: ${{ secrets.OAUTH_ACCESS_TOKEN }}

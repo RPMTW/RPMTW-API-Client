@@ -1,3 +1,5 @@
+# 1.0.4+1
+- fix server url
 # 1.0.4
 
 - Deploy the server to api.rpmtw.com
