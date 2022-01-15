@@ -6,6 +6,7 @@ import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_integration.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_side.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/relation_mod.dart';
+
 class MinecraftMod extends BaseModel {
   final String uuid;
 
@@ -33,6 +34,9 @@ class MinecraftMod extends BaseModel {
   /// 最後資料更新日期
   final DateTime lastUpdate;
 
+  /// 模組使用的模組載入器 (例如 Forge、Fabric...)
+  final ModLoader? loader;
+
   /// 模組收錄日期
   final DateTime createTime;
 
@@ -47,6 +51,7 @@ class MinecraftMod extends BaseModel {
       required this.lastUpdate,
       required this.createTime,
       required this.uuid,
+      this.loader,
       required String statusMessage,
       required int statusCode})
       : super(statusMessage: statusMessage, statusCode: statusCode);
@@ -64,6 +69,7 @@ class MinecraftMod extends BaseModel {
     DateTime? createTime,
     int? statusCode,
     String? statusMessage,
+    ModLoader? loader,
   }) {
     return MinecraftMod(
       uuid: uuid ?? this.uuid,
@@ -78,6 +84,7 @@ class MinecraftMod extends BaseModel {
       createTime: createTime ?? this.createTime,
       statusCode: statusCode ?? this.statusCode,
       statusMessage: statusMessage ?? this.statusMessage,
+      loader: loader ?? this.loader,
     );
   }
 
@@ -95,6 +102,7 @@ class MinecraftMod extends BaseModel {
         'side': side.map((x) => x.toMap()).toList(),
         'lastUpdate': lastUpdate.millisecondsSinceEpoch,
         'createTime': createTime.millisecondsSinceEpoch,
+        'loader': loader?.name,
       },
       'statusCode': statusCode,
       'statusMessage': statusMessage,
@@ -117,6 +125,7 @@ class MinecraftMod extends BaseModel {
       side: List<ModSide>.from(data['side']?.map((x) => ModSide.fromMap(x))),
       lastUpdate: DateTime.fromMillisecondsSinceEpoch(data['lastUpdate']),
       createTime: DateTime.fromMillisecondsSinceEpoch(data['createTime']),
+      loader: ModLoader.values.byName(data['loader']),
       statusCode: map['status'],
       statusMessage: map['message'],
     );
@@ -129,7 +138,7 @@ class MinecraftMod extends BaseModel {
 
   @override
   String toString() {
-    return 'MinecraftMod(uuid:$uuid, name: $name, description: $description, id: $id, supportVersions: $supportVersions, relationMods: $relationMods, integration: $integration, side: $side, lastUpdate: $lastUpdate, createTime: $createTime, statusCode: $statusCode, statusMessage: $statusMessage)';
+    return 'MinecraftMod(uuid:$uuid, name: $name, description: $description, id: $id, supportVersions: $supportVersions, relationMods: $relationMods, integration: $integration, side: $side, lastUpdate: $lastUpdate, createTime: $createTime, statusCode: $statusCode, statusMessage: $statusMessage, loader: $loader)';
   }
 
   @override
@@ -149,7 +158,8 @@ class MinecraftMod extends BaseModel {
         other.lastUpdate == lastUpdate &&
         other.createTime == createTime &&
         other.statusCode == statusCode &&
-        other.statusMessage == statusMessage;
+        other.statusMessage == statusMessage &&
+        other.loader == loader;
   }
 
   @override
@@ -165,6 +175,9 @@ class MinecraftMod extends BaseModel {
         lastUpdate.hashCode ^
         createTime.hashCode ^
         statusCode.hashCode ^
-        statusMessage.hashCode;
+        statusMessage.hashCode ^
+        loader.hashCode;
   }
 }
+
+enum ModLoader { fabric, forge, other }

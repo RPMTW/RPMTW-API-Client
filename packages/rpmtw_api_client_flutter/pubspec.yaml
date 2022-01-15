@@ -1,6 +1,6 @@
 name: rpmtw_api_client_flutter
 description: A new Flutter package project.
-version: 1.0.4+1
+version: 1.0.4+2
 homepage: https://www.rpmtw.com
 repository: https://github.com/RPMTW/RPMTW-API-Client
 
@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  rpmtw_api_client: ^1.0.4+1
+  rpmtw_api_client: ^1.0.4+2
 
 dev_dependencies:
   flutter_test:

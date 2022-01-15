@@ -1,3 +1,5 @@
+# 1.0.4+2
+- add mod loader field
 # 1.0.4+1
 - fix server url
 # 1.0.4
