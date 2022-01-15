@@ -24,17 +24,17 @@ class MinecraftResource extends BaseResource {
   ///
   /// **必填參數**
   /// * [name] 模組名稱
-  /// * [id] 模組 ID
   /// * [supportVersions] 該模組支援的 Minecraft 版本
   /// **選填參數**
+  /// * [id] 模組 ID
   /// * [description] 模組描述
   /// * [relationMods] 關聯模組
   /// * [integration] 模組串連的平台
   /// * [side] 模組支援的執行環境
   Future<MinecraftMod> createMinecraftMod(
       {required String name,
-      required String id,
       required List<MinecraftVersion> supportVersions,
+      String? id,
       String? description,
       List<RelationMod>? relationMods,
       ModIntegrationPlatform? integration,
@@ -46,10 +46,12 @@ class MinecraftResource extends BaseResource {
 
     Map postData = {
       'name': name,
-      'id': id,
       'supportVersions': supportVersions.map((e) => e.toMap()).toList()
     };
 
+    if (id != null) {
+      postData['id'] = id;
+    }
     if (description != null) {
       postData['description'] = description;
     }
@@ -71,8 +73,6 @@ class MinecraftResource extends BaseResource {
 
     if (statusCode == HttpStatus.ok) {
       return MinecraftMod.fromJson(response.json);
-    } else if (statusCode == HttpStatus.notFound) {
-      throw CreateMinecraftModException('User not found');
     } else {
       if (statusCode == HttpStatus.badRequest ||
           statusCode == HttpStatus.unauthorized) {
