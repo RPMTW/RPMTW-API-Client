@@ -29,12 +29,12 @@ class MinecraftVersion {
 
   factory MinecraftVersion.fromMap(Map<String, dynamic> map) {
     return MinecraftVersion(
-      map['id'] ?? '',
+      map['id'],
       MinecraftVersionType.values.firstWhere((_) => _.name == map['type']),
-      map['url'] ?? '',
-      map['time'] ?? '',
-      map['releaseTime'] ?? '',
-      map['sha1'] ?? '',
+      map['url'],
+      map['time'],
+      map['releaseTime'],
+      map['sha1'],
       map['complianceLevel']?.toInt() ?? 0,
     );
   }

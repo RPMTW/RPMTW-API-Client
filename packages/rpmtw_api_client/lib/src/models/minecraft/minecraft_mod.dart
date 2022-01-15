@@ -16,7 +16,7 @@ class MinecraftMod extends BaseModel {
   final String? description;
 
   /// 模組 ID (例如 rpmtw_update_mod )
-  final String id;
+  final String? id;
 
   /// 模組支援的 Minecraft 版本
   final List<MinecraftVersion> supportVersions;
@@ -108,7 +108,7 @@ class MinecraftMod extends BaseModel {
       uuid: data['uuid'] as String,
       name: data['name'] ?? '',
       description: data['description'],
-      id: data['id'] ?? '',
+      id: data['id'],
       supportVersions: List<MinecraftVersion>.from(
           data['supportVersions']?.map((x) => MinecraftVersion.fromMap(x))),
       relationMods: List<RelationMod>.from(
