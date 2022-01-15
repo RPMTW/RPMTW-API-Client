@@ -6,13 +6,28 @@ jobs:
   publishing_rpmtw_api_client:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout'
+      - name: "Checkout"
         uses: actions/checkout@v2
-        
-      - name: 'Dart package'
+
+      - name: "Dart package"
         uses: k-paxian/dart-package-publisher@master
         with:
           accessToken: ${{ secrets.OAUTH_ACCESS_TOKEN }}
           refreshToken: ${{ secrets.OAUTH_REFRESH_TOKEN }}
           relativePath: packages/rpmtw_api_client
           format: true
+          skipTests: true
+  publishing_rpmtw_api_client_flutter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+
+      - name: "Dart package"
+        uses: k-paxian/dart-package-publisher@master
+        with:
+          accessToken: ${{ secrets.OAUTH_ACCESS_TOKEN }}
+          refreshToken: ${{ secrets.OAUTH_REFRESH_TOKEN }}
+          relativePath: packages/rpmtw_api_client_flutter
+          format: true
+          skipTests: true
