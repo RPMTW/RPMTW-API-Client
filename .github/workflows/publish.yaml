@@ -18,6 +18,7 @@ jobs:
           format: true
           skipTests: true
   publishing_rpmtw_api_client_flutter:
+    needs: [publishing_rpmtw_api_client]
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"

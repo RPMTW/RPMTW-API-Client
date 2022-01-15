@@ -1,3 +1,6 @@
+# 1.0.4
+
+- Deploy the server to api.rpmtw.com
 # 1.0.3+4
 - test
 # 1.0.3+3
