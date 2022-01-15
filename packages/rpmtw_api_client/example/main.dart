@@ -1,7 +1,7 @@
 import 'package:rpmtw_api_client/rpmtw_api_client.dart';
 
 void main() async {
-  RPMTWApiClient.init(development: true);
+  RPMTWApiClient.init();
   RPMTWApiClient apiClient = RPMTWApiClient.lastInstance;
   print(apiClient.baseUrl);
   PasswordValidatedResult result =

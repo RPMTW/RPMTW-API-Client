@@ -5,7 +5,7 @@
 import 'package:rpmtw_api_client/rpmtw_api_client.dart';
 
 void main() async {
-  RPMTWApiClient.init(development: true); // Initialize RPMTW API Client
+  RPMTWApiClient.init(); // Initialize RPMTW API Client
   RPMTWApiClient apiClient = RPMTWApiClient.lastInstance;
   print(apiClient.baseUrl);
   PasswordValidatedResult result =
@@ -22,5 +22,5 @@ void main() async {
 import 'package:rpmtw_api_client/rpmtw_api_client.dart';
 
 User user = User(...);
-user.avatar(fontSize:20) // fontSize defaults to 18
+user.avatar(fontSize: 20) // fontSize defaults to 18
 ```

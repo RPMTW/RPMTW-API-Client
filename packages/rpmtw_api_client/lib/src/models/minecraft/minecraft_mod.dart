@@ -35,7 +35,7 @@ class MinecraftMod extends BaseModel {
   final DateTime lastUpdate;
 
   /// 模組使用的模組載入器 (例如 Forge、Fabric...)
-  final ModLoader? loader;
+  final List<ModLoader>? loader;
 
   /// 模組收錄日期
   final DateTime createTime;
@@ -69,7 +69,7 @@ class MinecraftMod extends BaseModel {
     DateTime? createTime,
     int? statusCode,
     String? statusMessage,
-    ModLoader? loader,
+    List<ModLoader>? loader,
   }) {
     return MinecraftMod(
       uuid: uuid ?? this.uuid,
@@ -102,7 +102,7 @@ class MinecraftMod extends BaseModel {
         'side': side.map((x) => x.toMap()).toList(),
         'lastUpdate': lastUpdate.millisecondsSinceEpoch,
         'createTime': createTime.millisecondsSinceEpoch,
-        'loader': loader?.name,
+        'loader': loader?.map((x) => x.name).toList(),
       },
       'statusCode': statusCode,
       'statusMessage': statusMessage,
@@ -125,7 +125,8 @@ class MinecraftMod extends BaseModel {
       side: List<ModSide>.from(data['side']?.map((x) => ModSide.fromMap(x))),
       lastUpdate: DateTime.fromMillisecondsSinceEpoch(data['lastUpdate']),
       createTime: DateTime.fromMillisecondsSinceEpoch(data['createTime']),
-      loader: ModLoader.values.byName(data['loader']),
+      loader: List<ModLoader>.from(
+          map['loader']?.map((x) => ModLoader.values.byName(x))),
       statusCode: map['status'],
       statusMessage: map['message'],
     );
@@ -159,7 +160,7 @@ class MinecraftMod extends BaseModel {
         other.createTime == createTime &&
         other.statusCode == statusCode &&
         other.statusMessage == statusMessage &&
-        other.loader == loader;
+        listEquals(other.loader, loader);
   }
 
   @override
