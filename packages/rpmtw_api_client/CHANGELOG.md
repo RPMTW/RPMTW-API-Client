@@ -1,3 +1,6 @@
+# 1.0.4+3
+- Fixed some bugs in create mods
+- Mod loaders can be added in a variety of ways (List)
 # 1.0.4+2
 - add mod loader field
 # 1.0.4+1
