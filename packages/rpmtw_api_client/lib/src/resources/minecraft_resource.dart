@@ -33,7 +33,7 @@ class MinecraftResource extends BaseResource {
   /// * [side] 模組支援的執行環境
   Future<MinecraftMod> createMinecraftMod(
       {required String name,
-      required List<MinecraftVersion> supportVersions,
+      required List<String> supportVersions,
       String? id,
       String? description,
       List<RelationMod>? relationMods,
@@ -45,10 +45,7 @@ class MinecraftResource extends BaseResource {
       throw UnauthorizedException();
     }
 
-    Map postData = {
-      'name': name,
-      'supportVersions': supportVersions.map((e) => e.toMap()).toList()
-    };
+    Map postData = {'name': name, 'supportVersions': supportVersions.toList()};
 
     if (id != null) {
       postData['id'] = id;

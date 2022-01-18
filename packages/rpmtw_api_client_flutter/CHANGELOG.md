@@ -1,3 +1,5 @@
+# 1.0.4+7
+- Support game version parameter change to string type
 # 1.0.4+6
 - Fix status parsing error when searching for mods
 # 1.0.4+5
