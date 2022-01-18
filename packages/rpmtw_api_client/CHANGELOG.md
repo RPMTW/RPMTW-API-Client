@@ -1,3 +1,5 @@
+# 1.0.4+6
+- Fix status parsing error when searching for mods
 # 1.0.4+5
 - Fix json parsing error when searching for mods
 # 1.0.4+4

@@ -114,10 +114,15 @@ class MinecraftResource extends BaseResource {
     Response response = await httpClient.get(uri);
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      Map data = response.map['data'];
+      Map map = response.map;
+      Map data = map['data'];
       return List<MinecraftMod>.from((data['mods'] as List)
           .cast<Map<String, dynamic>>()
-          .map((e) => MinecraftMod.fromMap(e)));
+          .map((e) => MinecraftMod.fromMap({
+                'data': e,
+                'status': map['status'],
+                'message': map['message']
+              })));
     } else {
       throw Exception('Search Minecraft mod failed');
     }

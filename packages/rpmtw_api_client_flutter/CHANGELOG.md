@@ -1,3 +1,5 @@
+# 1.0.4+6
+- Fix status parsing error when searching for mods
 # 1.0.4+5
 - Fix json parsing error when searching for mods
 # 1.0.4+4
@@ -20,17 +22,33 @@
 
 - New API for obtaining Minecraft version manifest
 
-## 0.0.3
+## 1.0.3+1
 
 - Added UnauthorizedException 
 - Create a minecraft mod
 - Get minecraft m by uuid or mod id
 
-## 0.0.2
+## 1.0.3
 
 - add global auth token
 - get user info token option
 
-## 0.0.1
+## 1.0.2
 
-- Add avatar widget to user profile
+- Support for changing user information
+- Support for verifying email validation codes
+- New initialization function
+- New avatarUrl getter on user information
+- User information will be sent back when creating an account
+- Changed the network request library from dio to http
+
+## 1.0.1+1
+
+- fix a bug in dartjs
+
+## 1.0.1
+
+- fix big int (dartjs2)
+## 1.0.0
+
+- Initial version.

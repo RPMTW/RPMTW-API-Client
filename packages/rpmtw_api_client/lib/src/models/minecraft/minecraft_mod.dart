@@ -126,7 +126,7 @@ class MinecraftMod extends BaseModel {
       lastUpdate: DateTime.fromMillisecondsSinceEpoch(data['lastUpdate']),
       createTime: DateTime.fromMillisecondsSinceEpoch(data['createTime']),
       loader: List<ModLoader>.from(
-          map['loader']?.map((x) => ModLoader.values.byName(x))),
+          map['loader']?.map((x) => ModLoader.values.byName(x)) ?? []),
       statusCode: map['status'],
       statusMessage: map['message'],
     );
