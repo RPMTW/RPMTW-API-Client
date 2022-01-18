@@ -115,8 +115,9 @@ class MinecraftResource extends BaseResource {
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       Map data = response.map['data'];
-      return List<MinecraftMod>.from(
-          data['mods'].map((e) => MinecraftMod.fromJson(e)));
+      return List<MinecraftMod>.from((data['mods'] as List)
+          .cast<Map<String, dynamic>>()
+          .map((e) => MinecraftMod.fromMap(e)));
     } else {
       throw Exception('Search Minecraft mod failed');
     }
