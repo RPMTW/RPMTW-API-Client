@@ -1,3 +1,5 @@
+# 1.0.4+4
+- Support for search mods
 # 1.0.4+3
 - Fixed some bugs in create mods
 - Mod loaders can be added in a variety of ways (List)

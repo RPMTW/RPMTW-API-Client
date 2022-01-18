@@ -91,7 +91,7 @@ class MinecraftResource extends BaseResource {
   /// 透過 UUID 取得 Minecraft 模組資訊
   Future<Storage> getMinecraftMod(String uuid) async {
     Response response =
-        await httpClient.get(Uri.parse('$baseUrl/minecraft/mod/$uuid'));
+        await httpClient.get(Uri.parse('$baseUrl/minecraft/mod/view/$uuid'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return Storage.fromJson(response.json);
@@ -99,6 +99,26 @@ class MinecraftResource extends BaseResource {
       throw Exception('Minecraft mod not found');
     } else {
       throw Exception('Get Minecraft mod failed');
+    }
+  }
+
+  Future<List<MinecraftMod>> search(
+      {String? filter, int? limit, int? skip}) async {
+    Uri uri = Uri.parse('$baseUrl/minecraft/mod/search');
+    uri = uri.replace(queryParameters: {
+      'filter': filter,
+      'limit': limit?.toString(),
+      'skip': skip?.toString()
+    });
+
+    Response response = await httpClient.get(uri);
+    int statusCode = response.statusCode;
+    if (statusCode == HttpStatus.ok) {
+      Map data = response.map['data'];
+      return List<MinecraftMod>.from(
+          data['mods'].map((e) => MinecraftMod.fromJson(e)));
+    } else {
+      throw Exception('Search Minecraft mod failed');
     }
   }
 
