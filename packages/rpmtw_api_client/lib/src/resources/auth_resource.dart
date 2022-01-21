@@ -111,7 +111,7 @@ class AuthResource extends BaseResource {
     int statusCode = response.statusCode;
 
     if (statusCode == HttpStatus.ok) {
-      return User.fromJson(response.json);
+      return User.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
       throw Exception('User not found');
     } else if (statusCode == HttpStatus.unauthorized) {

@@ -1,3 +1,5 @@
+# 1.0.5+1
+- Fixing json serialization errors
 # 1.0.5
 - Fix a bug
 # 1.0.4+10

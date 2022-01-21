@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rpmtw_api_client/src/models/rpmwiki/wiki_mod_data.dart';
 import 'package:rpmtw_api_client_flutter/rpmtw_api_client_flutter.dart';
 
 extension WikiModDataImageExtension on WikiModData {

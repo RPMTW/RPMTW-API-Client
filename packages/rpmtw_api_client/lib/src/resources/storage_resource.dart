@@ -19,7 +19,7 @@ class StorageResource extends BaseResource {
         await httpClient.get(Uri.parse('$baseUrl/storage/$uuid'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return Storage.fromJson(response.json);
+      return Storage.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
       throw Exception('Storage not found');
     } else {
@@ -41,7 +41,7 @@ class StorageResource extends BaseResource {
 
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return Storage.fromJson(response.json);
+      return Storage.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
       throw Exception('Storage not found');
     } else {

@@ -72,7 +72,7 @@ class MinecraftResource extends BaseResource {
     int statusCode = response.statusCode;
 
     if (statusCode == HttpStatus.ok) {
-      return MinecraftMod.fromJson(response.json);
+      return MinecraftMod.fromMap(response.map['data']);
     } else {
       if (statusCode == HttpStatus.badRequest ||
           statusCode == HttpStatus.unauthorized) {
@@ -89,7 +89,7 @@ class MinecraftResource extends BaseResource {
         await httpClient.get(Uri.parse('$baseUrl/minecraft/mod/view/$uuid'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return MinecraftMod.fromJson(response.json);
+      return MinecraftMod.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
       throw Exception('Minecraft mod not found');
     } else {
@@ -136,7 +136,7 @@ class MinecraftResource extends BaseResource {
     int statusCode = response.statusCode;
 
     if (statusCode == HttpStatus.ok) {
-      return WikiModData.fromJson(response.json);
+      return WikiModData.fromMap(response.map['data']);
     } else {
       if (statusCode == HttpStatus.badRequest ||
           statusCode == HttpStatus.unauthorized) {
@@ -153,7 +153,7 @@ class MinecraftResource extends BaseResource {
         .get(Uri.parse('$baseUrl/minecraft/mod/wiki/view/$uuid'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return WikiModData.fromJson(response.json);
+      return WikiModData.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
       throw Exception('Wiki mod data not found');
     } else {
@@ -167,7 +167,7 @@ class MinecraftResource extends BaseResource {
         Uri.parse('$baseUrl/minecraft/mod/wiki/view-by-mod-uuid/$modUUID'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return WikiModData.fromJson(response.json);
+      return WikiModData.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
       throw Exception('Wiki mod data not found');
     } else {
@@ -208,7 +208,7 @@ class MinecraftResource extends BaseResource {
         await httpClient.get(Uri.parse('$baseUrl/minecraft/versions'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return MinecraftVersionManifest.fromJson(response.json);
+      return MinecraftVersionManifest.fromMap(response.map['data']);
     } else {
       throw Exception('Get Minecraft version manifest failed');
     }
