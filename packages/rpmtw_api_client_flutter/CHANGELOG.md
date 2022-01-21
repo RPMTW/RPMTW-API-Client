@@ -1,3 +1,5 @@
+# 1.0.4+8
+- Fixed not being able to get Minecraft mod information via UUID
 # 1.0.4+7
 - Support game version parameter change to string type
 # 1.0.4+6

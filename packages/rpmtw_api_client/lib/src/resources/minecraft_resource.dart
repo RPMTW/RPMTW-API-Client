@@ -3,12 +3,10 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
-import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version_manifest.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_integration.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_side.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/relation_mod.dart';
-import 'package:rpmtw_api_client/src/models/storage/storage.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';
 import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
 import 'package:rpmtw_api_client/src/utilities/extension.dart';
@@ -86,12 +84,12 @@ class MinecraftResource extends BaseResource {
   }
 
   /// 透過 UUID 取得 Minecraft 模組資訊
-  Future<Storage> getMinecraftMod(String uuid) async {
+  Future<MinecraftMod> getMinecraftMod(String uuid) async {
     Response response =
         await httpClient.get(Uri.parse('$baseUrl/minecraft/mod/view/$uuid'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return Storage.fromJson(response.json);
+      return MinecraftMod.fromJson(response.json);
     } else if (statusCode == HttpStatus.notFound) {
       throw Exception('Minecraft mod not found');
     } else {
