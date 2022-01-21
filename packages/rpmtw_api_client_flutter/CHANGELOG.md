@@ -1,3 +1,5 @@
+# 1.0.5
+- Fix a bug
 # 1.0.4+10
 - Add imageUrl getter in RPMWiki Mod data
 # 1.0.4+9

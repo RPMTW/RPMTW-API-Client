@@ -24,7 +24,7 @@ class AuthResource extends BaseResource {
     });
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return User.fromJson(response.json);
+      return User.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
       throw Exception('User not found');
     } else {
@@ -38,7 +38,7 @@ class AuthResource extends BaseResource {
         .get(Uri.parse('$baseUrl/auth/user/get-by-email/$email'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return User.fromJson(response.json);
+      return User.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
       throw Exception('User not found');
     } else {
@@ -63,7 +63,7 @@ class AuthResource extends BaseResource {
 
     if (statusCode == HttpStatus.ok) {
       String token = response.map['data']['token'];
-      return CreateUserResult(token: token, user: User.fromMap(response.map));
+      return CreateUserResult(token: token, user: User.fromMap(response.map['data']));
     } else if (statusCode == HttpStatus.notFound) {
       throw CreateUserException('User not found');
     } else {
