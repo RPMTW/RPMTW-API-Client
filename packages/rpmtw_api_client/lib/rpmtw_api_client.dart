@@ -13,6 +13,7 @@ export 'src/models/minecraft/minecraft_version.dart';
 export 'src/models/minecraft/mod_integration.dart';
 export 'src/models/minecraft/mod_side.dart';
 export 'src/models/minecraft/relation_mod.dart';
+export 'src/models/rpmwiki/wiki_mod_data.dart';
 
 export 'src/resources/auth_resource.dart';
 export 'src/resources/storage_resource.dart';

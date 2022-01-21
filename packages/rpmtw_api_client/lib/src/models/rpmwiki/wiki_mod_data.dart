@@ -25,6 +25,10 @@ class WikiModData implements BaseModel {
     this.imageStorageUUID,
   });
 
+  String? imageUrl(String baseUrl) => imageStorageUUID == null
+      ? null
+      : '$baseUrl/storage/$imageStorageUUID/download';
+
   WikiModData copyWith({
     String? uuid,
     String? modUUID,

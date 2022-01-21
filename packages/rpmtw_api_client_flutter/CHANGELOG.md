@@ -1,3 +1,5 @@
+# 1.0.4+10
+- Add imageUrl getter in RPMWiki Mod data
 # 1.0.4+9
 - Support for creating/viewing RPMWiki mod data
 # 1.0.4+8
