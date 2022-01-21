@@ -7,7 +7,7 @@ extension WikiModDataImageExtension on WikiModData {
       return null;
     } else {
       String baseUrl = RPMTWApiClient.lastInstance.baseUrl;
-      String url = '$baseUrl/storage/$imageStorageUUID/download';
+      String url = imageUrl(baseUrl)!;
 
       return Image.network(
         url,
