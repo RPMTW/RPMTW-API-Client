@@ -130,7 +130,7 @@ class MinecraftResource extends BaseResource {
     }
 
     Response response = await httpClient.post(
-        Uri.parse('$baseUrl/minecraft/mod/create'),
+        Uri.parse('$baseUrl/minecraft/mod/wiki/create'),
         headers: {'Authorization': 'Bearer ${token ?? globalToken}'},
         body: json.encode(postData));
     int statusCode = response.statusCode;

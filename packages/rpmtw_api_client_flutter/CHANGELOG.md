@@ -1,3 +1,6 @@
+# 1.0.5+2
+- Fix the inability to create RPMWiki mod data
+- Export RPMWiki mod data image
 # 1.0.5+1
 - Fixing json serialization errors
 # 1.0.5

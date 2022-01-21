@@ -1,3 +1,5 @@
+# 1.0.5+2
+- Fix the inability to create RPMTW Wiki data
 # 1.0.5+1
 - Fixing json serialization errors
 # 1.0.5
