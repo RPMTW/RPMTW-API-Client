@@ -192,11 +192,7 @@ class MinecraftResource extends BaseResource {
       Map data = map['data'];
       return List<MinecraftMod>.from((data['mods'] as List)
           .cast<Map<String, dynamic>>()
-          .map((e) => MinecraftMod.fromMap({
-                'data': e,
-                'status': map['status'],
-                'message': map['message']
-              })));
+          .map((e) => MinecraftMod.fromMap(e)));
     } else {
       throw Exception('Search Minecraft mod failed');
     }

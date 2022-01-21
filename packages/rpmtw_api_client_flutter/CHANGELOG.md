@@ -1,3 +1,5 @@
+# 1.0.5+3
+- Fix serialized MinecraftMod json
 # 1.0.5+2
 - Fix the inability to create RPMWiki mod data
 - Export RPMWiki mod data image
