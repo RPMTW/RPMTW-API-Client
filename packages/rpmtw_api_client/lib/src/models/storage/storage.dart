@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:rpmtw_api_client/src/models/base_model.dart';
 
-class Storage extends BaseModel {
+class Storage implements BaseModel {
   final String uuid;
   final String contentType;
   final String type;
@@ -12,51 +12,38 @@ class Storage extends BaseModel {
     required this.contentType,
     required this.type,
     required this.createAt,
-    required int statusCode,
-    required String statusMessage,
-  }) : super(statusCode: statusCode, statusMessage: statusMessage);
+  });
 
   Storage copyWith({
     String? uuid,
     String? contentType,
     String? type,
     int? createAt,
-    int? statusCode,
-    String? statusMessage,
   }) {
     return Storage(
       uuid: uuid ?? this.uuid,
       contentType: contentType ?? this.contentType,
       type: type ?? this.type,
       createAt: createAt ?? this.createAt,
-      statusCode: statusCode ?? this.statusCode,
-      statusMessage: statusMessage ?? this.statusMessage,
     );
   }
 
   @override
   Map<String, dynamic> toMap() {
     return {
-      'data': {
-        'uuid': uuid,
-        'contentType': contentType,
-        'type': type,
-        'createAt': createAt,
-      },
-      'status': statusCode,
-      'message': statusMessage,
+      'uuid': uuid,
+      'contentType': contentType,
+      'type': type,
+      'createAt': createAt,
     };
   }
 
   factory Storage.fromMap(Map<String, dynamic> map) {
-    Map data = map['data'];
     return Storage(
-      uuid: data['uuid'] ?? '',
-      contentType: data['contentType'] ?? '',
-      type: data['type'] ?? '',
-      createAt: data['createAt']?.toInt() ?? 0,
-      statusCode: map['status']?.toInt() ?? 0,
-      statusMessage: map['message'] ?? '',
+      uuid: map['uuid'] ?? '',
+      contentType: map['contentType'] ?? '',
+      type: map['type'] ?? '',
+      createAt: map['createAt']?.toInt() ?? 0,
     );
   }
 
@@ -67,7 +54,7 @@ class Storage extends BaseModel {
 
   @override
   String toString() {
-    return 'Storage(uuid: $uuid, contentType: $contentType, type: $type, createAt: $createAt, statusCode: $statusCode, statusMessage: $statusMessage)';
+    return 'Storage(uuid: $uuid, contentType: $contentType, type: $type, createAt: $createAt)';
   }
 
   @override
@@ -78,9 +65,7 @@ class Storage extends BaseModel {
         other.uuid == uuid &&
         other.contentType == contentType &&
         other.type == type &&
-        other.createAt == createAt &&
-        other.statusCode == statusCode &&
-        other.statusMessage == statusMessage;
+        other.createAt == createAt;
   }
 
   @override
@@ -88,8 +73,6 @@ class Storage extends BaseModel {
     return uuid.hashCode ^
         contentType.hashCode ^
         type.hashCode ^
-        createAt.hashCode ^
-        statusCode.hashCode ^
-        statusMessage.hashCode;
+        createAt.hashCode;
   }
 }

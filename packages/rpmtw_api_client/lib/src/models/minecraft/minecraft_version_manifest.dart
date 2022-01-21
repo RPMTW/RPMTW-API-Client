@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:rpmtw_api_client/src/models/base_model.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart';
 
-class MinecraftVersionManifest extends BaseModel {
+class MinecraftVersionManifest implements BaseModel {
   final String latestRelease;
 
   final String latestSnapshot;
@@ -14,28 +14,24 @@ class MinecraftVersionManifest extends BaseModel {
   final String uuid;
   final DateTime lastUpdated;
 
-  const MinecraftVersionManifest(
-      {required this.latestRelease,
-      required this.versions,
-      required this.latestSnapshot,
-      required this.uuid,
-      required this.lastUpdated,
-      required int statusCode,
-      required String statusMessage})
-      : super(statusCode: statusCode, statusMessage: statusMessage);
+  const MinecraftVersionManifest({
+    required this.latestRelease,
+    required this.versions,
+    required this.latestSnapshot,
+    required this.uuid,
+    required this.lastUpdated,
+  });
 
   factory MinecraftVersionManifest.fromMap(Map<String, dynamic> map) {
-    Map data = map['data'];
     return MinecraftVersionManifest(
-        versions: (data['manifest']['versions'] as List<dynamic>)
-            .map((d) => MinecraftVersion.fromMap(d))
-            .toList(),
-        latestRelease: data['manifest']['latest']['release'],
-        latestSnapshot: data['manifest']['latest']['snapshot'],
-        uuid: data['uuid'],
-        lastUpdated: DateTime.fromMillisecondsSinceEpoch(data['lastUpdated']),
-        statusCode: map['status'],
-        statusMessage: map['message']);
+      versions: (map['manifest']['versions'] as List<dynamic>)
+          .map((d) => MinecraftVersion.fromMap(d))
+          .toList(),
+      latestRelease: map['manifest']['latest']['release'],
+      latestSnapshot: map['manifest']['latest']['snapshot'],
+      uuid: map['uuid'],
+      lastUpdated: DateTime.fromMillisecondsSinceEpoch(map['lastUpdated']),
+    );
   }
 
   factory MinecraftVersionManifest.fromJson(String json) {
@@ -45,19 +41,15 @@ class MinecraftVersionManifest extends BaseModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      "data": {
-        "manifest": {
-          'latest': {
-            'release': latestRelease,
-            'snapshot': latestSnapshot,
-          },
-          'versions': versions.map((v) => v.toMap()).toList(),
+      "manifest": {
+        'latest': {
+          'release': latestRelease,
+          'snapshot': latestSnapshot,
         },
-        'uuid': uuid,
-        'lastUpdated': lastUpdated.millisecondsSinceEpoch,
+        'versions': versions.map((v) => v.toMap()).toList(),
       },
-      "status": statusCode,
-      "message": statusMessage,
+      'uuid': uuid,
+      'lastUpdated': lastUpdated.millisecondsSinceEpoch,
     };
   }
 
@@ -71,9 +63,7 @@ class MinecraftVersionManifest extends BaseModel {
         other.latestSnapshot == latestSnapshot &&
         listEquals(other.versions, versions) &&
         other.uuid == uuid &&
-        other.lastUpdated == lastUpdated &&
-        other.statusCode == statusCode &&
-        other.statusMessage == statusMessage;
+        other.lastUpdated == lastUpdated;
   }
 
   @override
@@ -82,14 +72,12 @@ class MinecraftVersionManifest extends BaseModel {
         latestSnapshot.hashCode ^
         versions.hashCode ^
         uuid.hashCode ^
-        lastUpdated.hashCode ^
-        statusCode.hashCode ^
-        statusMessage.hashCode;
+        lastUpdated.hashCode;
   }
 
   @override
   String toString() {
-    return 'MinecraftVersionManifest(latestRelease: $latestRelease, latestSnapshot: $latestSnapshot, versions: $versions, uuid: $uuid, lastUpdated: $lastUpdated, statusCode: $statusCode, statusMessage: $statusMessage)';
+    return 'MinecraftVersionManifest(latestRelease: $latestRelease, latestSnapshot: $latestSnapshot, versions: $versions, uuid: $uuid, lastUpdated: $lastUpdated)';
   }
 
   MinecraftVersionManifest copyWith({
@@ -107,8 +95,6 @@ class MinecraftVersionManifest extends BaseModel {
       versions: versions ?? this.versions,
       uuid: uuid ?? this.uuid,
       lastUpdated: lastUpdated ?? this.lastUpdated,
-      statusCode: statusCode ?? this.statusCode,
-      statusMessage: statusMessage ?? this.statusMessage,
     );
   }
 }

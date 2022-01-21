@@ -7,6 +7,7 @@ import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version_manifest
 import 'package:rpmtw_api_client/src/models/minecraft/mod_integration.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_side.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/relation_mod.dart';
+import 'package:rpmtw_api_client/src/models/rpmwiki/wiki_mod_data.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';
 import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
 import 'package:rpmtw_api_client/src/utilities/extension.dart';
@@ -75,10 +76,9 @@ class MinecraftResource extends BaseResource {
     } else {
       if (statusCode == HttpStatus.badRequest ||
           statusCode == HttpStatus.unauthorized) {
-        throw CreateMinecraftModException(response.map['message']);
+        throw Exception(response.map['message']);
       } else {
-        throw CreateMinecraftModException(
-            'Create minecraft mod failed ${response.body}');
+        throw Exception('Create minecraft mod failed ${response.body}');
       }
     }
   }
@@ -97,6 +97,85 @@ class MinecraftResource extends BaseResource {
     }
   }
 
+  /// 建立 Minecraft 模組維基資訊，如果建立成功將回傳 Minecraft 模組維基資訊
+  ///
+  /// **必填參數**
+  /// * [modUUID] 模組的 UUID
+  /// **選填參數**
+  /// * [translatedName] 模組譯名
+  /// * [introduction] 模組介紹文
+  /// * [imageStorageUUID] 模組封面圖的 Storage UUID
+  Future<WikiModData> createWikiModData(
+      {required String modUUID,
+      String? token,
+      String? translatedName,
+      String? introduction,
+      String? imageStorageUUID}) async {
+    if (token == null && globalToken == null) {
+      throw UnauthorizedException();
+    }
+
+    Map<String, dynamic> postData = {
+      'modUUID': modUUID,
+    };
+
+    if (translatedName != null) {
+      postData['translatedName'] = translatedName;
+    }
+    if (introduction != null) {
+      postData['introduction'] = introduction;
+    }
+    if (imageStorageUUID != null) {
+      postData['imageStorageUUID'] = imageStorageUUID;
+    }
+
+    Response response = await httpClient.post(
+        Uri.parse('$baseUrl/minecraft/mod/create'),
+        headers: {'Authorization': 'Bearer ${token ?? globalToken}'},
+        body: json.encode(postData));
+    int statusCode = response.statusCode;
+
+    if (statusCode == HttpStatus.ok) {
+      return WikiModData.fromJson(response.json);
+    } else {
+      if (statusCode == HttpStatus.badRequest ||
+          statusCode == HttpStatus.unauthorized) {
+        throw Exception(response.map['message']);
+      } else {
+        throw Exception('Create wiki mod data failed ${response.body}');
+      }
+    }
+  }
+
+  /// 透過 UUID 取得 Minecraft 模組維基資訊
+  Future<WikiModData> getWikiModData(String uuid) async {
+    Response response = await httpClient
+        .get(Uri.parse('$baseUrl/minecraft/mod/wiki/view/$uuid'));
+    int statusCode = response.statusCode;
+    if (statusCode == HttpStatus.ok) {
+      return WikiModData.fromJson(response.json);
+    } else if (statusCode == HttpStatus.notFound) {
+      throw Exception('Wiki mod data not found');
+    } else {
+      throw Exception('Get wiki mod data failed');
+    }
+  }
+
+  /// 透過模組 ID 取得 Minecraft 模組維基資訊
+  Future<WikiModData> getWikiModDataByModUUID(String modUUID) async {
+    Response response = await httpClient.get(
+        Uri.parse('$baseUrl/minecraft/mod/wiki/view-by-mod-uuid/$modUUID'));
+    int statusCode = response.statusCode;
+    if (statusCode == HttpStatus.ok) {
+      return WikiModData.fromJson(response.json);
+    } else if (statusCode == HttpStatus.notFound) {
+      throw Exception('Wiki mod data not found');
+    } else {
+      throw Exception('Get wiki mod data failed');
+    }
+  }
+
+  /// 透過 模組名稱/模組譯名/模組 ID 來搜尋 Minecraft 模組
   Future<List<MinecraftMod>> search(
       {String? filter, int? limit, int? skip}) async {
     Uri uri = Uri.parse('$baseUrl/minecraft/mod/search');
@@ -133,16 +212,5 @@ class MinecraftResource extends BaseResource {
     } else {
       throw Exception('Get Minecraft version manifest failed');
     }
-  }
-}
-
-class CreateMinecraftModException implements Exception {
-  final String message;
-
-  CreateMinecraftModException(this.message);
-
-  @override
-  String toString() {
-    return message;
   }
 }

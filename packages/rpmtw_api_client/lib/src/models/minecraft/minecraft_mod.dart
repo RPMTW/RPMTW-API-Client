@@ -7,7 +7,7 @@ import 'package:rpmtw_api_client/src/models/minecraft/mod_integration.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_side.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/relation_mod.dart';
 
-class MinecraftMod extends BaseModel {
+class MinecraftMod implements BaseModel {
   final String uuid;
 
   /// 模組的名稱 (尚未翻譯的原始名稱)
@@ -40,21 +40,19 @@ class MinecraftMod extends BaseModel {
   /// 模組收錄日期
   final DateTime createTime;
 
-  const MinecraftMod(
-      {required this.name,
-      this.description,
-      required this.id,
-      required this.supportVersions,
-      required this.relationMods,
-      required this.integration,
-      required this.side,
-      required this.lastUpdate,
-      required this.createTime,
-      required this.uuid,
-      this.loader,
-      required String statusMessage,
-      required int statusCode})
-      : super(statusMessage: statusMessage, statusCode: statusCode);
+  const MinecraftMod({
+    required this.name,
+    this.description,
+    required this.id,
+    required this.supportVersions,
+    required this.relationMods,
+    required this.integration,
+    required this.side,
+    required this.lastUpdate,
+    required this.createTime,
+    required this.uuid,
+    this.loader,
+  });
 
   MinecraftMod copyWith({
     String? uuid,
@@ -67,8 +65,6 @@ class MinecraftMod extends BaseModel {
     List<ModSide>? side,
     DateTime? lastUpdate,
     DateTime? createTime,
-    int? statusCode,
-    String? statusMessage,
     List<ModLoader>? loader,
   }) {
     return MinecraftMod(
@@ -82,8 +78,6 @@ class MinecraftMod extends BaseModel {
       side: side ?? this.side,
       lastUpdate: lastUpdate ?? this.lastUpdate,
       createTime: createTime ?? this.createTime,
-      statusCode: statusCode ?? this.statusCode,
-      statusMessage: statusMessage ?? this.statusMessage,
       loader: loader ?? this.loader,
     );
   }
@@ -91,44 +85,36 @@ class MinecraftMod extends BaseModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      'data': {
-        'uuid': uuid,
-        'name': name,
-        'description': description,
-        'id': id,
-        'supportVersions': supportVersions.map((x) => x.toMap()).toList(),
-        'relationMods': relationMods.map((x) => x.toMap()).toList(),
-        'integration': integration.toMap(),
-        'side': side.map((x) => x.toMap()).toList(),
-        'lastUpdate': lastUpdate.millisecondsSinceEpoch,
-        'createTime': createTime.millisecondsSinceEpoch,
-        'loader': loader?.map((x) => x.name).toList(),
-      },
-      'statusCode': statusCode,
-      'statusMessage': statusMessage,
+      'uuid': uuid,
+      'name': name,
+      'description': description,
+      'id': id,
+      'supportVersions': supportVersions.map((x) => x.toMap()).toList(),
+      'relationMods': relationMods.map((x) => x.toMap()).toList(),
+      'integration': integration.toMap(),
+      'side': side.map((x) => x.toMap()).toList(),
+      'lastUpdate': lastUpdate.millisecondsSinceEpoch,
+      'createTime': createTime.millisecondsSinceEpoch,
+      'loader': loader?.map((x) => x.name).toList(),
     };
   }
 
   factory MinecraftMod.fromMap(Map<String, dynamic> map) {
-    Map data = map['data'];
-
     return MinecraftMod(
-      uuid: data['uuid'] as String,
-      name: data['name'] ?? '',
-      description: data['description'],
-      id: data['id'],
+      uuid: map['uuid']!,
+      name: map['name'] ?? '',
+      description: map['description'],
+      id: map['id'],
       supportVersions: List<MinecraftVersion>.from(
-          data['supportVersions']?.map((x) => MinecraftVersion.fromMap(x))),
+          map['supportVersions']?.map((x) => MinecraftVersion.fromMap(x))),
       relationMods: List<RelationMod>.from(
-          data['relationMods']?.map((x) => RelationMod.fromMap(x))),
-      integration: ModIntegrationPlatform.fromMap(data['integration']),
-      side: List<ModSide>.from(data['side']?.map((x) => ModSide.fromMap(x))),
-      lastUpdate: DateTime.fromMillisecondsSinceEpoch(data['lastUpdate']),
-      createTime: DateTime.fromMillisecondsSinceEpoch(data['createTime']),
+          map['relationMods']?.map((x) => RelationMod.fromMap(x))),
+      integration: ModIntegrationPlatform.fromMap(map['integration']),
+      side: List<ModSide>.from(map['side']?.map((x) => ModSide.fromMap(x))),
+      lastUpdate: DateTime.fromMillisecondsSinceEpoch(map['lastUpdate']),
+      createTime: DateTime.fromMillisecondsSinceEpoch(map['createTime']),
       loader: List<ModLoader>.from(
           map['loader']?.map((x) => ModLoader.values.byName(x)) ?? []),
-      statusCode: map['status'],
-      statusMessage: map['message'],
     );
   }
 
@@ -139,7 +125,7 @@ class MinecraftMod extends BaseModel {
 
   @override
   String toString() {
-    return 'MinecraftMod(uuid:$uuid, name: $name, description: $description, id: $id, supportVersions: $supportVersions, relationMods: $relationMods, integration: $integration, side: $side, lastUpdate: $lastUpdate, createTime: $createTime, statusCode: $statusCode, statusMessage: $statusMessage, loader: $loader)';
+    return 'MinecraftMod(uuid:$uuid, name: $name, description: $description, id: $id, supportVersions: $supportVersions, relationMods: $relationMods, integration: $integration, side: $side, lastUpdate: $lastUpdate, createTime: $createTime, loader: $loader)';
   }
 
   @override
@@ -158,8 +144,6 @@ class MinecraftMod extends BaseModel {
         listEquals(other.side, side) &&
         other.lastUpdate == lastUpdate &&
         other.createTime == createTime &&
-        other.statusCode == statusCode &&
-        other.statusMessage == statusMessage &&
         listEquals(other.loader, loader);
   }
 
@@ -175,8 +159,6 @@ class MinecraftMod extends BaseModel {
         side.hashCode ^
         lastUpdate.hashCode ^
         createTime.hashCode ^
-        statusCode.hashCode ^
-        statusMessage.hashCode ^
         loader.hashCode;
   }
 }
