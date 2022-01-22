@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:http/http.dart';
 import 'package:rpmtw_api_client/src/models/storage/storage.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';
+import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
 import 'package:rpmtw_api_client/src/utilities/extension.dart';
 
 class StorageResource extends BaseResource {
@@ -21,7 +22,7 @@ class StorageResource extends BaseResource {
     if (statusCode == HttpStatus.ok) {
       return Storage.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
-      throw Exception('Storage not found');
+      throw ModelNotFoundException<Storage>();
     } else {
       throw Exception('Get storage failed');
     }
@@ -43,7 +44,7 @@ class StorageResource extends BaseResource {
     if (statusCode == HttpStatus.ok) {
       return Storage.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
-      throw Exception('Storage not found');
+      throw ModelNotFoundException<Storage>();
     } else {
       if (statusCode == HttpStatus.badRequest &&
           response.map['message'] == "File size is too large") {
@@ -67,7 +68,7 @@ class StorageResource extends BaseResource {
     if (statusCode == HttpStatus.ok) {
       return response.bodyBytes;
     } else if (statusCode == HttpStatus.notFound) {
-      throw Exception('Storage not found');
+      throw ModelNotFoundException<Storage>();
     } else {
       throw Exception('Download storage failed');
     }

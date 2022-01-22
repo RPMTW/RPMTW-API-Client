@@ -10,3 +10,14 @@ class UnauthorizedException implements Exception {
     return message;
   }
 }
+
+class ModelNotFoundException<T> implements Exception {
+  final String? modelName;
+
+  ModelNotFoundException({this.modelName});
+
+  @override
+  String toString() {
+    return "Model ${modelName ?? T.toString()} not found";
+  }
+}

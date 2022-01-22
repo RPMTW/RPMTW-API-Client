@@ -91,7 +91,7 @@ class MinecraftResource extends BaseResource {
     if (statusCode == HttpStatus.ok) {
       return MinecraftMod.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
-      throw Exception('Minecraft mod not found');
+      throw ModelNotFoundException<MinecraftMod>();
     } else {
       throw Exception('Get Minecraft mod failed');
     }
@@ -155,7 +155,7 @@ class MinecraftResource extends BaseResource {
     if (statusCode == HttpStatus.ok) {
       return WikiModData.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
-      throw Exception('Wiki mod data not found');
+      throw ModelNotFoundException<WikiModData>();
     } else {
       throw Exception('Get wiki mod data failed');
     }
@@ -169,7 +169,7 @@ class MinecraftResource extends BaseResource {
     if (statusCode == HttpStatus.ok) {
       return WikiModData.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
-      throw Exception('Wiki mod data not found');
+      throw ModelNotFoundException<WikiModData>();
     } else {
       throw Exception('Get wiki mod data failed');
     }

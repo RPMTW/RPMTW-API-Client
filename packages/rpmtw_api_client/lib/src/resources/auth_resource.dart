@@ -26,7 +26,7 @@ class AuthResource extends BaseResource {
     if (statusCode == HttpStatus.ok) {
       return User.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
-      throw Exception('User not found');
+      throw ModelNotFoundException<User>();
     } else {
       throw Exception('Get user failed');
     }
@@ -40,7 +40,7 @@ class AuthResource extends BaseResource {
     if (statusCode == HttpStatus.ok) {
       return User.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
-      throw Exception('User not found');
+      throw ModelNotFoundException<User>();
     } else {
       throw Exception('Get user failed');
     }
@@ -63,14 +63,13 @@ class AuthResource extends BaseResource {
 
     if (statusCode == HttpStatus.ok) {
       String token = response.map['data']['token'];
-      return CreateUserResult(token: token, user: User.fromMap(response.map['data']));
-    } else if (statusCode == HttpStatus.notFound) {
-      throw CreateUserException('User not found');
+      return CreateUserResult(
+          token: token, user: User.fromMap(response.map['data']));
     } else {
       if (statusCode == HttpStatus.badRequest) {
-        throw CreateUserException(response.map['message']);
+        throw Exception(response.map['message']);
       } else {
-        throw CreateUserException('Create user failed');
+        throw Exception('Create user failed');
       }
     }
   }
@@ -113,7 +112,7 @@ class AuthResource extends BaseResource {
     if (statusCode == HttpStatus.ok) {
       return User.fromMap(response.map['data']);
     } else if (statusCode == HttpStatus.notFound) {
-      throw Exception('User not found');
+      throw ModelNotFoundException<User>();
     } else if (statusCode == HttpStatus.unauthorized) {
       throw UnauthorizedException();
     } else {
@@ -133,7 +132,7 @@ class AuthResource extends BaseResource {
     if (statusCode == HttpStatus.ok) {
       return response.map['data']['token'];
     } else if (statusCode == HttpStatus.notFound) {
-      throw Exception('User not found');
+      throw ModelNotFoundException<User>();
     } else {
       String message = response.map['message'];
       if (statusCode == HttpStatus.badRequest &&
@@ -172,17 +171,6 @@ class AuthResource extends BaseResource {
         throw Exception('Valid auth code failed');
       }
     });
-  }
-}
-
-class CreateUserException implements Exception {
-  final String message;
-
-  CreateUserException(this.message);
-
-  @override
-  String toString() {
-    return message;
   }
 }
 
