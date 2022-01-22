@@ -7,7 +7,8 @@ import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version_manifest
 import 'package:rpmtw_api_client/src/models/minecraft/mod_integration.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_side.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/relation_mod.dart';
-import 'package:rpmtw_api_client/src/models/rpmwiki/wiki_mod_data.dart';
+import 'package:rpmtw_api_client/src/models//minecraft/rpmwiki/wiki_change_log.dart';
+import 'package:rpmtw_api_client/src/models/minecraft/rpmwiki/wiki_mod_data.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';
 import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
 import 'package:rpmtw_api_client/src/utilities/extension.dart';
@@ -176,6 +177,8 @@ class MinecraftResource extends BaseResource {
   }
 
   /// 透過 模組名稱/模組譯名/模組 ID 來搜尋 Minecraft 模組
+  /// [limit] 取得的資料數量 (預設為 50，最大為 50)
+  /// [skip] 跳過的資料數量 (預設為 0)
   Future<List<MinecraftMod>> search(
       {String? filter, int? limit, int? skip}) async {
     Uri uri = Uri.parse('$baseUrl/minecraft/mod/search');
@@ -195,6 +198,29 @@ class MinecraftResource extends BaseResource {
           .map((e) => MinecraftMod.fromMap(e)));
     } else {
       throw Exception('Search Minecraft mod failed');
+    }
+  }
+
+  /// 查詢 RPMWiki 的變更日誌
+  /// [limit] 取得的資料數量 (預設為 50，最大為 50)
+  /// [skip] 跳過的資料數量 (預設為 0)
+  Future<List<WikiChangeLog>> filterChangelogs({int? limit, int? skip}) async {
+    Uri uri = Uri.parse('$baseUrl/minecraft/changelog');
+    uri = uri.replace(queryParameters: {
+      'limit': limit?.toString(),
+      'skip': skip?.toString()
+    });
+
+    Response response = await httpClient.get(uri);
+    int statusCode = response.statusCode;
+    if (statusCode == HttpStatus.ok) {
+      Map map = response.map;
+      Map data = map['data'];
+      return List<WikiChangeLog>.from((data['changelogs'] as List)
+          .cast<Map<String, dynamic>>()
+          .map((e) => WikiChangeLog.fromMap(e)));
+    } else {
+      throw Exception('Filter changelogs failed');
     }
   }
 
