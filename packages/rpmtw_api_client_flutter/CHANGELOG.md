@@ -1,5 +1,6 @@
 # 1.0.5+5
 - View count added to RPMWiki mod data
+- Support for querying RPMWiki change logs 
 # 1.0.5+4
 - The exception ModelNotFoundException will be thrown when a model is not found.
 # 1.0.5+3
