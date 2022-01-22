@@ -5,5 +5,8 @@ abstract class BaseResource {
   String baseUrl;
   String? globalToken;
 
-  BaseResource({required this.httpClient, required this.baseUrl,required this.globalToken});
+  BaseResource(
+      {required this.httpClient,
+      required this.baseUrl,
+      required this.globalToken});
 }

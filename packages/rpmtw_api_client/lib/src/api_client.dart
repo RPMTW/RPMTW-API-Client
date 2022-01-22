@@ -15,7 +15,9 @@ class RPMTWApiClient {
   RPMTWApiClient({bool development = false, String? baseUrl, String? token})
       : _httpClient = Client(),
         _baseUrl = baseUrl ??
-            (development ? "http://0.0.0.0:8080" : 'https://api.rpmtw.com:2096') {
+            (development
+                ? "http://0.0.0.0:8080"
+                : 'https://api.rpmtw.com:2096') {
     _apiClient = this;
 
     if (token != null) _globalToken = token;
