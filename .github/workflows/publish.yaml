@@ -18,6 +18,7 @@ jobs:
           relativePath: packages/rpmtw_api_client
           format: true
           skipTests: true
+          force: true
 
       - name: "Dart package rpmtw_api_client_flutter"
         uses: k-paxian/dart-package-publisher@master
@@ -28,3 +29,4 @@ jobs:
           format: true
           skipTests: true
           flutter: true
+          force: true

@@ -2,15 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart';
-import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
-import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version_manifest.dart';
-import 'package:rpmtw_api_client/src/models/minecraft/mod_integration.dart';
-import 'package:rpmtw_api_client/src/models/minecraft/mod_side.dart';
-import 'package:rpmtw_api_client/src/models/minecraft/relation_mod.dart';
-import 'package:rpmtw_api_client/src/models//minecraft/rpmwiki/wiki_change_log.dart';
-import 'package:rpmtw_api_client/src/models/minecraft/rpmwiki/wiki_mod_data.dart';
+import 'package:rpmtw_api_client/rpmtw_api_client.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';
-import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
 import 'package:rpmtw_api_client/src/utilities/extension.dart';
 
 class MinecraftResource extends BaseResource {
