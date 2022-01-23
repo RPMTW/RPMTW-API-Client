@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rpmtw_api_client_flutter/rpmtw_api_client_flutter.dart';
 
-extension WikiModDataImageExtension on WikiModData {
+extension WikiModDataImageExtension on MinecraftMod {
   Image? imageWidget({double? width, double? height}) {
     if (imageStorageUUID == null) {
       return null;

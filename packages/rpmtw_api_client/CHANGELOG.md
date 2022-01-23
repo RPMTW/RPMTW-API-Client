@@ -1,4 +1,6 @@
 # 1.0.6
+- Added imageUrl
+# 1.0.6
 - Update the wiki mod data format to the new server format
 # 1.0.5+5
 - View count added to RPMWiki mod data

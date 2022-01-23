@@ -52,6 +52,10 @@ class MinecraftMod implements BaseModel {
   /// 模組瀏覽次數
   final int viewCount;
 
+  String? imageUrl(String baseUrl) => imageStorageUUID == null
+      ? null
+      : '$baseUrl/storage/$imageStorageUUID/download';
+
   const MinecraftMod({
     required this.name,
     this.description,
