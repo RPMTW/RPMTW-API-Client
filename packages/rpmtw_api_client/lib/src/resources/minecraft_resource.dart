@@ -24,6 +24,9 @@ class MinecraftResource extends BaseResource {
   /// * [relationMods] 關聯模組
   /// * [integration] 模組串連的平台
   /// * [side] 模組支援的執行環境
+  /// * [translatedName] 模組譯名
+  /// * [introduction] 模組介紹文
+  /// * [imageStorageUUID] 模組封面圖的 Storage UUID
   Future<MinecraftMod> createMinecraftMod(
       {required String name,
       required List<String> supportVersions,
@@ -33,6 +36,9 @@ class MinecraftResource extends BaseResource {
       ModIntegrationPlatform? integration,
       List<ModSide>? side,
       List<ModLoader>? loader,
+      String? translatedName,
+      String? introduction,
+      String? imageStorageUUID,
       String? token}) async {
     if (token == null && globalToken == null) {
       throw UnauthorizedException();
@@ -58,6 +64,15 @@ class MinecraftResource extends BaseResource {
     if (loader != null) {
       postData['loader'] = loader.map((e) => e.name).toList();
     }
+    if (translatedName != null) {
+      postData['translatedName'] = translatedName;
+    }
+    if (introduction != null) {
+      postData['introduction'] = introduction;
+    }
+    if (imageStorageUUID != null) {
+      postData['imageStorageUUID'] = imageStorageUUID;
+    }
 
     Response response = await httpClient.post(
         Uri.parse('$baseUrl/minecraft/mod/create'),
@@ -78,7 +93,9 @@ class MinecraftResource extends BaseResource {
   }
 
   /// 透過 UUID 取得 Minecraft 模組資訊
-  Future<MinecraftMod> getMinecraftMod(String uuid) async {
+  /// [recordViewCount] 是否紀錄瀏覽次數
+  Future<MinecraftMod> getMinecraftMod(String uuid,
+      {bool recordViewCount = false}) async {
     Response response =
         await httpClient.get(Uri.parse('$baseUrl/minecraft/mod/view/$uuid'));
     int statusCode = response.statusCode;
@@ -91,94 +108,20 @@ class MinecraftResource extends BaseResource {
     }
   }
 
-  /// 建立 Minecraft 模組維基資訊，如果建立成功將回傳 Minecraft 模組維基資訊
-  ///
-  /// **必填參數**
-  /// * [modUUID] 模組的 UUID
-  /// **選填參數**
-  /// * [translatedName] 模組譯名
-  /// * [introduction] 模組介紹文
-  /// * [imageStorageUUID] 模組封面圖的 Storage UUID
-  Future<WikiModData> createWikiModData(
-      {required String modUUID,
-      String? token,
-      String? translatedName,
-      String? introduction,
-      String? imageStorageUUID}) async {
-    if (token == null && globalToken == null) {
-      throw UnauthorizedException();
-    }
-
-    Map<String, dynamic> postData = {
-      'modUUID': modUUID,
-    };
-
-    if (translatedName != null) {
-      postData['translatedName'] = translatedName;
-    }
-    if (introduction != null) {
-      postData['introduction'] = introduction;
-    }
-    if (imageStorageUUID != null) {
-      postData['imageStorageUUID'] = imageStorageUUID;
-    }
-
-    Response response = await httpClient.post(
-        Uri.parse('$baseUrl/minecraft/mod/wiki/create'),
-        headers: {'Authorization': 'Bearer ${token ?? globalToken}'},
-        body: json.encode(postData));
-    int statusCode = response.statusCode;
-
-    if (statusCode == HttpStatus.ok) {
-      return WikiModData.fromMap(response.map['data']);
-    } else {
-      if (statusCode == HttpStatus.badRequest ||
-          statusCode == HttpStatus.unauthorized) {
-        throw Exception(response.map['message']);
-      } else {
-        throw Exception('Create wiki mod data failed ${response.body}');
-      }
-    }
-  }
-
-  /// 透過 UUID 取得 Minecraft 模組維基資訊
-  Future<WikiModData> getWikiModData(String uuid) async {
-    Response response = await httpClient
-        .get(Uri.parse('$baseUrl/minecraft/mod/wiki/view/$uuid'));
-    int statusCode = response.statusCode;
-    if (statusCode == HttpStatus.ok) {
-      return WikiModData.fromMap(response.map['data']);
-    } else if (statusCode == HttpStatus.notFound) {
-      throw ModelNotFoundException<WikiModData>();
-    } else {
-      throw Exception('Get wiki mod data failed');
-    }
-  }
-
-  /// 透過模組 ID 取得 Minecraft 模組維基資訊
-  Future<WikiModData> getWikiModDataByModUUID(String modUUID) async {
-    Response response = await httpClient.get(
-        Uri.parse('$baseUrl/minecraft/mod/wiki/view-by-mod-uuid/$modUUID'));
-    int statusCode = response.statusCode;
-    if (statusCode == HttpStatus.ok) {
-      return WikiModData.fromMap(response.map['data']);
-    } else if (statusCode == HttpStatus.notFound) {
-      throw ModelNotFoundException<WikiModData>();
-    } else {
-      throw Exception('Get wiki mod data failed');
-    }
-  }
-
   /// 透過 模組名稱/模組譯名/模組 ID 來搜尋 Minecraft 模組
   /// [limit] 取得的資料數量 (預設為 50，最大為 50)
   /// [skip] 跳過的資料數量 (預設為 0)
   Future<List<MinecraftMod>> search(
-      {String? filter, int? limit, int? skip}) async {
+      {String? filter,
+      int? limit,
+      int? skip,
+      ModSearchType sort = ModSearchType.createTime}) async {
     Uri uri = Uri.parse('$baseUrl/minecraft/mod/search');
     uri = uri.replace(queryParameters: {
       'filter': filter,
       'limit': limit?.toString(),
-      'skip': skip?.toString()
+      'skip': skip?.toString(),
+      'sort': sort.id.toString()
     });
 
     Response response = await httpClient.get(uri);

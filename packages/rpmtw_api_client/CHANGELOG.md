@@ -1,3 +1,5 @@
+# 1.0.6
+- 
 # 1.0.5+5
 - View count added to RPMWiki mod data
 - Support for querying RPMWiki change logs 

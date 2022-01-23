@@ -40,6 +40,18 @@ class MinecraftMod implements BaseModel {
   /// 模組收錄日期
   final DateTime createTime;
 
+  /// 已翻譯過的模組名稱
+  final String? translatedName;
+
+  /// 模組的介紹文章 (Markdown 格式)
+  final String? introduction;
+
+  /// 模組的封面圖 (Storage UUID)
+  final String? imageStorageUUID;
+
+  /// 模組瀏覽次數
+  final int viewCount;
+
   const MinecraftMod({
     required this.name,
     this.description,
@@ -51,6 +63,10 @@ class MinecraftMod implements BaseModel {
     required this.lastUpdate,
     required this.createTime,
     required this.uuid,
+    this.translatedName,
+    this.introduction,
+    this.imageStorageUUID,
+    this.viewCount = 0,
     this.loader,
   });
 
@@ -66,6 +82,10 @@ class MinecraftMod implements BaseModel {
     DateTime? lastUpdate,
     DateTime? createTime,
     List<ModLoader>? loader,
+    String? translatedName,
+    String? introduction,
+    String? imageStorageUUID,
+    int? viewCount,
   }) {
     return MinecraftMod(
       uuid: uuid ?? this.uuid,
@@ -79,6 +99,10 @@ class MinecraftMod implements BaseModel {
       lastUpdate: lastUpdate ?? this.lastUpdate,
       createTime: createTime ?? this.createTime,
       loader: loader ?? this.loader,
+      translatedName: translatedName ?? this.translatedName,
+      introduction: introduction ?? this.introduction,
+      imageStorageUUID: imageStorageUUID ?? this.imageStorageUUID,
+      viewCount: viewCount ?? this.viewCount,
     );
   }
 
@@ -96,6 +120,10 @@ class MinecraftMod implements BaseModel {
       'lastUpdate': lastUpdate.millisecondsSinceEpoch,
       'createTime': createTime.millisecondsSinceEpoch,
       'loader': loader?.map((x) => x.name).toList(),
+      'translatedName': translatedName,
+      'introduction': introduction,
+      'imageStorageUUID': imageStorageUUID,
+      'viewCount': viewCount,
     };
   }
 
@@ -115,6 +143,10 @@ class MinecraftMod implements BaseModel {
       createTime: DateTime.fromMillisecondsSinceEpoch(map['createTime']),
       loader: List<ModLoader>.from(
           map['loader']?.map((x) => ModLoader.values.byName(x)) ?? []),
+      translatedName: map['translatedName'],
+      introduction: map['introduction'],
+      imageStorageUUID: map['imageStorageUUID'],
+      viewCount: map['viewCount'] ?? 0,
     );
   }
 
@@ -125,7 +157,7 @@ class MinecraftMod implements BaseModel {
 
   @override
   String toString() {
-    return 'MinecraftMod(uuid:$uuid, name: $name, description: $description, id: $id, supportVersions: $supportVersions, relationMods: $relationMods, integration: $integration, side: $side, lastUpdate: $lastUpdate, createTime: $createTime, loader: $loader)';
+    return 'MinecraftMod(uuid:$uuid, name: $name, description: $description, id: $id, supportVersions: $supportVersions, relationMods: $relationMods, integration: $integration, side: $side, lastUpdate: $lastUpdate, createTime: $createTime, loader: $loader, translatedName: $translatedName, introduction: $introduction, imageStorageUUID: $imageStorageUUID, viewCount: $viewCount)';
   }
 
   @override
@@ -144,7 +176,11 @@ class MinecraftMod implements BaseModel {
         listEquals(other.side, side) &&
         other.lastUpdate == lastUpdate &&
         other.createTime == createTime &&
-        listEquals(other.loader, loader);
+        listEquals(other.loader, loader) &&
+        other.translatedName == translatedName &&
+        other.introduction == introduction &&
+        other.imageStorageUUID == imageStorageUUID &&
+        other.viewCount == viewCount;
   }
 
   @override
@@ -159,8 +195,34 @@ class MinecraftMod implements BaseModel {
         side.hashCode ^
         lastUpdate.hashCode ^
         createTime.hashCode ^
-        loader.hashCode;
+        loader.hashCode ^
+        translatedName.hashCode ^
+        introduction.hashCode ^
+        imageStorageUUID.hashCode ^
+        viewCount.hashCode;
   }
 }
 
 enum ModLoader { fabric, forge, other }
+
+enum ModSearchType {
+  createTime,
+  viewCount,
+  name,
+  lastUpdate,
+}
+
+extension ModSearchTypeExtension on ModSearchType {
+  int get id {
+    switch (this) {
+      case ModSearchType.createTime:
+        return 0;
+      case ModSearchType.viewCount:
+        return 1;
+      case ModSearchType.name:
+        return 2;
+      case ModSearchType.lastUpdate:
+        return 3;
+    }
+  }
+}
