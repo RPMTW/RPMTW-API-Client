@@ -13,7 +13,7 @@ class User implements BaseModel {
 
   String? avatarUrl() => avatarStorageUUID == null
       ? null
-      : Storage.getDownloadUrl(uuid);
+      : Storage.getDownloadUrl(avatarStorageUUID!);
 
   User({
     required this.uuid,

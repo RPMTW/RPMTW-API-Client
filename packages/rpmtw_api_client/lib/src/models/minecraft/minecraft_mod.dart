@@ -55,7 +55,7 @@ class MinecraftMod implements BaseModel {
 
   String? get imageUrl => imageStorageUUID == null
       ? null
-      : Storage.getDownloadUrl(uuid);
+      : Storage.getDownloadUrl(imageStorageUUID!);
 
   const MinecraftMod({
     required this.name,
