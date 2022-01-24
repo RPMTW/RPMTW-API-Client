@@ -238,7 +238,6 @@ class MinecraftResource extends BaseResource {
       'limit': limit?.toString(),
       'skip': skip?.toString()
     });
-
     Response response = await httpClient.get(uri);
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {

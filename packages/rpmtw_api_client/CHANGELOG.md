@@ -1,3 +1,5 @@
+# 1.0.6+7
+- Fix change log json serialization error
 # 1.0.6+5
 - Added changelog in RPMTWAPIClient.minecraftResource.editMinecraftMod
 # 1.0.6+4

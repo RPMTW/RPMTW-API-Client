@@ -81,8 +81,7 @@ class WikiChangeLog implements BaseModel {
       changelog: map['changelog'],
       type: WikiChangeLogType.values.byName(map['type']),
       dataUUID: map['dataUUID'] ?? '',
-      changedData:
-          map['changedData'] != null ? json.decode(map['changedData']) : {},
+      changedData: map['changedData'],
       unchangedData: map['unchangedData'] != null
           ? json.decode(map['unchangedData'])
           : null,
