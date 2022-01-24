@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:rpmtw_api_client/src/api_client.dart';
 import 'package:rpmtw_api_client/src/models/base_model.dart';
+import 'package:rpmtw_api_client/src/models/storage/storage.dart';
 
 class User implements BaseModel {
   final String uuid;
@@ -10,9 +11,9 @@ class User implements BaseModel {
   final bool emailVerified;
   final String? avatarStorageUUID;
 
-  String? avatarUrl(String baseUrl) => avatarStorageUUID == null
+  String? avatarUrl() => avatarStorageUUID == null
       ? null
-      : '$baseUrl/storage/$avatarStorageUUID/download';
+      : Storage.getDownloadUrl(uuid);
 
   User({
     required this.uuid,

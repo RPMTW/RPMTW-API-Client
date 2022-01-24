@@ -1,3 +1,5 @@
+# 1.0.6+1
+- Update package
 # 1.0.6
 - Update the wiki mod data format to the new server format
 # 1.0.5+5

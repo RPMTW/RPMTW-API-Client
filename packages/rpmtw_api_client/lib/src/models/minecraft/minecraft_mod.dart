@@ -6,6 +6,7 @@ import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_integration.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/mod_side.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/relation_mod.dart';
+import 'package:rpmtw_api_client/src/models/storage/storage.dart';
 
 class MinecraftMod implements BaseModel {
   final String uuid;
@@ -52,9 +53,9 @@ class MinecraftMod implements BaseModel {
   /// 模組瀏覽次數
   final int viewCount;
 
-  String? imageUrl(String baseUrl) => imageStorageUUID == null
+  String? get imageUrl => imageStorageUUID == null
       ? null
-      : '$baseUrl/storage/$imageStorageUUID/download';
+      : Storage.getDownloadUrl(uuid);
 
   const MinecraftMod({
     required this.name,

@@ -1,3 +1,5 @@
+# 1.0.6+3
+- Added Storage.getDownloadUrl
 # 1.0.6+2
 - Support for editing mods and viewing changes to wiki change logs
 # 1.0.6+1

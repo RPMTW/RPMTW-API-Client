@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:rpmtw_api_client/src/api_client.dart';
 import 'package:rpmtw_api_client/src/models/base_model.dart';
 
 class Storage implements BaseModel {
@@ -74,5 +75,10 @@ class Storage implements BaseModel {
         contentType.hashCode ^
         type.hashCode ^
         createAt.hashCode;
+  }
+
+  static String getDownloadUrl(String uuid, {String? baseUrl}) {
+    baseUrl ??= RPMTWApiClient.lastInstance.baseUrl;
+    return '$baseUrl/storage/$uuid/download';
   }
 }

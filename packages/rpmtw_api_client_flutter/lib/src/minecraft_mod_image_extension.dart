@@ -6,8 +6,7 @@ extension WikiModDataImageExtension on MinecraftMod {
     if (imageStorageUUID == null) {
       return null;
     } else {
-      String baseUrl = RPMTWApiClient.lastInstance.baseUrl;
-      String url = imageUrl(baseUrl)!;
+      String url = imageUrl!;
 
       return Image.network(
         url,

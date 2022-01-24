@@ -62,7 +62,7 @@ class StorageResource extends BaseResource {
   /// 透過 UUID 取得檔案儲存的位元
   Future<Uint8List> getStorageBytes(String uuid) async {
     Response response = await httpClient.get(
-      Uri.parse('$baseUrl/storage/$uuid/download'),
+      Uri.parse(Storage.getDownloadUrl(uuid)),
     );
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
