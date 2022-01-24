@@ -6,7 +6,7 @@ import 'package:rpmtw_api_client/rpmtw_api_client.dart';
 extension AvatarExtension on User {
   CircleAvatar avatar({double fontSize = 18}) {
     CircleAvatar _avatar;
-    String? _avatarUrl = avatarUrl;
+    String? _avatarUrl = avatarUrl();
 
     if (_avatarUrl != null) {
       _avatar = CircleAvatar(

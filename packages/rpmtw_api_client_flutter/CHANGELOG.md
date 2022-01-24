@@ -1,3 +1,5 @@
+# 1.0.6+2
+- Fixed a bug
 # 1.0.6+1
 - Update package
 # 1.0.6
