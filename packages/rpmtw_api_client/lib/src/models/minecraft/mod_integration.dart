@@ -3,7 +3,7 @@ import 'dart:convert';
 class ModIntegrationPlatform {
   final String? curseForgeID;
   final String? modrinthID;
-  ModIntegrationPlatform({
+  const ModIntegrationPlatform({
     this.curseForgeID,
     this.modrinthID,
   });

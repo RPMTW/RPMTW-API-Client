@@ -107,6 +107,7 @@ class MinecraftResource extends BaseResource {
   /// * [translatedName] 模組譯名
   /// * [introduction] 模組介紹文
   /// * [imageStorageUUID] 模組封面圖的 Storage UUID
+  /// * [changelog] 變更日誌
   Future<MinecraftMod> editMinecraftMod(
       {required String uuid,
       String? name,
@@ -120,6 +121,7 @@ class MinecraftResource extends BaseResource {
       String? translatedName,
       String? introduction,
       String? imageStorageUUID,
+      String? changelog,
       String? token}) async {
     if (token == null && globalToken == null) {
       throw UnauthorizedException();
@@ -159,6 +161,9 @@ class MinecraftResource extends BaseResource {
     }
     if (imageStorageUUID != null) {
       postData['imageStorageUUID'] = imageStorageUUID;
+    }
+    if (changelog != null) {
+      postData['changelog'] = changelog;
     }
 
     Response response = await httpClient.patch(

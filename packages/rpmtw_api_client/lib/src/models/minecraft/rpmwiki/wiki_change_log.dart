@@ -8,7 +8,7 @@ class WikiChangeLog implements BaseModel {
   final String uuid;
 
   /// 變更日誌
-  final String? changeLog;
+  final String? changelog;
 
   /// 修改類型
   final WikiChangeLogType type;
@@ -29,7 +29,7 @@ class WikiChangeLog implements BaseModel {
   Future<User> get user => User.getUserByUUID(userUUID);
 
   WikiChangeLog({
-    this.changeLog,
+    this.changelog,
     required this.type,
     required this.dataUUID,
     required this.changedData,
@@ -40,7 +40,7 @@ class WikiChangeLog implements BaseModel {
   });
 
   WikiChangeLog copyWith({
-    String? changeLog,
+    String? changelog,
     WikiChangeLogType? type,
     String? dataUUID,
     Map<String, dynamic>? changedData,
@@ -50,7 +50,7 @@ class WikiChangeLog implements BaseModel {
     String? uuid,
   }) {
     return WikiChangeLog(
-      changeLog: changeLog ?? this.changeLog,
+      changelog: changelog ?? this.changelog,
       type: type ?? this.type,
       dataUUID: dataUUID ?? this.dataUUID,
       changedData: changedData ?? this.changedData,
@@ -64,7 +64,7 @@ class WikiChangeLog implements BaseModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      'changeLog': changeLog,
+      'changelog': changelog,
       'type': type.name,
       'dataUUID': dataUUID,
       'changedData': json.encode(changedData),
@@ -78,7 +78,7 @@ class WikiChangeLog implements BaseModel {
 
   factory WikiChangeLog.fromMap(Map<String, dynamic> map) {
     return WikiChangeLog(
-      changeLog: map['changeLog'],
+      changelog: map['changelog'],
       type: WikiChangeLogType.values.byName(map['type']),
       dataUUID: map['dataUUID'] ?? '',
       changedData:
@@ -99,7 +99,7 @@ class WikiChangeLog implements BaseModel {
 
   @override
   String toString() {
-    return 'WikiChangeLog(changeLog: $changeLog, type: $type, dataUUID: $dataUUID, changedData: $changedData, unchangedData: $unchangedData, userUUID: $userUUID, time: $time, uuid: $uuid)';
+    return 'WikiChangeLog(changelog: $changelog, type: $type, dataUUID: $dataUUID, changedData: $changedData, unchangedData: $unchangedData, userUUID: $userUUID, time: $time, uuid: $uuid)';
   }
 
   @override
@@ -107,7 +107,7 @@ class WikiChangeLog implements BaseModel {
     if (identical(this, other)) return true;
 
     return other is WikiChangeLog &&
-        other.changeLog == changeLog &&
+        other.changelog == changelog &&
         other.type == type &&
         other.dataUUID == dataUUID &&
         other.changedData == changedData &&
@@ -119,7 +119,7 @@ class WikiChangeLog implements BaseModel {
 
   @override
   int get hashCode {
-    return changeLog.hashCode ^
+    return changelog.hashCode ^
         type.hashCode ^
         dataUUID.hashCode ^
         changedData.hashCode ^
