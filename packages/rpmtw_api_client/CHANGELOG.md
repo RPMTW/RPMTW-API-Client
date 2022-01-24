@@ -1,4 +1,6 @@
-# 1.0.6
+# 1.0.6+2
+- Support for editing mods and viewing changes to wiki change logs
+# 1.0.6+1
 - Added imageUrl
 # 1.0.6
 - Update the wiki mod data format to the new server format

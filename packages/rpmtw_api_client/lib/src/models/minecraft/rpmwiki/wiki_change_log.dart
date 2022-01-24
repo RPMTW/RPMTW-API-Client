@@ -13,18 +13,27 @@ class WikiChangeLog implements BaseModel {
   /// 修改類型
   final WikiChangeLogType type;
 
-  /// 修改的資料 (可能是 [MinecraftMod] 的 UUID )
+  /// 修改的資料 UUID (可能是 [MinecraftMod] )
   final String dataUUID;
+
+  /// 修改的資料內容 (可能是 [MinecraftMod] )
+  final Map<String, dynamic> changedData;
+
+  /// 修改前的資料內容 (可能是 [MinecraftMod] )
+  final Map<String, dynamic>? unchangedData;
 
   final String userUUID;
 
+  final DateTime time;
+
   Future<User> get user => User.getUserByUUID(userUUID);
 
-  final DateTime time;
   WikiChangeLog({
     this.changeLog,
     required this.type,
     required this.dataUUID,
+    required this.changedData,
+    this.unchangedData,
     required this.userUUID,
     required this.time,
     required this.uuid,
@@ -34,6 +43,8 @@ class WikiChangeLog implements BaseModel {
     String? changeLog,
     WikiChangeLogType? type,
     String? dataUUID,
+    Map<String, dynamic>? changedData,
+    Map<String, dynamic>? unchangedData,
     String? userUUID,
     DateTime? time,
     String? uuid,
@@ -42,6 +53,8 @@ class WikiChangeLog implements BaseModel {
       changeLog: changeLog ?? this.changeLog,
       type: type ?? this.type,
       dataUUID: dataUUID ?? this.dataUUID,
+      changedData: changedData ?? this.changedData,
+      unchangedData: unchangedData ?? this.unchangedData,
       userUUID: userUUID ?? this.userUUID,
       time: time ?? this.time,
       uuid: uuid ?? this.uuid,
@@ -54,6 +67,9 @@ class WikiChangeLog implements BaseModel {
       'changeLog': changeLog,
       'type': type.name,
       'dataUUID': dataUUID,
+      'changedData': json.encode(changedData),
+      'unchangedData':
+          unchangedData != null ? json.encode(unchangedData) : null,
       'userUUID': userUUID,
       'time': time.millisecondsSinceEpoch,
       'uuid': uuid,
@@ -65,6 +81,11 @@ class WikiChangeLog implements BaseModel {
       changeLog: map['changeLog'],
       type: WikiChangeLogType.values.byName(map['type']),
       dataUUID: map['dataUUID'] ?? '',
+      changedData:
+          map['changedData'] != null ? json.decode(map['changedData']) : {},
+      unchangedData: map['unchangedData'] != null
+          ? json.decode(map['unchangedData'])
+          : null,
       userUUID: map['userUUID'] ?? '',
       time: DateTime.fromMillisecondsSinceEpoch(map['time']),
       uuid: map['uuid'],
@@ -78,7 +99,7 @@ class WikiChangeLog implements BaseModel {
 
   @override
   String toString() {
-    return 'WikiChangeLog(changeLog: $changeLog, type: $type, dataUUID: $dataUUID, userUUID: $userUUID, time: $time, uuid: $uuid)';
+    return 'WikiChangeLog(changeLog: $changeLog, type: $type, dataUUID: $dataUUID, changedData: $changedData, unchangedData: $unchangedData, userUUID: $userUUID, time: $time, uuid: $uuid)';
   }
 
   @override
@@ -89,6 +110,8 @@ class WikiChangeLog implements BaseModel {
         other.changeLog == changeLog &&
         other.type == type &&
         other.dataUUID == dataUUID &&
+        other.changedData == changedData &&
+        other.unchangedData == unchangedData &&
         other.userUUID == userUUID &&
         other.time == time &&
         other.uuid == uuid;
@@ -99,6 +122,8 @@ class WikiChangeLog implements BaseModel {
     return changeLog.hashCode ^
         type.hashCode ^
         dataUUID.hashCode ^
+        changedData.hashCode ^
+        unchangedData.hashCode ^
         userUUID.hashCode ^
         time.hashCode ^
         uuid.hashCode;
@@ -109,7 +134,7 @@ enum WikiChangeLogType {
   // 新增模組
   addedMod,
   // 編輯模組
-  modifiedMod,
+  editedMod,
   // 刪除模組
   removedMod,
 }

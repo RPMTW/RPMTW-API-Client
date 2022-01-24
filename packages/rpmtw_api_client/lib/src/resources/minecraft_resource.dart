@@ -44,7 +44,7 @@ class MinecraftResource extends BaseResource {
       throw UnauthorizedException();
     }
 
-    Map postData = {'name': name, 'supportVersions': supportVersions.toList()};
+    Map postData = {'name': name, 'supportVersions': supportVersions};
 
     if (id != null) {
       postData['id'] = id;
@@ -92,12 +92,99 @@ class MinecraftResource extends BaseResource {
     }
   }
 
+  /// 編輯 Minecraft 模組，如果編輯成功將回傳編輯後的 Minecraft 模組資訊
+  ///
+  /// **必填參數**
+  /// * [uuid] 要編輯的模組 UUID
+  /// **選填參數**
+  /// * [name] 模組名稱
+  /// * [supportVersions] 該模組支援的 Minecraft 版本
+  /// * [id] 模組 ID
+  /// * [description] 模組描述
+  /// * [relationMods] 關聯模組
+  /// * [integration] 模組串連的平台
+  /// * [side] 模組支援的執行環境
+  /// * [translatedName] 模組譯名
+  /// * [introduction] 模組介紹文
+  /// * [imageStorageUUID] 模組封面圖的 Storage UUID
+  Future<MinecraftMod> editMinecraftMod(
+      {required String uuid,
+      String? name,
+      List<String>? supportVersions,
+      String? id,
+      String? description,
+      List<RelationMod>? relationMods,
+      ModIntegrationPlatform? integration,
+      List<ModSide>? side,
+      List<ModLoader>? loader,
+      String? translatedName,
+      String? introduction,
+      String? imageStorageUUID,
+      String? token}) async {
+    if (token == null && globalToken == null) {
+      throw UnauthorizedException();
+    }
+
+    Map postData = {};
+
+    if (name != null) {
+      postData['name'] = name;
+    }
+    if (supportVersions != null) {
+      postData['supportVersions'] = supportVersions;
+    }
+    if (id != null) {
+      postData['id'] = id;
+    }
+    if (description != null) {
+      postData['description'] = description;
+    }
+    if (relationMods != null) {
+      postData['relationMods'] = relationMods.map((e) => e.toMap()).toList();
+    }
+    if (integration != null) {
+      postData['integration'] = integration.toMap();
+    }
+    if (side != null) {
+      postData['side'] = side.map((e) => e.toMap()).toList();
+    }
+    if (loader != null) {
+      postData['loader'] = loader.map((e) => e.name).toList();
+    }
+    if (translatedName != null) {
+      postData['translatedName'] = translatedName;
+    }
+    if (introduction != null) {
+      postData['introduction'] = introduction;
+    }
+    if (imageStorageUUID != null) {
+      postData['imageStorageUUID'] = imageStorageUUID;
+    }
+
+    Response response = await httpClient.patch(
+        Uri.parse('$baseUrl/minecraft/mod/edit/$uuid'),
+        headers: {'Authorization': 'Bearer ${token ?? globalToken}'},
+        body: json.encode(postData));
+    int statusCode = response.statusCode;
+
+    if (statusCode == HttpStatus.ok) {
+      return MinecraftMod.fromMap(response.map['data']);
+    } else {
+      if (statusCode == HttpStatus.badRequest ||
+          statusCode == HttpStatus.unauthorized) {
+        throw Exception(response.map['message']);
+      } else {
+        throw Exception('Create minecraft mod failed ${response.body}');
+      }
+    }
+  }
+
   /// 透過 UUID 取得 Minecraft 模組資訊
   /// [recordViewCount] 是否紀錄瀏覽次數
   Future<MinecraftMod> getMinecraftMod(String uuid,
       {bool recordViewCount = false}) async {
-    Response response =
-        await httpClient.get(Uri.parse('$baseUrl/minecraft/mod/view/$uuid'));
+    Response response = await httpClient.get(Uri.parse(
+        '$baseUrl/minecraft/mod/view/$uuid?recordViewCount=$recordViewCount'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return MinecraftMod.fromMap(response.map['data']);
