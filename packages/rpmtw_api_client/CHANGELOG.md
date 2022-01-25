@@ -1,4 +1,6 @@
 # 1.0.6+7
+- Fix WikiChangelog.unchangedData json serialization error
+# 1.0.6+6
 - Fix change log json serialization error
 # 1.0.6+5
 - Added changelog in RPMTWAPIClient.minecraftResource.editMinecraftMod
