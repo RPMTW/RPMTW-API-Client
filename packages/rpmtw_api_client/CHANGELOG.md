@@ -1,3 +1,5 @@
+# 1.0.6+8
+- Supports filtering of change logs by user UUID and data UUID
 # 1.0.6+7
 - Fix WikiChangelog.unchangedData json serialization error
 # 1.0.6+6

@@ -232,20 +232,25 @@ class MinecraftResource extends BaseResource {
   /// 查詢 RPMWiki 的變更日誌
   /// [limit] 取得的資料數量 (預設為 50，最大為 50)
   /// [skip] 跳過的資料數量 (預設為 0)
-  Future<List<WikiChangeLog>> filterChangelogs({int? limit, int? skip}) async {
+  /// [dataUUID] 要篩選的資料 UUID
+  /// [userUUID] 要篩選的資料編輯者 UUID
+  Future<List<WikiChangelog>> filterChangelogs(
+      {int? limit, int? skip, String? dataUUID, String? userUUID}) async {
     Uri uri = Uri.parse('$baseUrl/minecraft/changelog');
     uri = uri.replace(queryParameters: {
       'limit': limit?.toString(),
-      'skip': skip?.toString()
+      'skip': skip?.toString(),
+      'dataUUID': dataUUID,
+      'userUUID': userUUID
     });
     Response response = await httpClient.get(uri);
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       Map map = response.map;
       Map data = map['data'];
-      return List<WikiChangeLog>.from((data['changelogs'] as List)
+      return List<WikiChangelog>.from((data['changelogs'] as List)
           .cast<Map<String, dynamic>>()
-          .map((e) => WikiChangeLog.fromMap(e)));
+          .map((e) => WikiChangelog.fromMap(e)));
     } else {
       throw Exception('Filter changelogs failed');
     }

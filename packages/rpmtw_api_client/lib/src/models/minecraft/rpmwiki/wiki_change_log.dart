@@ -4,14 +4,14 @@ import 'package:rpmtw_api_client/src/models/auth/user.dart';
 import 'package:rpmtw_api_client/src/models/base_model.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
 
-class WikiChangeLog implements BaseModel {
+class WikiChangelog implements BaseModel {
   final String uuid;
 
   /// 變更日誌
   final String? changelog;
 
   /// 修改類型
-  final WikiChangeLogType type;
+  final WikiChangelogType type;
 
   /// 修改的資料 UUID (可能是 [MinecraftMod] )
   final String dataUUID;
@@ -28,7 +28,7 @@ class WikiChangeLog implements BaseModel {
 
   Future<User> get user => User.getUserByUUID(userUUID);
 
-  WikiChangeLog({
+  WikiChangelog({
     this.changelog,
     required this.type,
     required this.dataUUID,
@@ -39,9 +39,9 @@ class WikiChangeLog implements BaseModel {
     required this.uuid,
   });
 
-  WikiChangeLog copyWith({
+  WikiChangelog copyWith({
     String? changelog,
-    WikiChangeLogType? type,
+    WikiChangelogType? type,
     String? dataUUID,
     Map<String, dynamic>? changedData,
     Map<String, dynamic>? unchangedData,
@@ -49,7 +49,7 @@ class WikiChangeLog implements BaseModel {
     DateTime? time,
     String? uuid,
   }) {
-    return WikiChangeLog(
+    return WikiChangelog(
       changelog: changelog ?? this.changelog,
       type: type ?? this.type,
       dataUUID: dataUUID ?? this.dataUUID,
@@ -76,10 +76,10 @@ class WikiChangeLog implements BaseModel {
     };
   }
 
-  factory WikiChangeLog.fromMap(Map<String, dynamic> map) {
-    return WikiChangeLog(
+  factory WikiChangelog.fromMap(Map<String, dynamic> map) {
+    return WikiChangelog(
       changelog: map['changelog'],
-      type: WikiChangeLogType.values.byName(map['type']),
+      type: WikiChangelogType.values.byName(map['type']),
       dataUUID: map['dataUUID'] ?? '',
       changedData: map['changedData'],
       unchangedData: map['unchangedData'],
@@ -91,19 +91,19 @@ class WikiChangeLog implements BaseModel {
 
   String toJson() => json.encode(toMap());
 
-  factory WikiChangeLog.fromJson(String source) =>
-      WikiChangeLog.fromMap(json.decode(source));
+  factory WikiChangelog.fromJson(String source) =>
+      WikiChangelog.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'WikiChangeLog(changelog: $changelog, type: $type, dataUUID: $dataUUID, changedData: $changedData, unchangedData: $unchangedData, userUUID: $userUUID, time: $time, uuid: $uuid)';
+    return 'WikiChangelog(changelog: $changelog, type: $type, dataUUID: $dataUUID, changedData: $changedData, unchangedData: $unchangedData, userUUID: $userUUID, time: $time, uuid: $uuid)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is WikiChangeLog &&
+    return other is WikiChangelog &&
         other.changelog == changelog &&
         other.type == type &&
         other.dataUUID == dataUUID &&
@@ -127,7 +127,7 @@ class WikiChangeLog implements BaseModel {
   }
 }
 
-enum WikiChangeLogType {
+enum WikiChangelogType {
   // 新增模組
   addedMod,
   // 編輯模組
