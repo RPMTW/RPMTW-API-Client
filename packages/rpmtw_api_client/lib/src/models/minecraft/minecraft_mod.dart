@@ -210,23 +210,23 @@ class MinecraftMod implements BaseModel {
 
 enum ModLoader { fabric, forge, other }
 
-enum ModSearchType {
+enum ModSortType {
   createTime,
   viewCount,
   name,
   lastUpdate,
 }
 
-extension ModSearchTypeExtension on ModSearchType {
+extension ModSearchTypeExtension on ModSortType {
   int get id {
     switch (this) {
-      case ModSearchType.createTime:
+      case ModSortType.createTime:
         return 0;
-      case ModSearchType.viewCount:
+      case ModSortType.viewCount:
         return 1;
-      case ModSearchType.name:
+      case ModSortType.name:
         return 2;
-      case ModSearchType.lastUpdate:
+      case ModSortType.lastUpdate:
         return 3;
     }
   }

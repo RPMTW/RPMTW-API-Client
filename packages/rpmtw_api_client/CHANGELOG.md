@@ -1,3 +1,5 @@
+# 1.0.6+9
+- ModSearchType renamed to ModSortType
 # 1.0.6+8
 - Supports filtering of change logs by user UUID and data UUID
 # 1.0.6+7

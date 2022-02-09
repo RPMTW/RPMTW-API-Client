@@ -207,7 +207,7 @@ class MinecraftResource extends BaseResource {
       {String? filter,
       int? limit,
       int? skip,
-      ModSearchType sort = ModSearchType.createTime}) async {
+      ModSortType sort = ModSortType.createTime}) async {
     Uri uri = Uri.parse('$baseUrl/minecraft/mod/search');
     uri = uri.replace(queryParameters: {
       'filter': filter,
