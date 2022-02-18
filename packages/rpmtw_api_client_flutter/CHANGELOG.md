@@ -1,3 +1,5 @@
+# 1.0.6+3
+- Support rpmtw_api_client 1.0.6+10
 # 1.0.6+2
 - Fixed a bug
 # 1.0.6+1
