@@ -1,3 +1,5 @@
+# 1.0.6+10
+# Change RPMTWApiClient.lastInstance to RPMTWApiClient.instance
 # 1.0.6+9
 - ModSearchType renamed to ModSortType
 # 1.0.6+8

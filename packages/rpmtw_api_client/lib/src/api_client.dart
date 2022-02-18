@@ -4,7 +4,7 @@ import 'package:rpmtw_api_client/rpmtw_api_client.dart';
 class RPMTWApiClient {
   final Client _httpClient;
   final String _baseUrl;
-  static late RPMTWApiClient _apiClient;
+  static RPMTWApiClient? _apiClient;
 
   String? _globalToken;
 
@@ -30,7 +30,12 @@ class RPMTWApiClient {
   MinecraftResource get minecraftResource => MinecraftResource(
       httpClient: _httpClient, baseUrl: _baseUrl, token: _globalToken);
 
-  static RPMTWApiClient get lastInstance => _apiClient;
+  static RPMTWApiClient get instance {
+    if (_apiClient == null) {
+      throw Exception("client is not initialized, please call RPMTWApiClient.init() first");
+    }
+    return _apiClient!;
+  }
 
   static void init({bool development = false, String? baseUrl}) {
     _apiClient = RPMTWApiClient(development: development, baseUrl: baseUrl);
