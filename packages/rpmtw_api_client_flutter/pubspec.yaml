@@ -2,7 +2,7 @@ name: rpmtw_api_client_flutter
 description: A new Flutter package project.
 version: 1.0.7
 homepage: https://www.rpmtw.com
-repository: https://github.com/RPMTW/RPMTW-API-Client
+repository: https://github.com/RPMTW/RPMTW-API-Client/tree/main/packages/rpmtw_api_client_flutter
 
 environment:
   sdk: '>=2.15.0 <3.0.0'
