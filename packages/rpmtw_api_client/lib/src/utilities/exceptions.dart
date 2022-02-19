@@ -21,3 +21,16 @@ class ModelNotFoundException<T> implements Exception {
     return "Model ${modelName ?? T.toString()} not found";
   }
 }
+
+class ClientUninitializedException implements Exception {
+  final String message;
+
+  ClientUninitializedException(
+      {this.message =
+          "Client is not initialized, please call RPMTWApiClient.init() first"});
+
+  @override
+  String toString() {
+    return message;
+  }
+}

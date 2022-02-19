@@ -1,3 +1,6 @@
+# 1.0.7
+- Added helloWorld(),getIP() in OtherResource
+- Added getMod() in CurseForgeResource
 # 1.0.6+10
 # Change RPMTWApiClient.lastInstance to RPMTWApiClient.instance
 # 1.0.6+9
