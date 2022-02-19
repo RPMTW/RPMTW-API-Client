@@ -15,7 +15,9 @@ class AuthResource extends BaseResource {
       required String? token})
       : super(httpClient: httpClient, baseUrl: baseUrl, globalToken: token);
 
-  /// 透過 UUID 取得使用者資訊
+  /// Get user info by uuid.
+  /// * [uuid] user's uuid (When uuid is **me**, use token to get the user info of the token)
+  /// * [token] (optional)
   Future<User> getUserByUUID(String uuid, {String? token}) async {
     Response response =
         await httpClient.get(Uri.parse('$baseUrl/auth/user/$uuid'), headers: {
@@ -32,7 +34,7 @@ class AuthResource extends BaseResource {
     }
   }
 
-  /// 透過 Email 取得使用者資訊
+  /// Get user info by email.
   Future<User> getUserByEmail(String email) async {
     Response response = await httpClient
         .get(Uri.parse('$baseUrl/auth/user/get-by-email/$email'));
@@ -46,7 +48,11 @@ class AuthResource extends BaseResource {
     }
   }
 
-  /// 建立使用者帳號，如果建立成功將回傳 token 與 使用者資訊
+  /// Create a user account, if successful, will return token and user information.
+  /// * [username] user's username
+  /// * [password] user's password
+  /// * [email] user's email address
+  /// * [avatarStorageUUID] user's avatar storage uuid (optional)
   Future<CreateUserResult> createUser(
       {required String username,
       required String password,

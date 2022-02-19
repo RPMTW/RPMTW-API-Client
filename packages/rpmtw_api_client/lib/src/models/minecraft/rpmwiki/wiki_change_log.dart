@@ -26,7 +26,7 @@ class WikiChangelog implements BaseModel {
 
   final DateTime time;
 
-  Future<User> get user => User.getUserByUUID(userUUID);
+  Future<User> get user => User.getByUUID(userUUID);
 
   WikiChangelog({
     this.changelog,

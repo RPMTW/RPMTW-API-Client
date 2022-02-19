@@ -94,6 +94,6 @@ class User implements BaseModel {
       RPMTWApiClient.instance.authResource
           .getToken(uuid: uuid, password: password);
 
-  static Future<User> getUserByUUID(String uuid) =>
+  static Future<User> getByUUID(String uuid) =>
       RPMTWApiClient.instance.authResource.getUserByUUID(uuid);
 }
