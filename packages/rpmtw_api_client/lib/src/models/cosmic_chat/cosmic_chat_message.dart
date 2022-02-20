@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:rpmtw_api_client/src/api_client.dart';
 import 'package:rpmtw_api_client/src/models/base_model.dart';
 
 class CosmicChatMessage extends BaseModel {
@@ -20,6 +21,9 @@ class CosmicChatMessage extends BaseModel {
 
   final CosmicChatUserType userType;
 
+  /// Reply message uuid
+  final String? replyMessageUUID;
+
   const CosmicChatMessage({
     required this.uuid,
     required this.username,
@@ -28,6 +32,7 @@ class CosmicChatMessage extends BaseModel {
     required this.avatarUrl,
     required this.sentAt,
     required this.userType,
+    this.replyMessageUUID,
   });
 
   CosmicChatMessage copyWith({
@@ -38,6 +43,7 @@ class CosmicChatMessage extends BaseModel {
     String? avatarUrl,
     DateTime? sentAt,
     CosmicChatUserType? userType,
+    String? replyMessageUUID,
   }) {
     return CosmicChatMessage(
       uuid: uuid ?? this.uuid,
@@ -47,6 +53,7 @@ class CosmicChatMessage extends BaseModel {
       avatarUrl: avatarUrl ?? this.avatarUrl,
       sentAt: sentAt ?? this.sentAt,
       userType: userType ?? this.userType,
+      replyMessageUUID: replyMessageUUID ?? this.replyMessageUUID,
     );
   }
 
@@ -60,6 +67,7 @@ class CosmicChatMessage extends BaseModel {
       'avatarUrl': avatarUrl,
       'sentAt': sentAt.millisecondsSinceEpoch,
       'userType': userType.name,
+      'replyMessageUUID': replyMessageUUID,
     };
   }
 
@@ -72,6 +80,7 @@ class CosmicChatMessage extends BaseModel {
       avatarUrl: map['avatarUrl'] ?? '',
       sentAt: DateTime.fromMillisecondsSinceEpoch(map['sentAt']),
       userType: CosmicChatUserType.values.byName(map['userType']),
+      replyMessageUUID: map['replyMessageUUID'],
     );
   }
 
@@ -82,7 +91,7 @@ class CosmicChatMessage extends BaseModel {
 
   @override
   String toString() {
-    return 'CosmicChatMessage(uuid: $uuid, username: $username, message: $message, nickname: $nickname, avatarUrl: $avatarUrl, sentAt: $sentAt, userType: $userType)';
+    return 'CosmicChatMessage(uuid: $uuid, username: $username, message: $message, nickname: $nickname, avatarUrl: $avatarUrl, sentAt: $sentAt, userType: $userType, replyMessageUUID: $replyMessageUUID)';
   }
 
   @override
@@ -96,7 +105,8 @@ class CosmicChatMessage extends BaseModel {
         other.nickname == nickname &&
         other.avatarUrl == avatarUrl &&
         other.sentAt == sentAt &&
-        other.userType == userType;
+        other.userType == userType &&
+        other.replyMessageUUID == replyMessageUUID;
   }
 
   @override
@@ -107,12 +117,12 @@ class CosmicChatMessage extends BaseModel {
         nickname.hashCode ^
         avatarUrl.hashCode ^
         sentAt.hashCode ^
-        userType.hashCode;
+        userType.hashCode ^
+        replyMessageUUID.hashCode;
   }
 
-  static Future<CosmicChatMessage?> getByUUID(String uuid) async {
-    // TODO: implement getByUUID
-  }
+  static Future<CosmicChatMessage?> getByUUID(String uuid) async =>
+      RPMTWApiClient.instance.cosmicChatResource.getMessage(uuid);
 }
 
 enum CosmicChatUserType {

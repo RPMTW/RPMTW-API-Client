@@ -18,7 +18,7 @@ class ModelNotFoundException<T> implements Exception {
 
   @override
   String toString() {
-    return "Model ${modelName ?? T.toString()} not found";
+    return "${modelName ?? T.toString()} not found";
   }
 }
 
