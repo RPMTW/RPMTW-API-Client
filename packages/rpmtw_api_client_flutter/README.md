@@ -7,7 +7,7 @@ import 'package:rpmtw_api_client_flutter/rpmtw_api_client_flutter.dart';
 void main() async {
   RPMTWApiClient.init(); // Initialize RPMTW API Client
   RPMTWApiClient apiClient = RPMTWApiClient.instance;
-  print(apiClient.baseUrl);
+  print(apiClient.apiBaseUrl);
   PasswordValidatedResult result =
       await apiClient.authResource.validPassword("12345"); // Valid password
   print(result.message);
@@ -17,6 +17,7 @@ void main() async {
 
   String ip = await apiClient.otherResource.getIP();
   print(ip);
+  exit(0);
 }
 ```
 
@@ -39,6 +40,9 @@ import 'package:rpmtw_api_client_flutter/rpmtw_api_client_flutter.dart';
 MinecraftMod mod = MinecraftMod(...);
 mod.imageWidget(width: 50, height: 50)
 ```
+
+## Links
+[Docs](https://pub.dev/documentation/rpmtw_api_client_flutter/latest/)
 
 ## Other Language
 [Kotlin](https://github.com/RPMTW/RPMTW-API-Client-Kotlin)

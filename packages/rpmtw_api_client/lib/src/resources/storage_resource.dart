@@ -10,14 +10,14 @@ import 'package:rpmtw_api_client/src/utilities/extension.dart';
 class StorageResource extends BaseResource {
   StorageResource(
       {required Client httpClient,
-      required String baseUrl,
+      required String apiBaseUrl,
       required String? token})
-      : super(httpClient: httpClient, baseUrl: baseUrl, globalToken: token);
+      : super(httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
 
   /// 透過 UUID 取得檔案儲存資訊
   Future<Storage> getStorage(String uuid) async {
     Response response =
-        await httpClient.get(Uri.parse('$baseUrl/storage/$uuid'));
+        await httpClient.get(Uri.parse('$apiBaseUrl/storage/$uuid'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return Storage.fromMap(response.map['data']);
@@ -31,7 +31,7 @@ class StorageResource extends BaseResource {
   /// 透過位元建立檔案儲存，如果建立成功將返回檔案儲存資訊
   Future<Storage> createStorageByBytes(Uint8List bytes) async {
     Response response = await httpClient
-        .post(Uri.parse('$baseUrl/storage/create'), body: bytes, headers: {
+        .post(Uri.parse('$apiBaseUrl/storage/create'), body: bytes, headers: {
       'Content-Type': 'application/octet-stream',
     });
 

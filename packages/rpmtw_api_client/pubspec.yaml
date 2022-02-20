@@ -1,6 +1,6 @@
 name: rpmtw_api_client
 description: A starting point for Dart libraries or applications.
-version: 1.0.7
+version: 1.0.7+1
 homepage: https://www.rpmtw.com
 repository: https://github.com/RPMTW/RPMTW-API-Client/tree/main/packages/rpmtw_api_client
 
@@ -14,3 +14,4 @@ dependencies:
   collection: ^1.15.0
   http: ^0.13.4
   pub_semver: ^2.1.0
+  socket_io_client: ^1.0.2

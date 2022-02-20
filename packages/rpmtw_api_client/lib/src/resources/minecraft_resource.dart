@@ -9,9 +9,9 @@ import 'package:rpmtw_api_client/src/utilities/extension.dart';
 class MinecraftResource extends BaseResource {
   MinecraftResource(
       {required Client httpClient,
-      required String baseUrl,
+      required String apiBaseUrl,
       required String? token})
-      : super(httpClient: httpClient, baseUrl: baseUrl, globalToken: token);
+      : super(httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
 
   /// 建立 Minecraft 模組，如果建立成功將回傳 Minecraft 模組資訊
   ///
@@ -75,7 +75,7 @@ class MinecraftResource extends BaseResource {
     }
 
     Response response = await httpClient.post(
-        Uri.parse('$baseUrl/minecraft/mod/create'),
+        Uri.parse('$apiBaseUrl/minecraft/mod/create'),
         headers: {'Authorization': 'Bearer ${token ?? globalToken}'},
         body: json.encode(postData));
     int statusCode = response.statusCode;
@@ -167,7 +167,7 @@ class MinecraftResource extends BaseResource {
     }
 
     Response response = await httpClient.patch(
-        Uri.parse('$baseUrl/minecraft/mod/edit/$uuid'),
+        Uri.parse('$apiBaseUrl/minecraft/mod/edit/$uuid'),
         headers: {'Authorization': 'Bearer ${token ?? globalToken}'},
         body: json.encode(postData));
     int statusCode = response.statusCode;
@@ -189,7 +189,7 @@ class MinecraftResource extends BaseResource {
   Future<MinecraftMod> getMinecraftMod(String uuid,
       {bool recordViewCount = false}) async {
     Response response = await httpClient.get(Uri.parse(
-        '$baseUrl/minecraft/mod/view/$uuid?recordViewCount=$recordViewCount'));
+        '$apiBaseUrl/minecraft/mod/view/$uuid?recordViewCount=$recordViewCount'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return MinecraftMod.fromMap(response.map['data']);
@@ -208,7 +208,7 @@ class MinecraftResource extends BaseResource {
       int? limit,
       int? skip,
       ModSortType sort = ModSortType.createTime}) async {
-    Uri uri = Uri.parse('$baseUrl/minecraft/mod/search');
+    Uri uri = Uri.parse('$apiBaseUrl/minecraft/mod/search');
     uri = uri.replace(queryParameters: {
       'filter': filter,
       'limit': limit?.toString(),
@@ -236,7 +236,7 @@ class MinecraftResource extends BaseResource {
   /// [userUUID] 要篩選的資料編輯者 UUID
   Future<List<WikiChangelog>> filterChangelogs(
       {int? limit, int? skip, String? dataUUID, String? userUUID}) async {
-    Uri uri = Uri.parse('$baseUrl/minecraft/changelog');
+    Uri uri = Uri.parse('$apiBaseUrl/minecraft/changelog');
     uri = uri.replace(queryParameters: {
       'limit': limit?.toString(),
       'skip': skip?.toString(),
@@ -259,7 +259,7 @@ class MinecraftResource extends BaseResource {
   /// 取得 Minecraft 版本資訊 (由 Mojang API 提供，RPMTW API 伺服器每天快取一次資料)
   Future<MinecraftVersionManifest> getMinecraftVersionManifest() async {
     Response response =
-        await httpClient.get(Uri.parse('$baseUrl/minecraft/versions'));
+        await httpClient.get(Uri.parse('$apiBaseUrl/minecraft/versions'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return MinecraftVersionManifest.fromMap(response.map['data']);

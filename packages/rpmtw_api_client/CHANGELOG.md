@@ -1,3 +1,10 @@
+# 1.0.7+1
+- feat: support cosmic chat 4.0 send a message and receive messages sent by other users
+- docs: RPMTWApiClient#init, RPMTWApiClient#setGlobalToken
+- feat: added RPMTWApiClient#cosmicChatBaseUrl for cosmic chat resource
+- style: change RPMTWApiClient#baseUrl to RPMTWApiClient#apiBaseUrl
+- docs: added docs for getUserByUUID, getUserByEmail, createUser
+- docs: update repository meta
 # 1.0.7
 - Added helloWorld(),getIP() in OtherResource
 - Added getMod() in CurseForgeResource

@@ -1,3 +1,6 @@
+
+# 1.0.7+1
+- Support rpmtw_api_client 1.0.7+1
 # 1.0.7
 - Support rpmtw_api_client 1.0.7
 # 1.0.6+3

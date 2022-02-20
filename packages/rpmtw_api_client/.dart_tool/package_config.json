@@ -200,6 +200,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "socket_io_client",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/socket_io_client-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "socket_io_common",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/socket_io_common-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "source_map_stack_trace",
       "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/source_map_stack_trace-2.1.0",
       "packageUri": "lib/",
@@ -302,7 +314,7 @@
       "languageVersion": "2.15"
     }
   ],
-  "generated": "2022-02-19T04:13:05.540633Z",
+  "generated": "2022-02-20T01:51:38.223290Z",
   "generator": "pub",
   "generatorVersion": "2.16.0-134.5.beta"
 }

@@ -78,7 +78,7 @@ class Storage implements BaseModel {
   }
 
   static String getDownloadUrl(String uuid, {String? baseUrl}) {
-    baseUrl ??= RPMTWApiClient.instance.baseUrl;
+    baseUrl ??= RPMTWApiClient.instance.apiBaseUrl;
     return '$baseUrl/storage/$uuid/download';
   }
 }

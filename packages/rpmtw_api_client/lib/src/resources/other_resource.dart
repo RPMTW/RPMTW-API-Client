@@ -7,12 +7,12 @@ import 'package:rpmtw_api_client/src/utilities/extension.dart';
 class OtherResource extends BaseResource {
   OtherResource(
       {required Client httpClient,
-      required String baseUrl,
+      required String apiBaseUrl,
       required String? token})
-      : super(httpClient: httpClient, baseUrl: baseUrl, globalToken: token);
+      : super(httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
 
   Future<String> helloWorld() async {
-    Response response = await httpClient.get(Uri.parse('$baseUrl/'));
+    Response response = await httpClient.get(Uri.parse('$apiBaseUrl/'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return response.map['data']['message'];
@@ -22,7 +22,7 @@ class OtherResource extends BaseResource {
   }
 
   Future<String> getIP() async {
-    Response response = await httpClient.get(Uri.parse('$baseUrl/ip'));
+    Response response = await httpClient.get(Uri.parse('$apiBaseUrl/ip'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return response.map['data']['ip'];

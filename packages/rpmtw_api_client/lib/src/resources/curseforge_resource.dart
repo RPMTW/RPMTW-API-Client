@@ -8,12 +8,12 @@ import 'package:rpmtw_api_client/src/utilities/extension.dart';
 class CurseForgeResource extends BaseResource {
   CurseForgeResource(
       {required Client httpClient,
-      required String baseUrl,
+      required String apiBaseUrl,
       required String? token})
-      : super(httpClient: httpClient, baseUrl: baseUrl, globalToken: token);
+      : super(httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
 
   Future<Map> get({required String path, int apiVersion = 1}) async {
-    Response response = await httpClient.get(Uri.parse("$baseUrl/curseforge/")
+    Response response = await httpClient.get(Uri.parse("$apiBaseUrl/curseforge/")
         .replace(queryParameters: {"path": "v$apiVersion/$path"}));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {

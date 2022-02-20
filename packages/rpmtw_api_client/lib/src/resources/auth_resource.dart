@@ -11,16 +11,17 @@ import 'package:rpmtw_api_client/src/utilities/extension.dart';
 class AuthResource extends BaseResource {
   AuthResource(
       {required Client httpClient,
-      required String baseUrl,
+      required String apiBaseUrl,
       required String? token})
-      : super(httpClient: httpClient, baseUrl: baseUrl, globalToken: token);
+      : super(httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
 
   /// Get user info by uuid.
+  /// 
   /// * [uuid] user's uuid (When uuid is **me**, use token to get the user info of the token)
   /// * [token] (optional)
   Future<User> getUserByUUID(String uuid, {String? token}) async {
     Response response =
-        await httpClient.get(Uri.parse('$baseUrl/auth/user/$uuid'), headers: {
+        await httpClient.get(Uri.parse('$apiBaseUrl/auth/user/$uuid'), headers: {
       if (globalToken != null || token != null)
         'Authorization': 'Bearer ${token ?? globalToken}'
     });
@@ -37,7 +38,7 @@ class AuthResource extends BaseResource {
   /// Get user info by email.
   Future<User> getUserByEmail(String email) async {
     Response response = await httpClient
-        .get(Uri.parse('$baseUrl/auth/user/get-by-email/$email'));
+        .get(Uri.parse('$apiBaseUrl/auth/user/get-by-email/$email'));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
       return User.fromMap(response.map['data']);
@@ -49,6 +50,7 @@ class AuthResource extends BaseResource {
   }
 
   /// Create a user account, if successful, will return token and user information.
+  /// 
   /// * [username] user's username
   /// * [password] user's password
   /// * [email] user's email address
@@ -63,7 +65,7 @@ class AuthResource extends BaseResource {
       postData['avatarStorageUUID'] = avatarStorageUUID;
     }
     Response response = await httpClient.post(
-        Uri.parse('$baseUrl/auth/user/create'),
+        Uri.parse('$apiBaseUrl/auth/user/create'),
         body: json.encode(postData));
     int statusCode = response.statusCode;
 
@@ -106,7 +108,7 @@ class AuthResource extends BaseResource {
       postData['newAvatarStorageUUID'] = newAvatarStorageUUID;
     }
     Response response = await httpClient.post(
-      Uri.parse('$baseUrl/auth/user/$uuid/update'),
+      Uri.parse('$apiBaseUrl/auth/user/$uuid/update'),
       headers: {
         if (globalToken != null || token != null)
           'Authorization': 'Bearer ${token ?? globalToken}'
@@ -131,7 +133,7 @@ class AuthResource extends BaseResource {
       {required String uuid, required String password}) async {
     Map postData = {'uuid': uuid, 'password': password};
     Response response = await httpClient.post(
-        Uri.parse('$baseUrl/auth/get-token'),
+        Uri.parse('$apiBaseUrl/auth/get-token'),
         body: json.encode(postData));
     int statusCode = response.statusCode;
 
@@ -153,7 +155,7 @@ class AuthResource extends BaseResource {
   /// 驗證密碼格式
   Future<PasswordValidatedResult> validPassword(String password) {
     return httpClient
-        .get(Uri.parse('$baseUrl/auth/valid-password?password=$password'))
+        .get(Uri.parse('$apiBaseUrl/auth/valid-password?password=$password'))
         .then((response) {
       int statusCode = response.statusCode;
       if (statusCode == HttpStatus.ok) {
@@ -167,7 +169,7 @@ class AuthResource extends BaseResource {
   Future<bool> validAuthCode({required String email, required int code}) {
     return httpClient
         .get(Uri.parse(
-            '$baseUrl/auth/valid-auth-code?email=$email&authCode=${code.toString()}'))
+            '$apiBaseUrl/auth/valid-auth-code?email=$email&authCode=${code.toString()}'))
         .then((response) {
       int statusCode = response.statusCode;
       if (statusCode == HttpStatus.ok) {
