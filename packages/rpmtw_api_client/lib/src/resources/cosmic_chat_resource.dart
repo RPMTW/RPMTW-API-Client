@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart';
+import 'package:rpmtw_api_client/src/models/cosmic_chat/cosmic_chat_info.dart';
 import 'package:rpmtw_api_client/src/models/cosmic_chat/cosmic_chat_message.dart';
 import 'package:rpmtw_api_client/src/resources/base_resource.dart';
 import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
@@ -108,6 +109,19 @@ class CosmicChatResource extends BaseResource {
       throw ModelNotFoundException<CosmicChatMessage>();
     } else {
       throw Exception('Get message failed');
+    }
+  }
+
+  Future<CosmicChatInfo> getInfo() async {
+    Response response =
+        await httpClient.get(Uri.parse("$apiBaseUrl/cosmic-chat/info"));
+    int statusCode = response.statusCode;
+    if (statusCode == HttpStatus.ok) {
+      return CosmicChatInfo.fromMap(response.map['data']);
+    } else if (statusCode == HttpStatus.notFound) {
+      throw ModelNotFoundException<CosmicChatInfo>();
+    } else {
+      throw Exception('Get info failed');
     }
   }
 }

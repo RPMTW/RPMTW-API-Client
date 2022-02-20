@@ -1,4 +1,5 @@
 # 1.0.7+2
+- feat: implement CosmicChatMessage#getInfo
 - feat: implement CosmicChatMessage#getByUUID
 # 1.0.7+1
 - feat: support cosmic chat 4.0 send a message and receive messages sent by other users
