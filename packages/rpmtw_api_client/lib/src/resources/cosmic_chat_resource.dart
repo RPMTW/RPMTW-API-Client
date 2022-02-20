@@ -65,12 +65,20 @@ class CosmicChatResource extends BaseResource {
     _socket = null;
   }
 
-  /// Send a message to the Cosmic Chat server
-  void sendMessage(String message, {String? nickname}) {
+  void _connectCheck() {
     if (_socket == null) {
       throw StateError(
           'Not connected to the Cosmic Chat server, call connect() first');
     }
+  }
+
+  /// Send a message to the server
+  ///
+  /// **Parameters**
+  /// * [message] message content
+  /// * [nickname] user's nickname
+  void sendMessage(String message, {String? nickname}) {
+    _connectCheck();
 
     _socket!.emit(
         'clientMessage',
@@ -80,12 +88,27 @@ class CosmicChatResource extends BaseResource {
         })));
   }
 
+  /// Reply message by message id
+  ///
+  /// **Parameters**
+  /// * [message] message content
+  /// * [uuid] message uuid to reply to
+  /// * [nickname] user's nickname
+  void replyMessage(String message, {required String uuid, String? nickname}) {
+    _connectCheck();
+
+    _socket!.emit(
+        'clientMessage',
+        utf8.encode(json.encode({
+          'message': 'Hello, world!',
+          if (nickname != null) 'nickname': nickname,
+          "replyMessageUUID": uuid
+        })));
+  }
+
   /// Receive messages sent by other users
   Stream<CosmicChatMessage> get onMessageSent {
-    if (_socket == null) {
-      throw StateError(
-          'Not connected to the Cosmic Chat server, call connect() first');
-    }
+    _connectCheck();
 
     String decodeMessage(List<dynamic> message) =>
         utf8.decode(List<int>.from(message));

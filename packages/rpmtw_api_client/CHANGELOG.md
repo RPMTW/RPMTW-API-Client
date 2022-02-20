@@ -1,4 +1,5 @@
 # 1.0.7+2
+- feat: reply message in cosmic chat (CosmicChatMessage#replyMessage)
 - feat: implement CosmicChatMessage#getInfo
 - feat: implement CosmicChatMessage#getByUUID
 # 1.0.7+1
