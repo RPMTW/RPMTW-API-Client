@@ -22,6 +22,8 @@ class CosmicChatResource extends BaseResource {
       : super(
             httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
 
+  bool get isConnected => _socket?.connected ?? false;
+
   /// Connect to the Cosmic Chat server
   ///
   /// * [minecraftUUID] player's minecraft UUID (optional)
@@ -32,7 +34,7 @@ class CosmicChatResource extends BaseResource {
         OptionBuilder().setTransports(['websocket']).disableAutoConnect();
 
     if (minecraftUUID == null && token == null) {
-      throw ArgumentError('minecraftUUID and token cannot both be empty');
+      throw ArgumentError('minecraftUUID and token cannot both be null');
     }
 
     if (minecraftUUID != null) {
