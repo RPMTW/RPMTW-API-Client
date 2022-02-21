@@ -11,6 +11,8 @@ class User implements BaseModel {
   final bool emailVerified;
   final String? avatarStorageUUID;
 
+  /// Get the user's avatar url.
+  /// if the user has no avatar, it will return null.
   String? avatarUrl() => avatarStorageUUID == null
       ? null
       : Storage.getDownloadUrl(avatarStorageUUID!);

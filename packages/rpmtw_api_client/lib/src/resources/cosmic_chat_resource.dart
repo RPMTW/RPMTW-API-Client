@@ -53,8 +53,11 @@ class CosmicChatResource extends BaseResource {
 
     // Wait for connection
     while (!connected) {
-      await Future.delayed(Duration(milliseconds: 300));
+      await Future.delayed(Duration(milliseconds: 100));
     }
+    // Wait for the connection to be initialized finished
+    await Future.delayed(Duration(milliseconds: 1000));
+
     _socket = socket;
   }
 

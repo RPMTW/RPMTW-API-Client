@@ -12,9 +12,13 @@ class StorageResource extends BaseResource {
       {required Client httpClient,
       required String apiBaseUrl,
       required String? token})
-      : super(httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
+      : super(
+            httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
 
-  /// 透過 UUID 取得檔案儲存資訊
+  /// Get storage info by uuid.
+  /// 
+  /// *Parameters*
+  /// * [uuid] uuid of the storage
   Future<Storage> getStorage(String uuid) async {
     Response response =
         await httpClient.get(Uri.parse('$apiBaseUrl/storage/$uuid'));

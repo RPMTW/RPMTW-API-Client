@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class CosmicChatInfo {
   /// Number of online users.
   final int onlineUsers;

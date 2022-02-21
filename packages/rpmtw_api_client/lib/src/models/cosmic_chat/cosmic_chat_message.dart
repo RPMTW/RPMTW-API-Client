@@ -16,7 +16,7 @@ class CosmicChatMessage extends BaseModel {
 
   final String avatarUrl;
 
-  /// message sent time
+  /// message sent time (UTC+0)
   final DateTime sentAt;
 
   final CosmicChatUserType userType;
