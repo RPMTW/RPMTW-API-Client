@@ -127,6 +127,7 @@ class CosmicChatResource extends BaseResource {
     return stream;
   }
 
+  /// Get message by message uuid
   Future<CosmicChatMessage> getMessage(String uuid) async {
     Response response =
         await httpClient.get(Uri.parse("$apiBaseUrl/cosmic-chat/view/$uuid"));
@@ -140,6 +141,7 @@ class CosmicChatResource extends BaseResource {
     }
   }
 
+  /// Get cosmic chat info (online users, protocolVersion, etc.)
   Future<CosmicChatInfo> getInfo() async {
     Response response =
         await httpClient.get(Uri.parse("$apiBaseUrl/cosmic-chat/info"));

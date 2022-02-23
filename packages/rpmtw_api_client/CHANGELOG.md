@@ -1,4 +1,5 @@
 # 1.0.7+3
+- docs: CosmicChatMessage#getMessage, CosmicChatMessage#getInfo
 - feat: The time zone for sending cosmic chat messages changed to UTC+0
 - docs: User#avatarUrl, Storage#getDownloadUrl, StorageResource#getStorage
 # 1.0.7+2
