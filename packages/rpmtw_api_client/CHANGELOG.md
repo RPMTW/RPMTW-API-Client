@@ -1,4 +1,5 @@
 # 1.0.7+3
+- feat: Support to get the status of cosmic chat messages sent.
 - docs: CosmicChatMessage#getMessage, CosmicChatMessage#getInfo
 - feat: The time zone for sending cosmic chat messages changed to UTC+0
 - docs: User#avatarUrl, Storage#getDownloadUrl, StorageResource#getStorage

@@ -77,38 +77,57 @@ class CosmicChatResource extends BaseResource {
     }
   }
 
-  /// Send a message to the server
+  /// Send a message to the server, and return the sent status.
   ///
   /// **Parameters**
   /// * [message] message content
   /// * [nickname] user's nickname
-  void sendMessage(String message, {String? nickname}) {
+  Future<String> sendMessage(String message, {String? nickname}) async {
     _connectCheck();
+    String? status;
 
-    _socket!.emit(
+    _socket!.emitWithAck(
         'clientMessage',
         utf8.encode(json.encode({
           'message': 'Hello, world!',
           if (nickname != null) 'nickname': nickname,
-        })));
+        })), ack: (_response) {
+      Map response = json.decode(_response);
+      status = response["status"];
+    });
+
+    while (status == null) {
+      await Future.delayed(Duration(milliseconds: 100));
+    }
+    return status!;
   }
 
-  /// Reply message by message id
+  /// Reply message by message uuid, and return the replied status.
   ///
   /// **Parameters**
   /// * [message] message content
   /// * [uuid] message uuid to reply to
   /// * [nickname] user's nickname
-  void replyMessage(String message, {required String uuid, String? nickname}) {
+  Future<String> replyMessage(String message,
+      {required String uuid, String? nickname}) async {
     _connectCheck();
+    String? status;
 
-    _socket!.emit(
+    _socket!.emitWithAck(
         'clientMessage',
         utf8.encode(json.encode({
           'message': 'Hello, world!',
           if (nickname != null) 'nickname': nickname,
           "replyMessageUUID": uuid
-        })));
+        })), ack: (_response) {
+      Map response = json.decode(_response);
+      status = response["status"];
+    });
+
+    while (status == null) {
+      await Future.delayed(Duration(milliseconds: 100));
+    }
+    return status!;
   }
 
   /// Receive messages sent by other users
