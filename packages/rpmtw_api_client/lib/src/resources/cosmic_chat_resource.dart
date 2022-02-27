@@ -89,7 +89,7 @@ class CosmicChatResource extends BaseResource {
     _socket!.emitWithAck(
         'clientMessage',
         utf8.encode(json.encode({
-          'message': 'Hello, world!',
+          'message': message,
           if (nickname != null) 'nickname': nickname,
         })), ack: (_response) {
       Map response = json.decode(_response);
@@ -116,7 +116,7 @@ class CosmicChatResource extends BaseResource {
     _socket!.emitWithAck(
         'clientMessage',
         utf8.encode(json.encode({
-          'message': 'Hello, world!',
+          'message': message,
           if (nickname != null) 'nickname': nickname,
           "replyMessageUUID": uuid
         })), ack: (_response) {
