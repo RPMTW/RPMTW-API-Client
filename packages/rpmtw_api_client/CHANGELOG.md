@@ -1,8 +1,9 @@
 # 1.0.7+3
+- feat: Added `onlyListenMessage` argument for `CosmicChatResource#onMessageSent` and `CosmicChatResource#connect`
 - feat: Support to get the status of cosmic chat messages sent.
-- docs: CosmicChatMessage#getMessage, CosmicChatMessage#getInfo
+- docs: `CosmicChatMessage#getMessage`, `CosmicChatMessage#getInfo`
 - feat: The time zone for sending cosmic chat messages changed to UTC+0
-- docs: User#avatarUrl, Storage#getDownloadUrl, StorageResource#getStorage
+- docs: `User#avatarUrl`, `Storage#getDownloadUrl`, `StorageResource#getStorage`
 # 1.0.7+2
 - feat: reply message in cosmic chat (CosmicChatMessage#replyMessage)
 - feat: implement CosmicChatMessage#getInfo

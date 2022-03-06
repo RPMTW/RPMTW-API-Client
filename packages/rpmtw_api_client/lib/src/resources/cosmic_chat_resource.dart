@@ -10,6 +10,7 @@ import 'package:rpmtw_api_client/src/utilities/extension.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 Socket? _socket;
+bool _onlyListenMessage = false;
 
 class CosmicChatResource extends BaseResource {
   final String cosmicChatBaseUrl;
@@ -28,12 +29,17 @@ class CosmicChatResource extends BaseResource {
   ///
   /// * [minecraftUUID] player's minecraft UUID (optional)
   /// * [token] rpmtw account token (optional)
+  /// * [onlyListenMessage] if true, only listen to message event, [minecraftUUID] and [token] can be empty
   /// [minecraftUUID], [token] cannot both be empty
-  Future<void> connect({String? minecraftUUID, String? token}) async {
+  Future<void> connect(
+      {String? minecraftUUID,
+      String? token,
+      bool onlyListenMessage = false}) async {
+    _onlyListenMessage = onlyListenMessage;
     final baseOption =
         OptionBuilder().setTransports(['websocket']).disableAutoConnect();
 
-    if (minecraftUUID == null && token == null) {
+    if (minecraftUUID == null && token == null && !onlyListenMessage) {
       throw ArgumentError('minecraftUUID and token cannot both be null');
     }
 
@@ -70,8 +76,8 @@ class CosmicChatResource extends BaseResource {
     _socket = null;
   }
 
-  void _connectCheck() {
-    if (_socket == null) {
+  void _connectCheck({bool onlyListen = false}) {
+    if (_socket == null && !onlyListen && !_onlyListenMessage) {
       throw StateError(
           'Not connected to the Cosmic Chat server, call connect() first');
     }
@@ -132,7 +138,7 @@ class CosmicChatResource extends BaseResource {
 
   /// Receive messages sent by other users
   Stream<CosmicChatMessage> get onMessageSent {
-    _connectCheck();
+    _connectCheck(onlyListen: true);
 
     String decodeMessage(List<dynamic> message) =>
         utf8.decode(List<int>.from(message));
