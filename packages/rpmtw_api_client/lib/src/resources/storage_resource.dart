@@ -1,13 +1,13 @@
-import 'dart:io';
-import 'dart:typed_data';
+import "dart:io";
+import "dart:typed_data";
 
-import 'package:http/http.dart';
-import 'package:rpmtw_api_client/src/models/storage/storage.dart';
-import 'package:rpmtw_api_client/src/resources/base_resource.dart';
-import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
-import 'package:rpmtw_api_client/src/utilities/extension.dart';
+import "package:http/http.dart";
+import "package:rpmtw_api_client/src/models/storage/storage.dart";
+import "package:rpmtw_api_client/src/resources/base_resource.dart";
+import "package:rpmtw_api_client/src/utilities/exceptions.dart";
+import "package:rpmtw_api_client/src/utilities/extension.dart";
 
-class StorageResource extends BaseResource {
+class StorageResource extends APIResource {
   StorageResource(
       {required Client httpClient,
       required String apiBaseUrl,
@@ -16,45 +16,45 @@ class StorageResource extends BaseResource {
             httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
 
   /// Get storage info by uuid.
-  /// 
+  ///
   /// *Parameters*
   /// * [uuid] uuid of the storage
   Future<Storage> getStorage(String uuid) async {
     Response response =
-        await httpClient.get(Uri.parse('$apiBaseUrl/storage/$uuid'));
+        await httpClient.get(Uri.parse("$apiBaseUrl/storage/$uuid"));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return Storage.fromMap(response.map['data']);
+      return Storage.fromMap(response.map["data"]);
     } else if (statusCode == HttpStatus.notFound) {
       throw ModelNotFoundException<Storage>();
     } else {
-      throw Exception('Get storage failed');
+      throw Exception("Get storage failed");
     }
   }
 
   /// 透過位元建立檔案儲存，如果建立成功將返回檔案儲存資訊
   Future<Storage> createStorageByBytes(Uint8List bytes) async {
     Response response = await httpClient
-        .post(Uri.parse('$apiBaseUrl/storage/create'), body: bytes, headers: {
-      'Content-Type': 'application/octet-stream',
+        .post(Uri.parse("$apiBaseUrl/storage/create"), body: bytes, headers: {
+      "Content-Type": "application/octet-stream",
     });
 
     if (bytes.lengthInBytes > (8 * 1024 * 1024)) {
       // 檔案最大只能上傳 8 MB
-      throw Exception('File size is too large');
+      throw Exception("File size is too large");
     }
 
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return Storage.fromMap(response.map['data']);
+      return Storage.fromMap(response.map["data"]);
     } else if (statusCode == HttpStatus.notFound) {
       throw ModelNotFoundException<Storage>();
     } else {
       if (statusCode == HttpStatus.badRequest &&
-          response.map['message'] == "File size is too large") {
-        throw Exception('File size is too large');
+          response.map["message"] == "File size is too large") {
+        throw Exception("File size is too large");
       } else {
-        throw Exception('Create storage failed');
+        throw Exception("Create storage failed");
       }
     }
   }
@@ -74,7 +74,7 @@ class StorageResource extends BaseResource {
     } else if (statusCode == HttpStatus.notFound) {
       throw ModelNotFoundException<Storage>();
     } else {
-      throw Exception('Download storage failed');
+      throw Exception("Download storage failed");
     }
   }
 

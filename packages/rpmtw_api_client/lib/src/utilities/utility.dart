@@ -1,4 +1,4 @@
-import 'package:pub_semver/pub_semver.dart';
+import "package:pub_semver/pub_semver.dart";
 
 class Utility {
   /// https://github.com/RPMTW/RPMLauncher/blob/fa2523e3b006cd5e3dfca315be3c61debf48b40b/lib/Utility/Utility.dart#L381
@@ -36,7 +36,7 @@ class Utility {
       }
 
       /// 例如 21w44a
-      RegExp _ = RegExp(r'(?:(?<yy>\d\d)w(?<ww>\d\d)[a-z])');
+      RegExp _ = RegExp(r"(?:(?<yy>\d\d)w(?<ww>\d\d)[a-z])");
       if (_.hasMatch(sourceVersion)) {
         RegExpMatch match = _.allMatches(sourceVersion).toList().first;
 

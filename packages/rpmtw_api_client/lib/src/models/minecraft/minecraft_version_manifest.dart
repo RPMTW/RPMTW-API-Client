@@ -1,8 +1,8 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:collection/collection.dart';
-import 'package:rpmtw_api_client/src/models/base_model.dart';
-import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart';
+import "package:collection/collection.dart";
+import "package:rpmtw_api_client/src/models/base_model.dart";
+import "package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart";
 
 class MinecraftVersionManifest implements BaseModel {
   final String latestRelease;
@@ -24,13 +24,13 @@ class MinecraftVersionManifest implements BaseModel {
 
   factory MinecraftVersionManifest.fromMap(Map<String, dynamic> map) {
     return MinecraftVersionManifest(
-      versions: (map['manifest']['versions'] as List<dynamic>)
+      versions: (map["manifest"]["versions"] as List<dynamic>)
           .map((d) => MinecraftVersion.fromMap(d))
           .toList(),
-      latestRelease: map['manifest']['latest']['release'],
-      latestSnapshot: map['manifest']['latest']['snapshot'],
-      uuid: map['uuid'],
-      lastUpdated: DateTime.fromMillisecondsSinceEpoch(map['lastUpdated']),
+      latestRelease: map["manifest"]["latest"]["release"],
+      latestSnapshot: map["manifest"]["latest"]["snapshot"],
+      uuid: map["uuid"],
+      lastUpdated: DateTime.fromMillisecondsSinceEpoch(map["lastUpdated"]),
     );
   }
 
@@ -42,14 +42,14 @@ class MinecraftVersionManifest implements BaseModel {
   Map<String, dynamic> toMap() {
     return {
       "manifest": {
-        'latest': {
-          'release': latestRelease,
-          'snapshot': latestSnapshot,
+        "latest": {
+          "release": latestRelease,
+          "snapshot": latestSnapshot,
         },
-        'versions': versions.map((v) => v.toMap()).toList(),
+        "versions": versions.map((v) => v.toMap()).toList(),
       },
-      'uuid': uuid,
-      'lastUpdated': lastUpdated.millisecondsSinceEpoch,
+      "uuid": uuid,
+      "lastUpdated": lastUpdated.millisecondsSinceEpoch,
     };
   }
 
@@ -77,7 +77,7 @@ class MinecraftVersionManifest implements BaseModel {
 
   @override
   String toString() {
-    return 'MinecraftVersionManifest(latestRelease: $latestRelease, latestSnapshot: $latestSnapshot, versions: $versions, uuid: $uuid, lastUpdated: $lastUpdated)';
+    return "MinecraftVersionManifest(latestRelease: $latestRelease, latestSnapshot: $latestSnapshot, versions: $versions, uuid: $uuid, lastUpdated: $lastUpdated)";
   }
 
   MinecraftVersionManifest copyWith({

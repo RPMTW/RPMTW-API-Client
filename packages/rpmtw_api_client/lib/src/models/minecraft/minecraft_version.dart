@@ -1,7 +1,7 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:pub_semver/pub_semver.dart';
-import 'package:rpmtw_api_client/src/utilities/utility.dart';
+import "package:pub_semver/pub_semver.dart";
+import "package:rpmtw_api_client/src/utilities/utility.dart";
 
 class MinecraftVersion {
   final String id;
@@ -29,31 +29,31 @@ class MinecraftVersion {
 
   factory MinecraftVersion.fromMap(Map<String, dynamic> map) {
     return MinecraftVersion(
-      map['id'],
-      MinecraftVersionType.values.firstWhere((_) => _.name == map['type']),
-      map['url'],
-      map['time'],
-      map['releaseTime'],
-      map['sha1'],
-      map['complianceLevel']?.toInt() ?? 0,
+      map["id"],
+      MinecraftVersionType.values.firstWhere((_) => _.name == map["type"]),
+      map["url"],
+      map["time"],
+      map["releaseTime"],
+      map["sha1"],
+      map["complianceLevel"]?.toInt() ?? 0,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'type': type.name,
-      'url': url,
-      'time': time,
-      'releaseTime': releaseTime,
-      'sha1': sha1,
-      'complianceLevel': complianceLevel,
+      "id": id,
+      "type": type.name,
+      "url": url,
+      "time": time,
+      "releaseTime": releaseTime,
+      "sha1": sha1,
+      "complianceLevel": complianceLevel,
     };
   }
 
   @override
   String toString() {
-    return 'MinecraftVersion(id: $id, type: $type, url: $url, time: $time, releaseTime: $releaseTime, sha1: $sha1, complianceLevel: $complianceLevel)';
+    return "MinecraftVersion(id: $id, type: $type, url: $url, time: $time, releaseTime: $releaseTime, sha1: $sha1, complianceLevel: $complianceLevel)";
   }
 
   @override
@@ -118,13 +118,13 @@ extension MCVersionTypeExtension on MinecraftVersionType {
   String get name {
     switch (this) {
       case MinecraftVersionType.release:
-        return 'release';
+        return "release";
       case MinecraftVersionType.snapshot:
-        return 'snapshot';
+        return "snapshot";
       case MinecraftVersionType.beta:
-        return 'old_beta';
+        return "old_beta";
       case MinecraftVersionType.alpha:
-        return 'old_alpha';
+        return "old_alpha";
     }
   }
 }

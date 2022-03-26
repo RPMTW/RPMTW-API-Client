@@ -1,5 +1,5 @@
-import 'package:http/http.dart';
-import 'package:rpmtw_api_client/rpmtw_api_client.dart';
+import "package:http/http.dart";
+import "package:rpmtw_api_client/rpmtw_api_client.dart";
 
 class RPMTWApiClient {
   final Client _httpClient;
@@ -10,7 +10,7 @@ class RPMTWApiClient {
   String? _globalToken;
 
   /// Set the global token for all requests.
-  /// 
+  ///
   /// *Example*
   /// ```dart
   /// RPMTWApiClient client = RPMTWApiClient.instance;
@@ -31,11 +31,11 @@ class RPMTWApiClient {
         _apiBaseUrl = apiBaseUrl ??
             (development
                 ? "http://localhost:8080"
-                : 'https://api.rpmtw.com:2096'),
+                : "https://api.rpmtw.com:2096"),
         _cosmicChatBaseUrl = cosmicChatBaseUrl ??
             (development
                 ? "http://localhost:2087"
-                : 'https://api.rpmtw.com:2087') {
+                : "https://api.rpmtw.com:2087") {
     _apiClient = this;
 
     if (token != null) _globalToken = token;
@@ -56,6 +56,8 @@ class RPMTWApiClient {
       apiBaseUrl: _apiBaseUrl,
       cosmicChatBaseUrl: _cosmicChatBaseUrl,
       token: _globalToken);
+  TranslateResource get translateResource => TranslateResource(
+      httpClient: _httpClient, apiBaseUrl: _apiBaseUrl, token: _globalToken);
 
   static RPMTWApiClient get instance {
     if (_apiClient == null) {

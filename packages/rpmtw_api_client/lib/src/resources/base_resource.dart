@@ -1,11 +1,11 @@
-import 'package:http/http.dart';
+import "package:http/http.dart";
 
-abstract class BaseResource {
+abstract class APIResource {
   Client httpClient;
   String apiBaseUrl;
   String? globalToken;
 
-  BaseResource(
+  APIResource(
       {required this.httpClient,
       required this.apiBaseUrl,
       required this.globalToken});

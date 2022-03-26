@@ -1,33 +1,34 @@
-import 'dart:io';
+import "dart:io";
 
-import 'package:http/http.dart';
-import 'package:rpmtw_api_client/src/resources/base_resource.dart';
-import 'package:rpmtw_api_client/src/utilities/extension.dart';
+import "package:http/http.dart";
+import "package:rpmtw_api_client/src/resources/base_resource.dart";
+import "package:rpmtw_api_client/src/utilities/extension.dart";
 
-class OtherResource extends BaseResource {
+class OtherResource extends APIResource {
   OtherResource(
       {required Client httpClient,
       required String apiBaseUrl,
       required String? token})
-      : super(httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
+      : super(
+            httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
 
   Future<String> helloWorld() async {
-    Response response = await httpClient.get(Uri.parse('$apiBaseUrl/'));
+    Response response = await httpClient.get(Uri.parse("$apiBaseUrl/"));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return response.map['data']['message'];
+      return response.map["data"]["message"];
     } else {
-      throw Exception('Failed to get data');
+      throw Exception("Failed to get data");
     }
   }
 
   Future<String> getIP() async {
-    Response response = await httpClient.get(Uri.parse('$apiBaseUrl/ip'));
+    Response response = await httpClient.get(Uri.parse("$apiBaseUrl/ip"));
     int statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
-      return response.map['data']['ip'];
+      return response.map["data"]["ip"];
     } else {
-      throw Exception('Failed to get ip');
+      throw Exception("Failed to get ip");
     }
   }
 }

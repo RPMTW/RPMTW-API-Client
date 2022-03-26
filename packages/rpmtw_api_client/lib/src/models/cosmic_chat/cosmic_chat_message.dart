@@ -1,7 +1,7 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:rpmtw_api_client/src/api_client.dart';
-import 'package:rpmtw_api_client/src/models/base_model.dart';
+import "package:rpmtw_api_client/src/api_client.dart";
+import "package:rpmtw_api_client/src/models/base_model.dart";
 
 class CosmicChatMessage extends BaseModel {
   final String uuid;
@@ -60,27 +60,27 @@ class CosmicChatMessage extends BaseModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      'uuid': uuid,
-      'username': username,
-      'message': message,
-      'nickname': nickname,
-      'avatarUrl': avatarUrl,
-      'sentAt': sentAt.millisecondsSinceEpoch,
-      'userType': userType.name,
-      'replyMessageUUID': replyMessageUUID,
+      "uuid": uuid,
+      "username": username,
+      "message": message,
+      "nickname": nickname,
+      "avatarUrl": avatarUrl,
+      "sentAt": sentAt.millisecondsSinceEpoch,
+      "userType": userType.name,
+      "replyMessageUUID": replyMessageUUID,
     };
   }
 
   factory CosmicChatMessage.fromMap(Map<String, dynamic> map) {
     return CosmicChatMessage(
-      uuid: map['uuid'] ?? '',
-      username: map['username'] ?? '',
-      message: map['message'] ?? '',
-      nickname: map['nickname'],
-      avatarUrl: map['avatarUrl'] ?? '',
-      sentAt: DateTime.fromMillisecondsSinceEpoch(map['sentAt']),
-      userType: CosmicChatUserType.values.byName(map['userType']),
-      replyMessageUUID: map['replyMessageUUID'],
+      uuid: map["uuid"] ?? "",
+      username: map["username"] ?? "",
+      message: map["message"] ?? "",
+      nickname: map["nickname"],
+      avatarUrl: map["avatarUrl"] ?? "",
+      sentAt: DateTime.fromMillisecondsSinceEpoch(map["sentAt"]),
+      userType: CosmicChatUserType.values.byName(map["userType"]),
+      replyMessageUUID: map["replyMessageUUID"],
     );
   }
 
@@ -91,7 +91,7 @@ class CosmicChatMessage extends BaseModel {
 
   @override
   String toString() {
-    return 'CosmicChatMessage(uuid: $uuid, username: $username, message: $message, nickname: $nickname, avatarUrl: $avatarUrl, sentAt: $sentAt, userType: $userType, replyMessageUUID: $replyMessageUUID)';
+    return "CosmicChatMessage(uuid: $uuid, username: $username, message: $message, nickname: $nickname, avatarUrl: $avatarUrl, sentAt: $sentAt, userType: $userType, replyMessageUUID: $replyMessageUUID)";
   }
 
   @override
