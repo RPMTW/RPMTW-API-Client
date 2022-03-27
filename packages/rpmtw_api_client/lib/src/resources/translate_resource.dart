@@ -1,10 +1,16 @@
 import 'package:intl/locale.dart';
+import 'package:rpmtw_api_client/src/api_client.dart';
 import "package:rpmtw_api_client/src/http/api_http_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_response.dart";
+import 'package:rpmtw_api_client/src/models/auth/user.dart';
+import 'package:rpmtw_api_client/src/models/storage/storage.dart';
+import 'package:rpmtw_api_client/src/models/translate/mod_source_info.dart';
+import 'package:rpmtw_api_client/src/models/translate/source_file.dart';
 import 'package:rpmtw_api_client/src/models/translate/source_text.dart';
 import 'package:rpmtw_api_client/src/models/translate/translation.dart';
 import "package:rpmtw_api_client/src/models/translate/translation_vote.dart";
 import "package:rpmtw_api_client/src/resources/base_resource.dart";
+import 'package:universal_io/io.dart';
 
 class TranslateResource extends APIResource {
   TranslateResource(APIHttpClient httpClient) : super(httpClient);
@@ -17,13 +23,13 @@ class TranslateResource extends APIResource {
 
   /// List all votes by translation.
   /// **Parameters**
-  /// - [translationUUID] UUID of translation
+  /// - [translation] filter by translation
   /// - [limit] limit the number of results. (max 50)
   /// - [skip] skip the first n results.
   Future<List<TranslationVote>> listVote(
-      {String? translationUUID, int limit = 50, int skip = 0}) async {
+      {Translation? translation, int limit = 50, int skip = 0}) async {
     APIHttpResponse response = await httpClient.get("/translate/vote/", query: {
-      if (translationUUID != null) "translationUUID": translationUUID,
+      if (translation != null) "translationUUID": translation.uuid,
       "limit": limit,
       "skip": skip,
     });
@@ -87,22 +93,22 @@ class TranslateResource extends APIResource {
 
   /// List all translations.
   /// **Parameters**
-  /// - [sourceUUID] filter by source text.
+  /// - [sourceText] filter by source text.
   /// - [language] filter by language.
-  /// - [translatorUUID] filter by translator.
+  /// - [translator] filter by translator.
   /// - [limit] limit the number of results. (max 50)
   /// - [skip] skip the first n results.
   Future<List<Translation>> listTranslation(
-      {String? sourceUUID,
+      {SourceText? sourceText,
       Locale? language,
-      String? translatorUUID,
+      User? translator,
       int limit = 50,
       int skip = 0}) async {
     APIHttpResponse response =
         await httpClient.get("/translate/translation/", query: {
-      if (sourceUUID != null) "sourceUUID": sourceUUID,
+      if (sourceText != null) "sourceUUID": sourceText.uuid,
       if (language != null) "language": language.toLanguageTag(),
-      if (translatorUUID != null) "translatorUUID": translatorUUID,
+      if (translator != null) "translatorUUID": translator.uuid,
       "limit": limit,
       "skip": skip,
     });
@@ -180,7 +186,7 @@ class TranslateResource extends APIResource {
   /// - [token] The token to use for authentication (optional if you have set a global token).
   Future<SourceText> addSourceText(
       {required String source,
-      required String gameVersions,
+      required List<String> gameVersions,
       required String key,
       required SourceTextType type,
       String? token}) async {
@@ -205,16 +211,17 @@ class TranslateResource extends APIResource {
   /// - [token] The token to use for authentication (optional if you have set a global token).
   Future<SourceText> editSourceText(SourceText sourceText,
       {String? source,
-      String? gameVersions,
+      List<String>? gameVersions,
       String? key,
       String? token}) async {
-    APIHttpResponse response = await httpClient.patch("/translate/source-text/",
-        body: {
-          if (source != null) "source": source,
-          if (gameVersions != null) "gameVersions": gameVersions,
-          if (key != null) "key": key,
-        },
-        token: token);
+    APIHttpResponse response =
+        await httpClient.patch("/translate/source-text/${sourceText.uuid}",
+            body: {
+              if (source != null) "source": source,
+              if (gameVersions != null) "gameVersions": gameVersions,
+              if (key != null) "key": key,
+            },
+            token: token);
 
     return SourceText.fromMap(response.data);
   }
@@ -225,6 +232,134 @@ class TranslateResource extends APIResource {
   /// - [token] The token to use for authentication (optional if you have set a global token).
   Future<void> deleteSourceText(SourceText sourceText, {String? token}) async {
     await httpClient.delete("/translate/source-text/${sourceText.uuid}",
+        token: token);
+  }
+
+  /// Get a source file by uuid.
+  Future<SourceFile> getSourceFile(String uuid) async {
+    APIHttpResponse response =
+        await httpClient.get("/translate/source-file/$uuid");
+
+    return SourceFile.fromMap(response.data);
+  }
+
+  /// List all source files.
+  /// **Parameters**
+  /// - [modSourceInfo] filter by mod source info.
+  /// - [limit] limit the number of results. (max 50)
+  /// - [skip] skip the first n results.
+  Future<List<SourceFile>> listSourceFile(
+      {ModSourceInfo? modSourceInfo, int limit = 50, int skip = 0}) async {
+    APIHttpResponse response =
+        await httpClient.get("/translate/source-file/", query: {
+      if (modSourceInfo != null) "modSourceInfoUUID": modSourceInfo.uuid,
+      "limit": limit,
+      "skip": skip,
+    });
+
+    return List<SourceFile>.from(
+        (response.data as List).map((e) => SourceFile.fromMap(e)));
+  }
+
+  /// Add a source file.
+  /// **Parameters**
+  /// - [modSourceInfo] The mod source info to add the file to.
+  /// - [storage] The file storage.
+  /// - [path] The path of the file (inside mod jar file).
+  /// - [type] The type of the file.
+  /// - [gameVersions] The game versions of the file.
+  /// - [patchouliI18nKeys] The keys of the translated patchouli content (optional).
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<SourceFile> addSourceFile(
+      {required ModSourceInfo modSourceInfo,
+      required Storage storage,
+      required String path,
+      required SourceFileType type,
+      required List<String> gameVersions,
+      List<String>? patchouliI18nKeys,
+      String? token}) async {
+    APIHttpResponse response = await httpClient.post("/translate/source-file/",
+        body: {
+          "modSourceInfoUUID": modSourceInfo.uuid,
+          "storageUUID": storage.uuid,
+          "path": path,
+          "type": type.name,
+          "gameVersions": gameVersions,
+          if (patchouliI18nKeys != null) "patchouliI18nKeys": patchouliI18nKeys,
+        },
+        token: token);
+
+    return SourceFile.fromMap(response.data);
+  }
+
+  /// Upload a source file to add.
+  /// **Parameters**
+  /// - [file] The file to upload (not support web).
+  /// - [modSourceInfo] The mod source info to add the file to.
+  /// - [path] The path of the file (inside mod jar file).
+  /// - [type] The type of the file.
+  /// - [gameVersions] The game versions of the file.
+  /// - [patchouliI18nKeys] The keys of the translated patchouli content (optional).
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<SourceFile> uploadSourceFile(File file,
+      {required ModSourceInfo modSourceInfo,
+      required String path,
+      required SourceFileType type,
+      required List<String> gameVersions,
+      List<String>? patchouliI18nKeys,
+      String? token}) async {
+    Storage storage =
+        await RPMTWApiClient.instance.storageResource.createStorageByFile(file);
+
+    return await addSourceFile(
+        modSourceInfo: modSourceInfo,
+        storage: storage,
+        path: path,
+        type: type,
+        gameVersions: gameVersions,
+        patchouliI18nKeys: patchouliI18nKeys,
+        token: token);
+  }
+
+  /// Edit a source file.
+  /// **Parameters**
+  /// - [sourceFile] The source file to edit.
+  /// - [modSourceInfo] The mod source info to add the file to.
+  /// - [storage] The file storage.
+  /// - [path] The path of the file (inside mod jar file).
+  /// - [type] The type of the file.
+  /// - [gameVersions] The game versions of the file.
+  /// - [patchouliI18nKeys] The keys of the translated patchouli content (optional).
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<SourceFile> editSourceFile(SourceFile sourceFile,
+      {ModSourceInfo? modSourceInfo,
+      Storage? storage,
+      String? path,
+      SourceFileType? type,
+      List<String>? gameVersions,
+      List<String>? patchouliI18nKeys,
+      String? token}) async {
+    APIHttpResponse response = await httpClient.patch(
+        "/translate/source-file/${sourceFile.uuid}",
+        body: {
+          if (modSourceInfo != null) "modSourceInfoUUID": modSourceInfo.uuid,
+          if (storage != null) "storageUUID": storage.uuid,
+          if (path != null) "path": path,
+          if (type != null) "type": type.name,
+          if (gameVersions != null) "gameVersions": gameVersions,
+          if (patchouliI18nKeys != null) "patchouliI18nKeys": patchouliI18nKeys,
+        },
+        token: token);
+
+    return SourceFile.fromMap(response.data);
+  }
+
+  /// Delete a source file.
+  /// **Parameters**
+  /// - [sourceFile] The source file to delete.
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<void> deleteSourceFile(SourceFile sourceFile, {String? token}) async {
+    await httpClient.delete("/translate/source-file/${sourceFile.uuid}",
         token: token);
   }
 }

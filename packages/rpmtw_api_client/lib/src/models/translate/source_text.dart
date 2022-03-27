@@ -3,6 +3,7 @@ import "dart:convert";
 
 import "package:collection/collection.dart";
 import "package:intl/locale.dart";
+import 'package:rpmtw_api_client/src/api_client.dart';
 import "package:rpmtw_api_client/src/models/api_model.dart";
 import "package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart";
 import "package:rpmtw_api_client/src/models/translate/translation.dart";
@@ -31,8 +32,13 @@ class SourceText implements APIModel {
     required this.type,
   });
 
-  Future<List<Translation>> getTranslations({Locale? language}) =>
-      Translation.list(sourceUUID: uuid, language: language);
+  Future<List<Translation>> getTranslations({
+    Locale? language,
+    int limit = 50,
+    int skip = 0,
+  }) =>
+      Translation.list(
+          sourceText: this, language: language, limit: limit, skip: skip);
 
   SourceText copyWith({
     String? uuid,
@@ -105,10 +111,12 @@ class SourceText implements APIModel {
   }
 
   static Future<SourceText> getByUUID(String uuid) =>
-      throw UnimplementedError();
+      RPMTWApiClient.instance.translateResource.getSourceText(uuid);
+
   static Future<List<SourceText>> list(
-          {String? source, String? key, int? limit, int? skip}) =>
-      throw UnimplementedError();
+          {String? source, String? key, int limit = 50, int skip = 0}) =>
+      RPMTWApiClient.instance.translateResource
+          .listSourceText(source: source, key: key, limit: limit, skip: skip);
 }
 
 enum SourceTextType {

@@ -29,7 +29,7 @@ class Translation implements APIModel {
   }
 
   Future<List<TranslationVote>> get votes {
-    return TranslationVote.getAllByTranslationUUID(uuid);
+    return TranslationVote.getAllByTranslation(this);
   }
 
   Future<SourceText> get source {
@@ -116,15 +116,15 @@ class Translation implements APIModel {
       RPMTWApiClient.instance.translateResource.getTranslation(uuid);
 
   static Future<List<Translation>> list(
-          {String? sourceUUID,
+          {SourceText? sourceText,
           Locale? language,
-          String? translatorUUID,
+          User? translator,
           int limit = 50,
           int skip = 0}) async =>
       RPMTWApiClient.instance.translateResource.listTranslation(
-          sourceUUID: sourceUUID,
+          sourceText: sourceText,
           language: language,
-          translatorUUID: translatorUUID,
+          translator: translator,
           limit: limit,
           skip: skip);
 }

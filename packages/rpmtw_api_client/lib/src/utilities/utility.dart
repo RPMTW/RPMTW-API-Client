@@ -1,6 +1,8 @@
 import "package:pub_semver/pub_semver.dart";
 
 class Utility {
+  static bool get isWeb => identical(0, 0.0);
+
   /// https://github.com/RPMTW/RPMLauncher/blob/fa2523e3b006cd5e3dfca315be3c61debf48b40b/lib/Utility/Utility.dart#L381
   static Version parseMCComparableVersion(String sourceVersion) {
     Version _comparableVersion;
