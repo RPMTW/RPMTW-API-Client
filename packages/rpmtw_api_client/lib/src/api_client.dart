@@ -2,7 +2,7 @@ import "package:rpmtw_api_client/rpmtw_api_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_client.dart";
 
 class RPMTWApiClient {
-  static String get version => "1.0.8";
+  static String get version => "1.0.8-dev.0";
 
   late final APIHttpClient _httpClient;
   final String _apiBaseUrl;
