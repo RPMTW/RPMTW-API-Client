@@ -42,16 +42,6 @@ class SourceFile implements APIModel {
     return texts;
   }
 
-  Future<SourceFile> addSourceText(SourceText text) async {
-    if (sources.contains(text.uuid)) {
-      return this;
-    }
-
-    throw UnimplementedError();
-  }
-
-  Future<void> delete() => throw UnimplementedError();
-
   SourceFile copyWith({
     String? uuid,
     String? modSourceInfoUUID,

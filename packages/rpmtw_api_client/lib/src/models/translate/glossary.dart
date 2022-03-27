@@ -1,7 +1,9 @@
 import "dart:convert";
 
 import "package:intl/locale.dart";
+import 'package:rpmtw_api_client/src/api_client.dart';
 import "package:rpmtw_api_client/src/models/api_model.dart";
+import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
 
 class Glossary implements APIModel {
   @override
@@ -95,7 +97,19 @@ class Glossary implements APIModel {
         modUUID.hashCode;
   }
 
-  static Future<Glossary> getByUUID(String uuid) => throw UnimplementedError();
+  static Future<Glossary> getByUUID(String uuid) =>
+      RPMTWApiClient.instance.translateResource.getGlossary(uuid);
 
-  static Future<List<Glossary>> list() => throw UnimplementedError();
+  static Future<List<Glossary>> list(
+          {String? language,
+          MinecraftMod? mod,
+          String? filter,
+          int limit = 50,
+          int skip = 0}) =>
+      RPMTWApiClient.instance.translateResource.listGlossary(
+          language: language,
+          mod: mod,
+          filter: filter,
+          limit: limit,
+          skip: skip);
 }

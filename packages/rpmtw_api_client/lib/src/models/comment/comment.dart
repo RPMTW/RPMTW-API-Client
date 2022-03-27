@@ -1,5 +1,6 @@
 import "dart:convert";
 
+import 'package:rpmtw_api_client/src/api_client.dart';
 import "package:rpmtw_api_client/src/models/api_model.dart";
 import "package:rpmtw_api_client/src/models/comment/comment_type.dart";
 
@@ -31,7 +32,8 @@ class Comment implements APIModel {
 
   /// If the comment is a reply to another comment, this field will be set.
   final String? replyCommentUUID;
-  Comment({
+
+  const Comment({
     required this.uuid,
     required this.content,
     required this.type,
@@ -44,9 +46,9 @@ class Comment implements APIModel {
   });
 
   Future<List<Comment>> getReplies() async {
-    return Comment.list(
+    return RPMTWApiClient.instance.commentResource.listCommentInternal(
       type: type,
-      parentUUID: uuid,
+      parentUUID: parentUUID,
     );
   }
 
@@ -142,13 +144,19 @@ class Comment implements APIModel {
         replyCommentUUID.hashCode;
   }
 
-  static Future<Comment?> getByUUID(String uuid) => throw UnimplementedError();
+  static Future<Comment?> getByUUID(String uuid) =>
+      RPMTWApiClient.instance.commentResource.getComment(uuid);
 
-  static Future<List<Comment>> list(
+  static Future<List<Comment>> list<T extends APIModel>(
           {required CommentType type,
-          String? parentUUID,
-          String? replyCommentUUID,
-          int? limit,
-          int? skip}) =>
-      throw UnimplementedError();
+          required T parent,
+          Comment? replyComment,
+          int limit = 50,
+          skip = 0}) =>
+      RPMTWApiClient.instance.commentResource.listComment<T>(
+          type: type,
+          parent: parent,
+          replyComment: replyComment,
+          limit: limit,
+          skip: skip);
 }

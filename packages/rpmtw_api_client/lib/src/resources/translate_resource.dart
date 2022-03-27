@@ -33,8 +33,8 @@ class TranslateResource extends APIResource {
       {Translation? translation, int limit = 50, int skip = 0}) async {
     APIHttpResponse response = await httpClient.get("/translate/vote/", query: {
       if (translation != null) "translationUUID": translation.uuid,
-      "limit": limit,
-      "skip": skip,
+      "limit": limit.toString(),
+      "skip": skip.toString(),
     });
 
     return List<TranslationVote>.from(
@@ -112,8 +112,8 @@ class TranslateResource extends APIResource {
       if (sourceText != null) "sourceUUID": sourceText.uuid,
       if (language != null) "language": language.toLanguageTag(),
       if (translator != null) "translatorUUID": translator.uuid,
-      "limit": limit,
-      "skip": skip,
+      "limit": limit.toString(),
+      "skip": skip.toString(),
     });
 
     return List<Translation>.from(
@@ -172,8 +172,8 @@ class TranslateResource extends APIResource {
         await httpClient.get("/translate/source-text/", query: {
       if (source != null) "source": source,
       if (key != null) "key": key,
-      "limit": limit,
-      "skip": skip,
+      "limit": limit.toString(),
+      "skip": skip.toString(),
     });
 
     return List<SourceText>.from(
@@ -260,8 +260,8 @@ class TranslateResource extends APIResource {
     APIHttpResponse response =
         await httpClient.get("/translate/source-file/", query: {
       if (modSourceInfo != null) "modSourceInfoUUID": modSourceInfo.uuid,
-      "limit": limit,
-      "skip": skip,
+      "limit": limit.toString(),
+      "skip": skip.toString(),
     });
 
     return List<SourceFile>.from(
@@ -391,16 +391,22 @@ class TranslateResource extends APIResource {
   /// **Parameters**
   /// - [name] filter by name or translated name.
   /// - [namespace] filter by namespace.
+  /// - [mod] filter by minecraft mod.
   /// - [limit] limit the number of results. (max 50)
   /// - [skip] skip the first n results.
   Future<List<ModSourceInfo>> listModSourceInfo(
-      {String? name, String? namespace, int limit = 50, int skip = 0}) async {
+      {String? name,
+      String? namespace,
+      MinecraftMod? mod,
+      int limit = 50,
+      int skip = 0}) async {
     APIHttpResponse response =
         await httpClient.get("/translate/mod-source-info/", query: {
       if (name != null) "name": name,
       if (namespace != null) "namespace": namespace,
-      "limit": limit,
-      "skip": skip,
+      if (mod != null) "modUUID": mod.uuid,
+      "limit": limit.toString(),
+      "skip": skip.toString(),
     });
 
     return List<ModSourceInfo>.from(
@@ -496,8 +502,8 @@ class TranslateResource extends APIResource {
       if (language != null) "language": language,
       if (mod != null) "modUUID": mod.uuid,
       if (filter != null) "filter": filter,
-      "limit": limit,
-      "skip": skip,
+      "limit": limit.toString(),
+      "skip": skip.toString(),
     });
 
     return List<Glossary>.from(

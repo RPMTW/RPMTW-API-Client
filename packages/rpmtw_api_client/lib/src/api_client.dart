@@ -1,5 +1,6 @@
 import "package:rpmtw_api_client/rpmtw_api_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_client.dart";
+import 'package:rpmtw_api_client/src/resources/comment_resource.dart';
 
 class RPMTWApiClient {
   static String get version => "1.0.8-dev.0";
@@ -51,6 +52,7 @@ class RPMTWApiClient {
   CosmicChatResource get cosmicChatResource =>
       CosmicChatResource(_httpClient, cosmicChatBaseUrl: _cosmicChatBaseUrl);
   TranslateResource get translateResource => TranslateResource(_httpClient);
+  CommentResource get commentResource => CommentResource(_httpClient);
 
   static RPMTWApiClient get instance {
     if (_apiClient == null) {

@@ -1,6 +1,7 @@
 import "dart:convert";
 
 import "package:collection/collection.dart";
+import 'package:rpmtw_api_client/src/api_client.dart';
 import "package:rpmtw_api_client/src/models/api_model.dart";
 import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
 import "package:rpmtw_api_client/src/models/translate/source_file.dart";
@@ -114,11 +115,27 @@ class ModSourceInfo implements APIModel {
   }
 
   static Future<ModSourceInfo> getByUUID(String uuid) =>
-      throw UnimplementedError();
+      RPMTWApiClient.instance.translateResource.getModSourceInfo(uuid);
 
-  static Future<ModSourceInfo?> getByModUUID(String modUUID) =>
-      throw UnimplementedError();
+  static Future<ModSourceInfo?> getByMod(MinecraftMod mod) async {
+    List<ModSourceInfo> infos = await RPMTWApiClient.instance.translateResource
+        .listModSourceInfo(mod: mod, limit: 1);
 
-  static Future<ModSourceInfo?> getByNamespace(String namespace) =>
-      throw UnimplementedError();
+    if (infos.isEmpty) {
+      return null;
+    } else {
+      return infos.first;
+    }
+  }
+
+  static Future<ModSourceInfo?> getByNamespace(String namespace) async {
+    List<ModSourceInfo> infos = await RPMTWApiClient.instance.translateResource
+        .listModSourceInfo(namespace: namespace, limit: 1);
+
+    if (infos.isEmpty) {
+      return null;
+    } else {
+      return infos.first;
+    }
+  }
 }
