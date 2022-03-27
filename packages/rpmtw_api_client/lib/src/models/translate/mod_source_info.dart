@@ -1,7 +1,7 @@
 import "dart:convert";
 
 import "package:collection/collection.dart";
-import 'package:rpmtw_api_client/src/api_client.dart';
+import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/api_model.dart";
 import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
 import "package:rpmtw_api_client/src/models/translate/source_file.dart";

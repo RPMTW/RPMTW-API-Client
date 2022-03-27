@@ -1,7 +1,7 @@
 import "dart:convert";
 
 import "package:intl/locale.dart";
-import 'package:rpmtw_api_client/src/api_client.dart';
+import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/auth/user.dart";
 import "package:rpmtw_api_client/src/models/api_model.dart";
 import "package:rpmtw_api_client/src/models/translate/source_text.dart";

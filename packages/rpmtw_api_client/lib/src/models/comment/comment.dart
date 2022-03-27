@@ -1,6 +1,6 @@
 import "dart:convert";
 
-import 'package:rpmtw_api_client/src/api_client.dart';
+import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/api_model.dart";
 import "package:rpmtw_api_client/src/models/comment/comment_type.dart";
 

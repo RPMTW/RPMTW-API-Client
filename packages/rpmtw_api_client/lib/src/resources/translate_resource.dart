@@ -1,19 +1,19 @@
-import 'package:intl/locale.dart';
-import 'package:rpmtw_api_client/src/api_client.dart';
+import "package:intl/locale.dart";
+import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_response.dart";
-import 'package:rpmtw_api_client/src/models/auth/user.dart';
-import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
-import 'package:rpmtw_api_client/src/models/storage/storage.dart';
-import 'package:rpmtw_api_client/src/models/translate/glossary.dart';
-import 'package:rpmtw_api_client/src/models/translate/mod_source_info.dart';
-import 'package:rpmtw_api_client/src/models/translate/source_file.dart';
-import 'package:rpmtw_api_client/src/models/translate/source_text.dart';
-import 'package:rpmtw_api_client/src/models/translate/translation.dart';
-import 'package:rpmtw_api_client/src/models/translate/translation_export_format.dart';
+import "package:rpmtw_api_client/src/models/auth/user.dart";
+import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
+import "package:rpmtw_api_client/src/models/storage/storage.dart";
+import "package:rpmtw_api_client/src/models/translate/glossary.dart";
+import "package:rpmtw_api_client/src/models/translate/mod_source_info.dart";
+import "package:rpmtw_api_client/src/models/translate/source_file.dart";
+import "package:rpmtw_api_client/src/models/translate/source_text.dart";
+import "package:rpmtw_api_client/src/models/translate/translation.dart";
+import "package:rpmtw_api_client/src/models/translate/translation_export_format.dart";
 import "package:rpmtw_api_client/src/models/translate/translation_vote.dart";
 import "package:rpmtw_api_client/src/resources/base_resource.dart";
-import 'package:universal_io/io.dart';
+import "package:universal_io/io.dart";
 
 class TranslateResource extends APIResource {
   const TranslateResource(APIHttpClient httpClient) : super(httpClient);

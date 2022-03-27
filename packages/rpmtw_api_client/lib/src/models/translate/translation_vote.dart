@@ -2,7 +2,7 @@ import "dart:convert";
 
 import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/api_model.dart";
-import 'package:rpmtw_api_client/src/models/translate/translation.dart';
+import "package:rpmtw_api_client/src/models/translate/translation.dart";
 
 class TranslationVote implements APIModel {
   @override
@@ -86,8 +86,10 @@ class TranslationVote implements APIModel {
   static Future<TranslationVote> getByUUID(String uuid) async =>
       RPMTWApiClient.instance.translateResource.getVote(uuid);
 
-  static Future<List<TranslationVote>> getAllByTranslation(Translation translation,
-          {int limit = 50, int skip = 0}) async =>
+  static Future<List<TranslationVote>> getAllByTranslation(
+          Translation translation,
+          {int limit = 50,
+          int skip = 0}) async =>
       RPMTWApiClient.instance.translateResource
           .listVote(translation: translation, limit: limit, skip: skip);
 }

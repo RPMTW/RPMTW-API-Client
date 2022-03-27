@@ -1,12 +1,12 @@
-import 'package:meta/meta.dart';
-import 'package:rpmtw_api_client/src/http/api_http_client.dart';
-import 'package:rpmtw_api_client/src/http/api_http_response.dart';
-import 'package:rpmtw_api_client/src/models/api_model.dart';
-import 'package:rpmtw_api_client/src/models/comment/comment.dart';
-import 'package:rpmtw_api_client/src/models/comment/comment_type.dart';
-import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
-import 'package:rpmtw_api_client/src/models/translate/translation.dart';
-import 'package:rpmtw_api_client/src/resources/base_resource.dart';
+import "package:meta/meta.dart";
+import "package:rpmtw_api_client/src/http/api_http_client.dart";
+import "package:rpmtw_api_client/src/http/api_http_response.dart";
+import "package:rpmtw_api_client/src/models/api_model.dart";
+import "package:rpmtw_api_client/src/models/comment/comment.dart";
+import "package:rpmtw_api_client/src/models/comment/comment_type.dart";
+import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
+import "package:rpmtw_api_client/src/models/translate/translation.dart";
+import "package:rpmtw_api_client/src/resources/base_resource.dart";
 
 class CommentResource extends APIResource {
   const CommentResource(APIHttpClient httpClient) : super(httpClient);

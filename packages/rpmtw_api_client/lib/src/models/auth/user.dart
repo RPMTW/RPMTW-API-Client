@@ -1,6 +1,5 @@
 import "dart:convert";
 
-import "package:collection/collection.dart";
 import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/auth/user_role.dart";
 import "package:rpmtw_api_client/src/models/api_model.dart";
@@ -14,7 +13,6 @@ class User implements APIModel {
   final bool emailVerified;
   final String passwordHash;
   final String? avatarStorageUUID;
-  final List<String> loginIPs;
   final UserRole role;
 
   const User({
@@ -24,7 +22,6 @@ class User implements APIModel {
     required this.emailVerified,
     required this.passwordHash,
     this.avatarStorageUUID,
-    required this.loginIPs,
     required this.role,
   });
 
@@ -45,7 +42,6 @@ class User implements APIModel {
     bool? emailVerified,
     String? passwordHash,
     String? avatarStorageUUID,
-    List<String>? loginIPs,
     UserRole? role,
   }) {
     return User(
@@ -55,7 +51,6 @@ class User implements APIModel {
       emailVerified: emailVerified ?? this.emailVerified,
       passwordHash: passwordHash ?? this.passwordHash,
       avatarStorageUUID: avatarStorageUUID ?? this.avatarStorageUUID,
-      loginIPs: loginIPs ?? this.loginIPs,
       role: role ?? this.role,
     );
   }
@@ -69,7 +64,6 @@ class User implements APIModel {
       "emailVerified": emailVerified,
       "passwordHash": passwordHash,
       "avatarStorageUUID": avatarStorageUUID,
-      "loginIPs": loginIPs,
       "role": role.toMap(),
     };
   }
@@ -82,7 +76,6 @@ class User implements APIModel {
       emailVerified: map["emailVerified"] ?? false,
       passwordHash: map["passwordHash"],
       avatarStorageUUID: map["avatarStorageUUID"],
-      loginIPs: List<String>.from(map["loginIPs"]),
       role: UserRole.fromMap(map["role"]),
     );
   }
@@ -93,13 +86,12 @@ class User implements APIModel {
 
   @override
   String toString() {
-    return "User(uuid: $uuid, username: $username, email: $email, emailVerified: $emailVerified, passwordHash: $passwordHash, avatarStorageUUID: $avatarStorageUUID, loginIPs: $loginIPs, role: $role)";
+    return "User(uuid: $uuid, username: $username, email: $email, emailVerified: $emailVerified, passwordHash: $passwordHash, avatarStorageUUID: $avatarStorageUUID, role: $role)";
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
 
     return other is User &&
         other.uuid == uuid &&
@@ -108,7 +100,6 @@ class User implements APIModel {
         other.emailVerified == emailVerified &&
         other.passwordHash == passwordHash &&
         other.avatarStorageUUID == avatarStorageUUID &&
-        listEquals(other.loginIPs, loginIPs) &&
         other.role == role;
   }
 
@@ -120,7 +111,6 @@ class User implements APIModel {
         emailVerified.hashCode ^
         passwordHash.hashCode ^
         avatarStorageUUID.hashCode ^
-        loginIPs.hashCode ^
         role.hashCode;
   }
 
