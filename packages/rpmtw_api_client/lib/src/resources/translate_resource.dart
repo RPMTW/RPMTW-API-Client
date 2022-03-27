@@ -10,6 +10,7 @@ import 'package:rpmtw_api_client/src/models/translate/mod_source_info.dart';
 import 'package:rpmtw_api_client/src/models/translate/source_file.dart';
 import 'package:rpmtw_api_client/src/models/translate/source_text.dart';
 import 'package:rpmtw_api_client/src/models/translate/translation.dart';
+import 'package:rpmtw_api_client/src/models/translate/translation_export_format.dart';
 import "package:rpmtw_api_client/src/models/translate/translation_vote.dart";
 import "package:rpmtw_api_client/src/resources/base_resource.dart";
 import 'package:universal_io/io.dart';
@@ -604,5 +605,47 @@ class TranslateResource extends APIResource {
 
     return Map<String, Glossary>.from((response.data as Map)
         .map((key, value) => MapEntry(key, Glossary.fromMap(value))));
+  }
+
+  /// Export translations.
+  /// **Parameters**
+  /// - [namespaces] The namespace of minecraft mods.
+  /// - [language] The language of the translations.
+  /// - [format] The format of the export.
+  /// - [version] The game version of the translations.
+  ///
+  /// **Returns**
+  /// If the format is `minecraftJson` or `patchouli`
+  /// Returns a map of the source text and translation.  
+  /// Example:  
+  /// ```json
+  /// {
+  ///   "hello": "你好",
+  ///   "world": "世界"
+  /// }
+  /// ```
+  ///
+  /// If the format is `customText`
+  /// Returns a map of the source file path and translation texts.   
+  /// Example:  
+  /// ```json
+  /// {
+  ///  "assets/test/fqa.txt": "Q: RPMTW 是什麼？\n\nA: RPMTW 是個致力於推廣 Minecraft 中文社群\n並開發相關工具，希望為 Minecraft 玩家提供更好的體驗。",
+  /// }
+  /// ```
+  Future<Map<String, String>> exportTranslations(
+      {required List<String> namespaces,
+      required Locale language,
+      required TranslationExportFormat format,
+      required String version}) async {
+    APIHttpResponse response =
+        await httpClient.post("/translate/export/", body: {
+      "namespaces": namespaces,
+      "language": language.toLanguageTag(),
+      "format": format.name,
+      "version": version,
+    });
+
+    return response.data;
   }
 }
