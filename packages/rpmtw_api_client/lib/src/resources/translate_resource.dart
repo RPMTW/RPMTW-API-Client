@@ -5,6 +5,7 @@ import "package:rpmtw_api_client/src/http/api_http_response.dart";
 import 'package:rpmtw_api_client/src/models/auth/user.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
 import 'package:rpmtw_api_client/src/models/storage/storage.dart';
+import 'package:rpmtw_api_client/src/models/translate/glossary.dart';
 import 'package:rpmtw_api_client/src/models/translate/mod_source_info.dart';
 import 'package:rpmtw_api_client/src/models/translate/source_file.dart';
 import 'package:rpmtw_api_client/src/models/translate/source_text.dart';
@@ -466,5 +467,142 @@ class TranslateResource extends APIResource {
       {String? token}) async {
     await httpClient.delete("/translate/mod-source-info/${modSourceInfo.uuid}",
         token: token);
+  }
+
+  /// Get a glossary by uuid.
+  Future<Glossary> getGlossary(String uuid) async {
+    APIHttpResponse response =
+        await httpClient.get("/translate/glossary/$uuid");
+
+    return Glossary.fromMap(response.data);
+  }
+
+  /// List all glossaries.
+  /// **Parameters**
+  /// - [language] filter by language.
+  /// - [mod] filter by mod.
+  /// - [filter] filter by term name or translated name.
+  /// - [limit] limit the number of results. (max 50)
+  /// - [skip] skip the first n results.
+  Future<List<Glossary>> listGlossary(
+      {String? language,
+      MinecraftMod? mod,
+      String? filter,
+      int limit = 50,
+      int skip = 0}) async {
+    APIHttpResponse response =
+        await httpClient.get("/translate/glossary/", query: {
+      if (language != null) "language": language,
+      if (mod != null) "modUUID": mod.uuid,
+      if (filter != null) "filter": filter,
+      "limit": limit,
+      "skip": skip,
+    });
+
+    return List<Glossary>.from(
+        (response.data as List).map((e) => Glossary.fromMap(e)));
+  }
+
+  /// Add a glossary.
+  /// **Parameters**
+  /// - [term] The term name of the glossary.
+  /// - [translation] The translation of the glossary.
+  /// - [description] The description of the glossary (optional).
+  /// - [language] The language of the glossary.
+  /// - [mod] The minecraft mod of the glossary (optional, If null, the global glossary).
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<Glossary> addGlossary(
+      {required String term,
+      required String translation,
+      String? description,
+      required String language,
+      MinecraftMod? mod,
+      String? token}) async {
+    APIHttpResponse response = await httpClient.post("/translate/glossary/",
+        body: {
+          "term": term,
+          "translation": translation,
+          if (description != null) "description": description,
+          "language": language,
+          if (mod != null) "modUUID": mod.uuid,
+        },
+        token: token);
+
+    return Glossary.fromMap(response.data);
+  }
+
+  /// Edit a glossary.
+  /// **Parameters**
+  /// - [glossary] The glossary to edit.
+  /// - [term] The term name of the glossary (optional).
+  /// - [translation] The translation of the glossary (optional).
+  /// - [description] The description of the glossary (optional).
+  /// - [mod] The minecraft mod of the glossary (optional).
+  /// - [global] If the glossary is global (optional, if set true mod must be null).
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<Glossary> editGlossary(Glossary glossary,
+      {String? term,
+      String? translation,
+      String? description,
+      MinecraftMod? mod,
+      String? token,
+      bool global = false}) async {
+    if (term == null &&
+        translation == null &&
+        description == null &&
+        mod == null &&
+        global == false) {
+      return glossary;
+    }
+
+    APIHttpResponse response =
+        await httpClient.patch("/translate/glossary/${glossary.uuid}",
+            body: {
+              if (term != null) "term": term,
+              if (translation != null) "translation": translation,
+              if (description != null) "description": description,
+              if (global && mod == null)
+                "modUUID": null
+              else if (mod != null)
+                "modUUID": mod.uuid,
+            },
+            token: token);
+
+    return Glossary.fromMap(response.data);
+  }
+
+  /// Delete a glossary.
+  /// **Parameters**
+  /// - [glossary] The glossary to delete.
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<void> deleteGlossary(Glossary glossary, {String? token}) async {
+    await httpClient.delete("/translate/glossary/${glossary.uuid}",
+        token: token);
+  }
+
+  /// Get glossary highlight by text.
+  /// **Parameters**
+  /// - [text] The text to highlight.
+  /// - [language] The language of the text.
+  ///
+  /// **Returns**
+  /// Returns a map of the source word and glossary.
+  /// Example:
+  /// ```json
+  /// {
+  ///   "word1": <Glossary1>,
+  ///   "word2": <Glossary2>
+  /// }
+  /// ```
+  Future<Map<String, Glossary>> getGlossaryHighlight(
+      String text, String language) async {
+    APIHttpResponse response =
+        await httpClient.get("/translate/glossary-highlight/", query: {
+      "text": text,
+      "language": language,
+    });
+
+    return Map<String, Glossary>.from((response.data as Map)
+        .map((key, value) => MapEntry(key, Glossary.fromMap(value))));
   }
 }
