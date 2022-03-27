@@ -1,12 +1,10 @@
 import "dart:convert";
-import "dart:io";
 
-import "package:http/http.dart";
+import "package:rpmtw_api_client/src/http/api_http_client.dart";
+import "package:rpmtw_api_client/src/http/api_http_response.dart";
 import "package:rpmtw_api_client/src/models/cosmic_chat/cosmic_chat_info.dart";
 import "package:rpmtw_api_client/src/models/cosmic_chat/cosmic_chat_message.dart";
 import "package:rpmtw_api_client/src/resources/base_resource.dart";
-import "package:rpmtw_api_client/src/utilities/exceptions.dart";
-import "package:rpmtw_api_client/src/utilities/extension.dart";
 import "package:socket_io_client/socket_io_client.dart";
 
 Socket? _socket;
@@ -15,13 +13,9 @@ bool _onlyListenMessage = false;
 class CosmicChatResource extends APIResource {
   final String cosmicChatBaseUrl;
 
-  CosmicChatResource(
-      {required Client httpClient,
-      required String apiBaseUrl,
-      required this.cosmicChatBaseUrl,
-      required String? token})
-      : super(
-            httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
+  CosmicChatResource(APIHttpClient httpClient,
+      {required this.cosmicChatBaseUrl})
+      : super(httpClient);
 
   bool get isConnected => _socket?.connected ?? false;
 
@@ -154,29 +148,14 @@ class CosmicChatResource extends APIResource {
 
   /// Get message by message uuid
   Future<CosmicChatMessage> getMessage(String uuid) async {
-    Response response =
-        await httpClient.get(Uri.parse("$apiBaseUrl/cosmic-chat/view/$uuid"));
-    int statusCode = response.statusCode;
-    if (statusCode == HttpStatus.ok) {
-      return CosmicChatMessage.fromMap(response.map["data"]);
-    } else if (statusCode == HttpStatus.notFound) {
-      throw ModelNotFoundException<CosmicChatMessage>();
-    } else {
-      throw Exception("Get message failed");
-    }
+    APIHttpResponse response = await httpClient.get("/cosmic-chat/view/$uuid");
+    return CosmicChatMessage.fromMap(response.data);
   }
 
   /// Get cosmic chat info (online users, protocolVersion, etc.)
   Future<CosmicChatInfo> getInfo() async {
-    Response response =
-        await httpClient.get(Uri.parse("$apiBaseUrl/cosmic-chat/info"));
-    int statusCode = response.statusCode;
-    if (statusCode == HttpStatus.ok) {
-      return CosmicChatInfo.fromMap(response.map["data"]);
-    } else if (statusCode == HttpStatus.notFound) {
-      throw ModelNotFoundException<CosmicChatInfo>();
-    } else {
-      throw Exception("Get info failed");
-    }
+    APIHttpResponse response = await httpClient.get("/cosmic-chat/info");
+
+    return CosmicChatInfo.fromMap(response.data);
   }
 }

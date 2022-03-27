@@ -3,7 +3,7 @@ import "dart:convert";
 import "package:collection/collection.dart";
 import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/auth/user_role.dart";
-import "package:rpmtw_api_client/src/models/base_model.dart";
+import "package:rpmtw_api_client/src/models/api_model.dart";
 import "package:rpmtw_api_client/src/models/storage/storage.dart";
 
 class User implements APIModel {

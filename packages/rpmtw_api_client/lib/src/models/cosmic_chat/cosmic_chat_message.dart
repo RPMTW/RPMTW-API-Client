@@ -1,7 +1,7 @@
 import "dart:convert";
 
 import "package:rpmtw_api_client/src/api_client.dart";
-import "package:rpmtw_api_client/src/models/base_model.dart";
+import "package:rpmtw_api_client/src/models/api_model.dart";
 
 class CosmicChatMessage implements APIModel {
   @override

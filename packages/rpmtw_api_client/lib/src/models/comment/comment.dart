@@ -1,7 +1,7 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:rpmtw_api_client/src/models/base_model.dart';
-import 'package:rpmtw_api_client/src/models/comment/comment_type.dart';
+import "package:rpmtw_api_client/src/models/api_model.dart";
+import "package:rpmtw_api_client/src/models/comment/comment_type.dart";
 
 class Comment implements APIModel {
   @override
@@ -77,29 +77,29 @@ class Comment implements APIModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      'uuid': uuid,
-      'content': content,
-      'type': type.name,
-      'userUUID': userUUID,
-      'parentUUID': parentUUID,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
-      'isHidden': isHidden,
-      'replyCommentUUID': replyCommentUUID,
+      "uuid": uuid,
+      "content": content,
+      "type": type.name,
+      "userUUID": userUUID,
+      "parentUUID": parentUUID,
+      "createdAt": createdAt.millisecondsSinceEpoch,
+      "updatedAt": updatedAt.millisecondsSinceEpoch,
+      "isHidden": isHidden,
+      "replyCommentUUID": replyCommentUUID,
     };
   }
 
   factory Comment.fromMap(Map<String, dynamic> map) {
     return Comment(
-      uuid: map['uuid'] ?? '',
-      content: map['content'] ?? '',
-      type: CommentType.values.byName(map['type']),
-      userUUID: map['userUUID'] ?? '',
-      parentUUID: map['parentUUID'] ?? '',
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
-      isHidden: map['isHidden'] ?? false,
-      replyCommentUUID: map['replyCommentUUID'],
+      uuid: map["uuid"] ?? "",
+      content: map["content"] ?? "",
+      type: CommentType.values.byName(map["type"]),
+      userUUID: map["userUUID"] ?? "",
+      parentUUID: map["parentUUID"] ?? "",
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map["createdAt"]),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(map["updatedAt"]),
+      isHidden: map["isHidden"] ?? false,
+      replyCommentUUID: map["replyCommentUUID"],
     );
   }
 
@@ -110,7 +110,7 @@ class Comment implements APIModel {
 
   @override
   String toString() {
-    return 'Comment(uuid: $uuid, content: $content, type: $type, userUUID: $userUUID, parentUUID: $parentUUID, createdAt: $createdAt, updatedAt: $updatedAt, isHidden: $isHidden, replyCommentUUID: $replyCommentUUID)';
+    return "Comment(uuid: $uuid, content: $content, type: $type, userUUID: $userUUID, parentUUID: $parentUUID, createdAt: $createdAt, updatedAt: $updatedAt, isHidden: $isHidden, replyCommentUUID: $replyCommentUUID)";
   }
 
   @override

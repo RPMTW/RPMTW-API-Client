@@ -1,41 +1,27 @@
 import "dart:io";
 import "dart:typed_data";
 
-import "package:http/http.dart";
+import "package:rpmtw_api_client/src/http/api_http_client.dart";
+import "package:rpmtw_api_client/src/http/api_http_response.dart";
 import "package:rpmtw_api_client/src/models/storage/storage.dart";
 import "package:rpmtw_api_client/src/resources/base_resource.dart";
-import "package:rpmtw_api_client/src/utilities/exceptions.dart";
-import "package:rpmtw_api_client/src/utilities/extension.dart";
 
 class StorageResource extends APIResource {
-  StorageResource(
-      {required Client httpClient,
-      required String apiBaseUrl,
-      required String? token})
-      : super(
-            httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
+  StorageResource(APIHttpClient httpClient) : super(httpClient);
 
   /// Get storage info by uuid.
   ///
   /// *Parameters*
   /// * [uuid] uuid of the storage
   Future<Storage> getStorage(String uuid) async {
-    Response response =
-        await httpClient.get(Uri.parse("$apiBaseUrl/storage/$uuid"));
-    int statusCode = response.statusCode;
-    if (statusCode == HttpStatus.ok) {
-      return Storage.fromMap(response.map["data"]);
-    } else if (statusCode == HttpStatus.notFound) {
-      throw ModelNotFoundException<Storage>();
-    } else {
-      throw Exception("Get storage failed");
-    }
+    APIHttpResponse response = await httpClient.get("/storage/$uuid");
+    return Storage.fromMap(response.data);
   }
 
   /// 透過位元建立檔案儲存，如果建立成功將返回檔案儲存資訊
   Future<Storage> createStorageByBytes(Uint8List bytes) async {
-    Response response = await httpClient
-        .post(Uri.parse("$apiBaseUrl/storage/create"), body: bytes, headers: {
+    APIHttpResponse response =
+        await httpClient.post("/storage/create", body: bytes, headers: {
       "Content-Type": "application/octet-stream",
     });
 
@@ -44,19 +30,7 @@ class StorageResource extends APIResource {
       throw Exception("File size is too large");
     }
 
-    int statusCode = response.statusCode;
-    if (statusCode == HttpStatus.ok) {
-      return Storage.fromMap(response.map["data"]);
-    } else if (statusCode == HttpStatus.notFound) {
-      throw ModelNotFoundException<Storage>();
-    } else {
-      if (statusCode == HttpStatus.badRequest &&
-          response.map["message"] == "File size is too large") {
-        throw Exception("File size is too large");
-      } else {
-        throw Exception("Create storage failed");
-      }
-    }
+    return Storage.fromMap(response.data);
   }
 
   /// 透過檔案建立檔案儲存，如果建立成功將返回檔案儲存資訊
@@ -65,17 +39,11 @@ class StorageResource extends APIResource {
 
   /// 透過 UUID 取得檔案儲存的位元
   Future<Uint8List> getStorageBytes(String uuid) async {
-    Response response = await httpClient.get(
-      Uri.parse(Storage.getDownloadUrl(uuid)),
+    APIHttpResponse response = await httpClient.get(
+      "storage/$uuid/download",
     );
-    int statusCode = response.statusCode;
-    if (statusCode == HttpStatus.ok) {
-      return response.bodyBytes;
-    } else if (statusCode == HttpStatus.notFound) {
-      throw ModelNotFoundException<Storage>();
-    } else {
-      throw Exception("Download storage failed");
-    }
+
+    return response.bytes;
   }
 
   /// 下載檔案儲存至指定路徑

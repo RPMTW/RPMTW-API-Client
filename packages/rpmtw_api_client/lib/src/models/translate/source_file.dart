@@ -1,7 +1,7 @@
 import "dart:convert";
 
 import "package:collection/collection.dart";
-import "package:rpmtw_api_client/src/models/base_model.dart";
+import "package:rpmtw_api_client/src/models/api_model.dart";
 import "package:rpmtw_api_client/src/models/storage/storage.dart";
 import "package:rpmtw_api_client/src/models/translate/mod_source_info.dart";
 import "package:rpmtw_api_client/src/models/translate/source_text.dart";
