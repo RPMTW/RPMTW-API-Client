@@ -21,9 +21,9 @@ class CosmicChatResource extends APIResource {
 
   /// Connect to the Cosmic Chat server
   ///
-  /// * [minecraftUUID] player"s minecraft UUID (optional)
-  /// * [token] rpmtw account token (optional)
-  /// * [onlyListenMessage] if true, only listen to message event, [minecraftUUID] and [token] can be empty
+  /// - [minecraftUUID] player"s minecraft UUID (optional)
+  /// - [token] rpmtw account token (optional)
+  /// - [onlyListenMessage] if true, only listen to message event, [minecraftUUID] and [token] can be empty
   /// [minecraftUUID], [token] cannot both be empty
   Future<void> connect(
       {String? minecraftUUID,
@@ -80,8 +80,8 @@ class CosmicChatResource extends APIResource {
   /// Send a message to the server, and return the sent status.
   ///
   /// **Parameters**
-  /// * [message] message content
-  /// * [nickname] user"s nickname
+  /// - [message] message content
+  /// - [nickname] user"s nickname
   Future<String> sendMessage(String message, {String? nickname}) async {
     _connectCheck();
     String? status;
@@ -105,9 +105,9 @@ class CosmicChatResource extends APIResource {
   /// Reply message by message uuid, and return the replied status.
   ///
   /// **Parameters**
-  /// * [message] message content
-  /// * [uuid] message uuid to reply to
-  /// * [nickname] user"s nickname
+  /// - [message] message content
+  /// - [uuid] message uuid to reply to
+  /// - [nickname] user"s nickname
   Future<String> replyMessage(String message,
       {required String uuid, String? nickname}) async {
     _connectCheck();

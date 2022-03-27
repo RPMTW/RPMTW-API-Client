@@ -1,7 +1,9 @@
 import "dart:typed_data";
 
 class APIHttpResponse {
-  final Map<String, dynamic> data;
+  /// data maybe be a Map or List.
+  final dynamic data;
+
   final int statusCode;
   final String message;
   final Uint8List bytes;

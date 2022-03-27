@@ -93,8 +93,8 @@ class Storage implements APIModel {
   /// Get download url of the storage
   ///
   /// **Parameters**
-  /// * [uuid] uuid of the storage
-  /// * [apiBaseUrl] api base url (optional)
+  /// - [uuid] uuid of the storage
+  /// - [apiBaseUrl] api base url (optional)
   static String getDownloadUrl(String uuid, {String? apiBaseUrl}) {
     apiBaseUrl ??= RPMTWApiClient.instance.apiBaseUrl;
     return "$apiBaseUrl/storage/$uuid/download";

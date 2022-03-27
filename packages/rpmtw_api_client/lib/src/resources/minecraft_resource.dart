@@ -15,17 +15,17 @@ class MinecraftResource extends APIResource {
   /// 建立 Minecraft 模組，如果建立成功將回傳 Minecraft 模組資訊
   ///
   /// **必填參數**
-  /// * [name] 模組名稱
-  /// * [supportVersions] 該模組支援的 Minecraft 版本
+  /// - [name] 模組名稱
+  /// - [supportVersions] 該模組支援的 Minecraft 版本
   /// **選填參數**
-  /// * [id] 模組 ID
-  /// * [description] 模組描述
-  /// * [relationMods] 關聯模組
-  /// * [integration] 模組串連的平台
-  /// * [side] 模組支援的執行環境
-  /// * [translatedName] 模組譯名
-  /// * [introduction] 模組介紹文
-  /// * [imageStorageUUID] 模組封面圖的 Storage UUID
+  /// - [id] 模組 ID
+  /// - [description] 模組描述
+  /// - [relationMods] 關聯模組
+  /// - [integration] 模組串連的平台
+  /// - [side] 模組支援的執行環境
+  /// - [translatedName] 模組譯名
+  /// - [introduction] 模組介紹文
+  /// - [imageStorageUUID] 模組封面圖的 Storage UUID
   Future<MinecraftMod> createMinecraftMod(
       {required String name,
       required List<String> supportVersions,
@@ -82,19 +82,19 @@ class MinecraftResource extends APIResource {
   /// 編輯 Minecraft 模組，如果編輯成功將回傳編輯後的 Minecraft 模組資訊
   ///
   /// **必填參數**
-  /// * [uuid] 要編輯的模組 UUID
+  /// - [uuid] 要編輯的模組 UUID
   /// **選填參數**
-  /// * [name] 模組名稱
-  /// * [supportVersions] 該模組支援的 Minecraft 版本
-  /// * [id] 模組 ID
-  /// * [description] 模組描述
-  /// * [relationMods] 關聯模組
-  /// * [integration] 模組串連的平台
-  /// * [side] 模組支援的執行環境
-  /// * [translatedName] 模組譯名
-  /// * [introduction] 模組介紹文
-  /// * [imageStorageUUID] 模組封面圖的 Storage UUID
-  /// * [changelog] 變更日誌
+  /// - [name] 模組名稱
+  /// - [supportVersions] 該模組支援的 Minecraft 版本
+  /// - [id] 模組 ID
+  /// - [description] 模組描述
+  /// - [relationMods] 關聯模組
+  /// - [integration] 模組串連的平台
+  /// - [side] 模組支援的執行環境
+  /// - [translatedName] 模組譯名
+  /// - [introduction] 模組介紹文
+  /// - [imageStorageUUID] 模組封面圖的 Storage UUID
+  /// - [changelog] 變更日誌
   Future<MinecraftMod> editMinecraftMod(
       {required String uuid,
       String? name,

@@ -12,7 +12,7 @@ class StorageResource extends APIResource {
   /// Get storage info by uuid.
   ///
   /// *Parameters*
-  /// * [uuid] uuid of the storage
+  /// - [uuid] uuid of the storage
   Future<Storage> getStorage(String uuid) async {
     APIHttpResponse response = await httpClient.get("/storage/$uuid");
     return Storage.fromMap(response.data);

@@ -62,10 +62,10 @@ class RPMTWApiClient {
   /// Initializes the client
   ///
   /// **Parameters**
-  /// * [development] - Whether the client is in development mode
-  /// * [apiBaseUrl] - The base url of the api
-  /// * [cosmicChatBaseUrl] - The base url of the cosmic chat api
-  /// * [token] - The global token
+  /// - [development] - Whether the client is in development mode
+  /// - [apiBaseUrl] - The base url of the api
+  /// - [cosmicChatBaseUrl] - The base url of the cosmic chat api
+  /// - [token] - The global token
   ///
   /// **Example**
   /// ```dart

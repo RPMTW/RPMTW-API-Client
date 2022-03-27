@@ -85,9 +85,10 @@ class TranslationVote implements APIModel {
   static Future<TranslationVote> getByUUID(String uuid) async =>
       RPMTWApiClient.instance.translateResource.getVote(uuid);
 
-  static Future<List<TranslationVote>> getAllByTranslationUUID(
-          String uuid) async =>
-      throw UnimplementedError();
+  static Future<List<TranslationVote>> getAllByTranslationUUID(String uuid,
+          {int limit = 50, int skip = 0}) async =>
+      RPMTWApiClient.instance.translateResource
+          .listVote(translationUUID: uuid, limit: limit, skip: skip);
 }
 
 enum TranslationVoteType { up, down }

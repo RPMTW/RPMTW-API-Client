@@ -9,8 +9,8 @@ class AuthResource extends APIResource {
 
   /// Get user info by uuid.
   ///
-  /// * [uuid] user"s uuid (When uuid is **me**, use token to get the user info of the token)
-  /// * [token] (optional)
+  /// - [uuid] user"s uuid (When uuid is **me**, use token to get the user info of the token)
+  /// - [token] (optional)
   Future<User> getUserByUUID(String uuid, {String? token}) async {
     APIHttpResponse response = await httpClient.get<User>("/auth/user/$uuid");
     return User.fromMap(response.data);
@@ -25,10 +25,10 @@ class AuthResource extends APIResource {
 
   /// Create a user account, if successful, will return token and user information.
   ///
-  /// * [username] user"s username
-  /// * [password] user"s password
-  /// * [email] user"s email address
-  /// * [avatarStorageUUID] user"s avatar storage uuid (optional)
+  /// - [username] user"s username
+  /// - [password] user"s password
+  /// - [email] user"s email address
+  /// - [avatarStorageUUID] user"s avatar storage uuid (optional)
   Future<CreateUserResult> createUser(
       {required String username,
       required String password,
