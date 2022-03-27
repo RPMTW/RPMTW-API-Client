@@ -11,6 +11,7 @@ class MinecraftVersionManifest implements BaseModel {
 
   final List<MinecraftVersion> versions;
 
+  @override
   final String uuid;
   final DateTime lastUpdated;
 

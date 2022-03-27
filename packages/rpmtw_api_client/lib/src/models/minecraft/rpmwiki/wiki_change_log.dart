@@ -5,6 +5,7 @@ import "package:rpmtw_api_client/src/models/base_model.dart";
 import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
 
 class WikiChangelog implements BaseModel {
+  @override
   final String uuid;
 
   /// 變更日誌
@@ -80,10 +81,10 @@ class WikiChangelog implements BaseModel {
     return WikiChangelog(
       changelog: map["changelog"],
       type: WikiChangelogType.values.byName(map["type"]),
-      dataUUID: map["dataUUID"] ?? "",
+      dataUUID: map["dataUUID"],
       changedData: map["changedData"],
       unchangedData: map["unchangedData"],
-      userUUID: map["userUUID"] ?? "",
+      userUUID: map["userUUID"],
       time: DateTime.fromMillisecondsSinceEpoch(map["time"]),
       uuid: map["uuid"],
     );

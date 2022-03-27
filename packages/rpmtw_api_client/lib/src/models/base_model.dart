@@ -1,5 +1,6 @@
 abstract class BaseModel {
-  const BaseModel();
+  final String uuid;
+  const BaseModel(this.uuid);
 
   Map<String, dynamic> toMap() {
     throw UnimplementedError();

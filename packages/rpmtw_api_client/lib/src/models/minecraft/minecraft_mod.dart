@@ -1,6 +1,7 @@
 import "dart:convert";
 
 import "package:collection/collection.dart";
+import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/base_model.dart";
 import "package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart";
 import "package:rpmtw_api_client/src/models/minecraft/mod_integration.dart";
@@ -9,6 +10,7 @@ import "package:rpmtw_api_client/src/models/minecraft/relation_mod.dart";
 import "package:rpmtw_api_client/src/models/storage/storage.dart";
 
 class MinecraftMod implements BaseModel {
+  @override
   final String uuid;
 
   /// 模組的名稱 (尚未翻譯的原始名稱)
@@ -135,7 +137,7 @@ class MinecraftMod implements BaseModel {
   factory MinecraftMod.fromMap(Map<String, dynamic> map) {
     return MinecraftMod(
       uuid: map["uuid"]!,
-      name: map["name"] ?? "",
+      name: map["name"],
       description: map["description"],
       id: map["id"],
       supportVersions: List<MinecraftVersion>.from(
@@ -206,6 +208,9 @@ class MinecraftMod implements BaseModel {
         imageStorageUUID.hashCode ^
         viewCount.hashCode;
   }
+
+  static Future<MinecraftMod> getByUUID(String uuid) =>
+      RPMTWApiClient.instance.minecraftResource.getMinecraftMod(uuid);
 }
 
 enum ModLoader { fabric, forge, other }

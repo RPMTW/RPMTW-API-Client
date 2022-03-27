@@ -1,8 +1,6 @@
 import "dart:convert";
 
-import "package:rpmtw_api_client/src/models/base_model.dart";
-
-class PasswordValidatedResult implements BaseModel {
+class PasswordValidatedResult {
   final bool isValid;
   final int code;
   final String message;
@@ -25,7 +23,6 @@ class PasswordValidatedResult implements BaseModel {
     );
   }
 
-  @override
   Map<String, dynamic> toMap() {
     return {
       "isValid": isValid,
@@ -39,7 +36,7 @@ class PasswordValidatedResult implements BaseModel {
     return PasswordValidatedResult(
       isValid: data["isValid"] ?? false,
       code: data["code"]?.toInt() ?? 0,
-      message: data["message"] ?? "",
+      message: data["message"],
     );
   }
 

@@ -4,6 +4,7 @@ import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/base_model.dart";
 
 class Storage implements BaseModel {
+  @override
   final String uuid;
   final String contentType;
   final String type;
@@ -41,9 +42,9 @@ class Storage implements BaseModel {
 
   factory Storage.fromMap(Map<String, dynamic> map) {
     return Storage(
-      uuid: map["uuid"] ?? "",
-      contentType: map["contentType"] ?? "",
-      type: map["type"] ?? "",
+      uuid: map["uuid"],
+      contentType: map["contentType"],
+      type: map["type"],
       createAt: map["createAt"]?.toInt() ?? 0,
     );
   }
@@ -76,6 +77,9 @@ class Storage implements BaseModel {
         type.hashCode ^
         createAt.hashCode;
   }
+
+  static Future<Storage> getByUUID(String uuid) =>
+      RPMTWApiClient.instance.storageResource.getStorage(uuid);
 
   /// Get download url of the storage
   ///

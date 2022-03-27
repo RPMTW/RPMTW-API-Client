@@ -3,7 +3,8 @@ import "dart:convert";
 import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/base_model.dart";
 
-class CosmicChatMessage extends BaseModel {
+class CosmicChatMessage implements BaseModel {
+  @override
   final String uuid;
 
   /// Username (not a nickname, may be the username of RPMTW account, Minecraft account or Discord account)
@@ -73,11 +74,11 @@ class CosmicChatMessage extends BaseModel {
 
   factory CosmicChatMessage.fromMap(Map<String, dynamic> map) {
     return CosmicChatMessage(
-      uuid: map["uuid"] ?? "",
-      username: map["username"] ?? "",
-      message: map["message"] ?? "",
+      uuid: map["uuid"],
+      username: map["username"],
+      message: map["message"],
       nickname: map["nickname"],
-      avatarUrl: map["avatarUrl"] ?? "",
+      avatarUrl: map["avatarUrl"],
       sentAt: DateTime.fromMillisecondsSinceEpoch(map["sentAt"]),
       userType: CosmicChatUserType.values.byName(map["userType"]),
       replyMessageUUID: map["replyMessageUUID"],

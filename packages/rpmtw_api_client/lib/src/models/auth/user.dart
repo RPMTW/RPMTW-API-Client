@@ -7,6 +7,7 @@ import "package:rpmtw_api_client/src/models/base_model.dart";
 import "package:rpmtw_api_client/src/models/storage/storage.dart";
 
 class User implements BaseModel {
+  @override
   final String uuid;
   final String username;
   final String email;
@@ -75,11 +76,11 @@ class User implements BaseModel {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      uuid: map["uuid"] ?? "",
-      username: map["username"] ?? "",
-      email: map["email"] ?? "",
+      uuid: map["uuid"],
+      username: map["username"],
+      email: map["email"],
       emailVerified: map["emailVerified"] ?? false,
-      passwordHash: map["passwordHash"] ?? "",
+      passwordHash: map["passwordHash"],
       avatarStorageUUID: map["avatarStorageUUID"],
       loginIPs: List<String>.from(map["loginIPs"]),
       role: UserRole.fromMap(map["role"]),

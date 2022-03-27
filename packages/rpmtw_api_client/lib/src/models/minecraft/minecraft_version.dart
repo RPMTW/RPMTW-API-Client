@@ -24,6 +24,9 @@ class MinecraftVersion {
 
   Version get comparableVersion => Utility.parseMCComparableVersion(id);
 
+  String get mainVersion =>
+      "${comparableVersion.major}.${comparableVersion.minor}";
+
   const MinecraftVersion(this.id, this.type, this.url, this.time,
       this.releaseTime, this.sha1, this.complianceLevel);
 
