@@ -35,5 +35,6 @@ export "src/resources/other_resource.dart";
 export "src/resources/curseforge_resource.dart";
 export "src/resources/cosmic_chat_resource.dart";
 export "src/resources/translate_resource.dart";
+export "src/resources/comment_resource.dart";
 
 export "src/utilities/exceptions.dart";
