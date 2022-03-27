@@ -55,9 +55,8 @@ class TranslateResource extends APIResource {
   /// - [vote] The vote to edit.
   /// - [type] Up or down vote.
   /// - [token] The token to use for authentication (optional if you have set a global token).
-  Future<TranslationVote> editVote(
-      TranslationVote vote, TranslationVoteType type,
-      {String? token}) async {
+  Future<TranslationVote> editVote(TranslationVote vote,
+      {required TranslationVoteType type, String? token}) async {
     if (vote.type == type) {
       return vote;
     }
@@ -141,6 +140,91 @@ class TranslateResource extends APIResource {
   Future<void> deleteTranslation(Translation translation,
       {String? token}) async {
     await httpClient.delete("/translate/translation/${translation.uuid}",
+        token: token);
+  }
+
+  /// Get a source text by uuid.
+  Future<SourceText> getSourceText(String uuid) async {
+    APIHttpResponse response =
+        await httpClient.get("/translate/source-text/$uuid");
+
+    return SourceText.fromMap(response.data);
+  }
+
+  /// List all source texts.
+  /// **Parameters**
+  /// - [source] filter by source.
+  /// - [key] filter by key.
+  /// - [limit] limit the number of results. (max 50)
+  /// - [skip] skip the first n results.
+  Future<List<SourceText>> listSourceText(
+      {String? source, String? key, int limit = 50, int skip = 0}) async {
+    APIHttpResponse response =
+        await httpClient.get("/translate/source-text/", query: {
+      if (source != null) "source": source,
+      if (key != null) "key": key,
+      "limit": limit,
+      "skip": skip,
+    });
+
+    return List<SourceText>.from(
+        (response.data as List).map((e) => SourceText.fromMap(e)));
+  }
+
+  /// Add a source text.
+  /// **Parameters**
+  /// - [source] The source content.
+  /// - [gameVersions] The game version of the text.
+  /// - [key] The key of the text.
+  /// - [type] The type of the text.
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<SourceText> addSourceText(
+      {required String source,
+      required String gameVersions,
+      required String key,
+      required SourceTextType type,
+      String? token}) async {
+    APIHttpResponse response = await httpClient.post("/translate/source-text/",
+        body: {
+          "source": source,
+          "gameVersions": gameVersions,
+          "key": key,
+          "type": type.name
+        },
+        token: token);
+
+    return SourceText.fromMap(response.data);
+  }
+
+  /// Edit a source text.
+  /// **Parameters**
+  /// - [sourceText] The source text to edit.
+  /// - [source] The source content,
+  /// - [gameVersions] The game versions of the text.
+  /// - [key] The key of the text.
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<SourceText> editSourceText(SourceText sourceText,
+      {String? source,
+      String? gameVersions,
+      String? key,
+      String? token}) async {
+    APIHttpResponse response = await httpClient.patch("/translate/source-text/",
+        body: {
+          if (source != null) "source": source,
+          if (gameVersions != null) "gameVersions": gameVersions,
+          if (key != null) "key": key,
+        },
+        token: token);
+
+    return SourceText.fromMap(response.data);
+  }
+
+  /// Delete a source text.
+  /// **Parameters**
+  /// - [sourceText] The source text to delete.
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<void> deleteSourceText(SourceText sourceText, {String? token}) async {
+    await httpClient.delete("/translate/source-text/${sourceText.uuid}",
         token: token);
   }
 }
