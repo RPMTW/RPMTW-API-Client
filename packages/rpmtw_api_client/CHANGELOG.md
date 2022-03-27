@@ -1,3 +1,7 @@
+# 1.0.8
+- feat: support RPMTranslator APIs
+- feat: support comment APIs
+- feat: new http client
 # 1.0.7+3
 - feat: Added `onlyListenMessage` argument for `CosmicChatResource#onMessageSent` and `CosmicChatResource#connect`
 - feat: Support to get the status of cosmic chat messages sent.

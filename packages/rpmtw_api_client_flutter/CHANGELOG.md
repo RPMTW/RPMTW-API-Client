@@ -1,4 +1,6 @@
 
+# 1.0.8
+- Support rpmtw_api_client (Dart) 1.0.8-dev.0
 # 1.0.7+1
 - Support rpmtw_api_client 1.0.7+1
 # 1.0.7
