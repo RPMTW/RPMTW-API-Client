@@ -1,8 +1,18 @@
-import 'package:http/http.dart';
-import 'package:rpmtw_api_client/rpmtw_api_client.dart';
+import "package:rpmtw_api_client/src/http/api_http_client.dart";
+import "package:rpmtw_api_client/src/resources/auth_resource.dart";
+import "package:rpmtw_api_client/src/resources/comment_resource.dart";
+import "package:rpmtw_api_client/src/resources/cosmic_chat_resource.dart";
+import "package:rpmtw_api_client/src/resources/curseforge_resource.dart";
+import "package:rpmtw_api_client/src/resources/minecraft_resource.dart";
+import "package:rpmtw_api_client/src/resources/other_resource.dart";
+import "package:rpmtw_api_client/src/resources/storage_resource.dart";
+import "package:rpmtw_api_client/src/resources/translate_resource.dart";
+import "package:rpmtw_api_client/src/utilities/exceptions.dart";
 
 class RPMTWApiClient {
-  final Client _httpClient;
+  static String get version => "1.0.8-dev.0";
+
+  late final APIHttpClient _httpClient;
   final String _apiBaseUrl;
   final String _cosmicChatBaseUrl;
   static RPMTWApiClient? _apiClient;
@@ -10,7 +20,7 @@ class RPMTWApiClient {
   String? _globalToken;
 
   /// Set the global token for all requests.
-  /// 
+  ///
   /// *Example*
   /// ```dart
   /// RPMTWApiClient client = RPMTWApiClient.instance;
@@ -27,35 +37,29 @@ class RPMTWApiClient {
       String? apiBaseUrl,
       String? cosmicChatBaseUrl,
       String? token})
-      : _httpClient = Client(),
-        _apiBaseUrl = apiBaseUrl ??
+      : _apiBaseUrl = apiBaseUrl ??
             (development
                 ? "http://localhost:8080"
-                : 'https://api.rpmtw.com:2096'),
+                : "https://api.rpmtw.com:2096"),
         _cosmicChatBaseUrl = cosmicChatBaseUrl ??
             (development
                 ? "http://localhost:2087"
-                : 'https://api.rpmtw.com:2087') {
+                : "https://api.rpmtw.com:2087") {
     _apiClient = this;
 
     if (token != null) _globalToken = token;
+    _httpClient = APIHttpClient(_apiBaseUrl);
   }
 
-  AuthResource get authResource => AuthResource(
-      httpClient: _httpClient, apiBaseUrl: _apiBaseUrl, token: _globalToken);
-  StorageResource get storageResource => StorageResource(
-      httpClient: _httpClient, apiBaseUrl: _apiBaseUrl, token: _globalToken);
-  MinecraftResource get minecraftResource => MinecraftResource(
-      httpClient: _httpClient, apiBaseUrl: _apiBaseUrl, token: _globalToken);
-  OtherResource get otherResource => OtherResource(
-      httpClient: _httpClient, apiBaseUrl: _apiBaseUrl, token: _globalToken);
-  CurseForgeResource get curseforgeResource => CurseForgeResource(
-      httpClient: _httpClient, apiBaseUrl: _apiBaseUrl, token: _globalToken);
-  CosmicChatResource get cosmicChatResource => CosmicChatResource(
-      httpClient: _httpClient,
-      apiBaseUrl: _apiBaseUrl,
-      cosmicChatBaseUrl: _cosmicChatBaseUrl,
-      token: _globalToken);
+  AuthResource get authResource => AuthResource(_httpClient);
+  StorageResource get storageResource => StorageResource(_httpClient);
+  MinecraftResource get minecraftResource => MinecraftResource(_httpClient);
+  OtherResource get otherResource => OtherResource(_httpClient);
+  CurseForgeResource get curseforgeResource => CurseForgeResource(_httpClient);
+  CosmicChatResource get cosmicChatResource =>
+      CosmicChatResource(_httpClient, cosmicChatBaseUrl: _cosmicChatBaseUrl);
+  TranslateResource get translateResource => TranslateResource(_httpClient);
+  CommentResource get commentResource => CommentResource(_httpClient);
 
   static RPMTWApiClient get instance {
     if (_apiClient == null) {
@@ -67,10 +71,10 @@ class RPMTWApiClient {
   /// Initializes the client
   ///
   /// **Parameters**
-  /// * [development] - Whether the client is in development mode
-  /// * [apiBaseUrl] - The base url of the api
-  /// * [cosmicChatBaseUrl] - The base url of the cosmic chat api
-  /// * [token] - The global token
+  /// - [development] - Whether the client is in development mode
+  /// - [apiBaseUrl] - The base url of the api
+  /// - [cosmicChatBaseUrl] - The base url of the cosmic chat api
+  /// - [token] - The global token
   ///
   /// **Example**
   /// ```dart

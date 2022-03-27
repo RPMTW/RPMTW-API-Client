@@ -1,8 +1,6 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:rpmtw_api_client/src/models/base_model.dart';
-
-class PasswordValidatedResult implements BaseModel {
+class PasswordValidatedResult {
   final bool isValid;
   final int code;
   final String message;
@@ -25,21 +23,19 @@ class PasswordValidatedResult implements BaseModel {
     );
   }
 
-  @override
   Map<String, dynamic> toMap() {
     return {
-      'isValid': isValid,
-      'code': code,
-      'message': message,
+      "isValid": isValid,
+      "code": code,
+      "message": message,
     };
   }
 
   factory PasswordValidatedResult.fromMap(Map<String, dynamic> map) {
-    Map data = map['data'];
     return PasswordValidatedResult(
-      isValid: data['isValid'] ?? false,
-      code: data['code']?.toInt() ?? 0,
-      message: data['message'] ?? '',
+      isValid: map["isValid"] ?? false,
+      code: map["code"]?.toInt() ?? 0,
+      message: map["message"],
     );
   }
 
@@ -63,5 +59,5 @@ class PasswordValidatedResult implements BaseModel {
 
   @override
   String toString() =>
-      'PasswordValidatedResult(isValid: $isValid, code: $code, resultMessage: $message)';
+      "PasswordValidatedResult(isValid: $isValid, code: $code, resultMessage: $message)";
 }

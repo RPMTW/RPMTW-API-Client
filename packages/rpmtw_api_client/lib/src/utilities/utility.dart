@@ -1,6 +1,8 @@
-import 'package:pub_semver/pub_semver.dart';
+import "package:pub_semver/pub_semver.dart";
 
 class Utility {
+  static bool get isWeb => identical(0, 0.0);
+
   /// https://github.com/RPMTW/RPMLauncher/blob/fa2523e3b006cd5e3dfca315be3c61debf48b40b/lib/Utility/Utility.dart#L381
   static Version parseMCComparableVersion(String sourceVersion) {
     Version _comparableVersion;
@@ -36,12 +38,16 @@ class Utility {
       }
 
       /// 例如 21w44a
-      RegExp _ = RegExp(r'(?:(?<yy>\d\d)w(?<ww>\d\d)[a-z])');
+      RegExp _ = RegExp(r"(?:(?<yy>\d\d)w(?<ww>\d\d)[a-z])");
       if (_.hasMatch(sourceVersion)) {
         RegExpMatch match = _.allMatches(sourceVersion).toList().first;
 
         String praseRelease(int year, int week) {
-          if (year == 21 && week >= 37) {
+          if (year == 22 && week >= 11) {
+            return "1.19.0";
+          } else if (year == 22 && week >= 3 && week <= 7) {
+            return "1.18.2";
+          } else if (year == 21 && week >= 37) {
             return "1.18.0";
           } else if (year == 21 && (week >= 3 && week <= 20)) {
             return "1.17.0";

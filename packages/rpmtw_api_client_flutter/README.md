@@ -2,7 +2,7 @@
 
 ### Example
 ```dart
-import 'package:rpmtw_api_client_flutter/rpmtw_api_client_flutter.dart';
+import "package:rpmtw_api_client_flutter/rpmtw_api_client_flutter.dart";
 
 void main() async {
   RPMTWApiClient.init(); // Initialize RPMTW API Client
@@ -26,7 +26,7 @@ void main() async {
 ### User Avatar
 
 ```dart
-import 'package:rpmtw_api_client_flutter/rpmtw_api_client_flutter.dart';
+import "package:rpmtw_api_client_flutter/rpmtw_api_client_flutter.dart";
 
 User user = User(...);
 user.avatar(fontSize: 20) // fontSize defaults to 18
@@ -35,7 +35,7 @@ user.avatar(fontSize: 20) // fontSize defaults to 18
 ### Minecraft Mod Image
 
 ```dart
-import 'package:rpmtw_api_client_flutter/rpmtw_api_client_flutter.dart';
+import "package:rpmtw_api_client_flutter/rpmtw_api_client_flutter.dart";
 
 MinecraftMod mod = MinecraftMod(...);
 mod.imageWidget(width: 50, height: 50)

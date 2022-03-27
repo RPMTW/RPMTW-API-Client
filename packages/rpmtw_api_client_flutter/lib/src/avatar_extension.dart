@@ -1,7 +1,7 @@
-import 'dart:math';
+import "dart:math";
 
-import 'package:flutter/material.dart';
-import 'package:rpmtw_api_client/rpmtw_api_client.dart';
+import "package:flutter/material.dart";
+import "package:rpmtw_api_client/rpmtw_api_client.dart";
 
 extension AvatarExtension on User {
   CircleAvatar avatar({double fontSize = 18}) {

@@ -1,12 +1,7 @@
-import 'package:http/http.dart';
+import "package:rpmtw_api_client/src/http/api_http_client.dart";
 
-abstract class BaseResource {
-  Client httpClient;
-  String apiBaseUrl;
-  String? globalToken;
+abstract class APIResource {
+  final APIHttpClient httpClient;
 
-  BaseResource(
-      {required this.httpClient,
-      required this.apiBaseUrl,
-      required this.globalToken});
+  const APIResource(this.httpClient);
 }

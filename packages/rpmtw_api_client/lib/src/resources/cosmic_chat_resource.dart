@@ -1,35 +1,29 @@
-import 'dart:convert';
-import 'dart:io';
+import "dart:convert";
 
-import 'package:http/http.dart';
-import 'package:rpmtw_api_client/src/models/cosmic_chat/cosmic_chat_info.dart';
-import 'package:rpmtw_api_client/src/models/cosmic_chat/cosmic_chat_message.dart';
-import 'package:rpmtw_api_client/src/resources/base_resource.dart';
-import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
-import 'package:rpmtw_api_client/src/utilities/extension.dart';
-import 'package:socket_io_client/socket_io_client.dart';
+import "package:rpmtw_api_client/src/http/api_http_client.dart";
+import "package:rpmtw_api_client/src/http/api_http_response.dart";
+import "package:rpmtw_api_client/src/models/cosmic_chat/cosmic_chat_info.dart";
+import "package:rpmtw_api_client/src/models/cosmic_chat/cosmic_chat_message.dart";
+import "package:rpmtw_api_client/src/resources/base_resource.dart";
+import "package:socket_io_client/socket_io_client.dart";
 
 Socket? _socket;
 bool _onlyListenMessage = false;
 
-class CosmicChatResource extends BaseResource {
+class CosmicChatResource extends APIResource {
   final String cosmicChatBaseUrl;
 
-  CosmicChatResource(
-      {required Client httpClient,
-      required String apiBaseUrl,
-      required this.cosmicChatBaseUrl,
-      required String? token})
-      : super(
-            httpClient: httpClient, apiBaseUrl: apiBaseUrl, globalToken: token);
+  const CosmicChatResource(APIHttpClient httpClient,
+      {required this.cosmicChatBaseUrl})
+      : super(httpClient);
 
   bool get isConnected => _socket?.connected ?? false;
 
   /// Connect to the Cosmic Chat server
   ///
-  /// * [minecraftUUID] player's minecraft UUID (optional)
-  /// * [token] rpmtw account token (optional)
-  /// * [onlyListenMessage] if true, only listen to message event, [minecraftUUID] and [token] can be empty
+  /// - [minecraftUUID] player"s minecraft UUID (optional)
+  /// - [token] rpmtw account token (optional)
+  /// - [onlyListenMessage] if true, only listen to message event, [minecraftUUID] and [token] can be empty
   /// [minecraftUUID], [token] cannot both be empty
   Future<void> connect(
       {String? minecraftUUID,
@@ -37,10 +31,10 @@ class CosmicChatResource extends BaseResource {
       bool onlyListenMessage = false}) async {
     _onlyListenMessage = onlyListenMessage;
     final baseOption =
-        OptionBuilder().setTransports(['websocket']).disableAutoConnect();
+        OptionBuilder().setTransports(["websocket"]).disableAutoConnect();
 
     if (minecraftUUID == null && token == null && !onlyListenMessage) {
-      throw ArgumentError('minecraftUUID and token cannot both be null');
+      throw ArgumentError("minecraftUUID and token cannot both be null");
     }
 
     if (minecraftUUID != null) {
@@ -51,10 +45,10 @@ class CosmicChatResource extends BaseResource {
     }
 
     Socket socket = io(cosmicChatBaseUrl, baseOption.build());
-    print('Connecting to Cosmic Chat server...');
+    print("Connecting to Cosmic Chat server...");
     bool connected = false;
     socket.onConnect((data) {
-      print('Connected to Cosmic Chat server');
+      print("Connected to Cosmic Chat server");
       connected = true;
     });
     socket = socket.connect();
@@ -79,24 +73,24 @@ class CosmicChatResource extends BaseResource {
   void _connectCheck({bool onlyListen = false}) {
     if (_socket == null && !onlyListen && !_onlyListenMessage) {
       throw StateError(
-          'Not connected to the Cosmic Chat server, call connect() first');
+          "Not connected to the Cosmic Chat server, call connect() first");
     }
   }
 
   /// Send a message to the server, and return the sent status.
   ///
   /// **Parameters**
-  /// * [message] message content
-  /// * [nickname] user's nickname
+  /// - [message] message content
+  /// - [nickname] user"s nickname
   Future<String> sendMessage(String message, {String? nickname}) async {
     _connectCheck();
     String? status;
 
     _socket!.emitWithAck(
-        'clientMessage',
+        "clientMessage",
         utf8.encode(json.encode({
-          'message': message,
-          if (nickname != null) 'nickname': nickname,
+          "message": message,
+          if (nickname != null) "nickname": nickname,
         })), ack: (_response) {
       Map response = json.decode(_response);
       status = response["status"];
@@ -111,19 +105,19 @@ class CosmicChatResource extends BaseResource {
   /// Reply message by message uuid, and return the replied status.
   ///
   /// **Parameters**
-  /// * [message] message content
-  /// * [uuid] message uuid to reply to
-  /// * [nickname] user's nickname
+  /// - [message] message content
+  /// - [uuid] message uuid to reply to
+  /// - [nickname] user"s nickname
   Future<String> replyMessage(String message,
       {required String uuid, String? nickname}) async {
     _connectCheck();
     String? status;
 
     _socket!.emitWithAck(
-        'clientMessage',
+        "clientMessage",
         utf8.encode(json.encode({
-          'message': message,
-          if (nickname != null) 'nickname': nickname,
+          "message": message,
+          if (nickname != null) "nickname": nickname,
           "replyMessageUUID": uuid
         })), ack: (_response) {
       Map response = json.decode(_response);
@@ -154,29 +148,14 @@ class CosmicChatResource extends BaseResource {
 
   /// Get message by message uuid
   Future<CosmicChatMessage> getMessage(String uuid) async {
-    Response response =
-        await httpClient.get(Uri.parse("$apiBaseUrl/cosmic-chat/view/$uuid"));
-    int statusCode = response.statusCode;
-    if (statusCode == HttpStatus.ok) {
-      return CosmicChatMessage.fromMap(response.map['data']);
-    } else if (statusCode == HttpStatus.notFound) {
-      throw ModelNotFoundException<CosmicChatMessage>();
-    } else {
-      throw Exception('Get message failed');
-    }
+    APIHttpResponse response = await httpClient.get("/cosmic-chat/view/$uuid");
+    return CosmicChatMessage.fromMap(response.data);
   }
 
   /// Get cosmic chat info (online users, protocolVersion, etc.)
   Future<CosmicChatInfo> getInfo() async {
-    Response response =
-        await httpClient.get(Uri.parse("$apiBaseUrl/cosmic-chat/info"));
-    int statusCode = response.statusCode;
-    if (statusCode == HttpStatus.ok) {
-      return CosmicChatInfo.fromMap(response.map['data']);
-    } else if (statusCode == HttpStatus.notFound) {
-      throw ModelNotFoundException<CosmicChatInfo>();
-    } else {
-      throw Exception('Get info failed');
-    }
+    APIHttpResponse response = await httpClient.get("/cosmic-chat/info");
+
+    return CosmicChatInfo.fromMap(response.data);
   }
 }

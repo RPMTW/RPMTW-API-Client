@@ -3,13 +3,13 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/_fe_analyzer_shared-33.0.0",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/_fe_analyzer_shared-38.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "analyzer",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/analyzer-3.1.0",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/analyzer-3.4.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -38,14 +38,14 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "cli_util",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/cli_util-0.3.5",
+      "name": "clock",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/clock-1.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "collection",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/collection-1.15.0",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/collection-1.16.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -57,9 +57,9 @@
     },
     {
       "name": "coverage",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/coverage-1.0.4",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/coverage-1.2.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "crypto",
@@ -93,13 +93,19 @@
     },
     {
       "name": "http_multi_server",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/http_multi_server-3.0.1",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/http_multi_server-3.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "http_parser",
       "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -171,7 +177,7 @@
     },
     {
       "name": "pub_semver",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/pub_semver-2.1.0",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/pub_semver-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -255,7 +261,7 @@
     },
     {
       "name": "test",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/test-1.20.1",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/test-1.20.2",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -278,8 +284,14 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "universal_io",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/universal_io-2.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "vm_service",
-      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/vm_service-8.1.0",
+      "rootUri": "file:///home/siongsng/.pub-cache/hosted/pub.dartlang.org/vm_service-8.2.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -314,7 +326,7 @@
       "languageVersion": "2.15"
     }
   ],
-  "generated": "2022-03-06T09:15:34.181065Z",
+  "generated": "2022-03-27T09:09:17.563034Z",
   "generator": "pub",
-  "generatorVersion": "2.17.0-69.2.beta"
+  "generatorVersion": "2.17.0-182.1.beta"
 }
