@@ -4,7 +4,7 @@ import "package:collection/collection.dart";
 import "package:rpmtw_api_client/src/models/base_model.dart";
 import "package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart";
 
-class MinecraftVersionManifest implements BaseModel {
+class MinecraftVersionManifest implements APIModel {
   final String latestRelease;
 
   final String latestSnapshot;

@@ -10,7 +10,7 @@ import "package:rpmtw_api_client/src/models/translate/translation.dart";
 /// Represents a source text entry in a text format.
 /// Can be referenced by `sources` of [SourceFile] or `patchouliAddons` of [ModSourceInfo].
 /// Cannot be repeatedly referenced.
-class SourceText implements BaseModel {
+class SourceText implements APIModel {
   @override
   final String uuid;
 

@@ -4,7 +4,7 @@ import "package:rpmtw_api_client/src/models/auth/user.dart";
 import "package:rpmtw_api_client/src/models/base_model.dart";
 import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
 
-class WikiChangelog implements BaseModel {
+class WikiChangelog implements APIModel {
   @override
   final String uuid;
 

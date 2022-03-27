@@ -7,7 +7,7 @@ import "package:rpmtw_api_client/src/models/translate/mod_source_info.dart";
 import "package:rpmtw_api_client/src/models/translate/source_text.dart";
 
 /// Represents the source language file in a text format.
-class SourceFile implements BaseModel {
+class SourceFile implements APIModel {
   @override
   final String uuid;
   final String modSourceInfoUUID;

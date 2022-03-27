@@ -2,7 +2,7 @@ import "dart:convert";
 
 import "package:rpmtw_api_client/src/models/base_model.dart";
 
-class TranslationVote implements BaseModel {
+class TranslationVote implements APIModel {
   @override
   final String uuid;
   final TranslationVoteType type;

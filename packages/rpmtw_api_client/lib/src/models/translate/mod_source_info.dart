@@ -6,7 +6,7 @@ import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
 import "package:rpmtw_api_client/src/models/translate/source_file.dart";
 import "package:rpmtw_api_client/src/models/translate/source_text.dart";
 
-class ModSourceInfo implements BaseModel {
+class ModSourceInfo implements APIModel {
   @override
   final String uuid;
 

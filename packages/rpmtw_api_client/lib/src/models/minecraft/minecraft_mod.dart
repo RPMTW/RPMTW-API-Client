@@ -9,7 +9,7 @@ import "package:rpmtw_api_client/src/models/minecraft/mod_side.dart";
 import "package:rpmtw_api_client/src/models/minecraft/relation_mod.dart";
 import "package:rpmtw_api_client/src/models/storage/storage.dart";
 
-class MinecraftMod implements BaseModel {
+class MinecraftMod implements APIModel {
   @override
   final String uuid;
 

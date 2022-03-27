@@ -3,7 +3,7 @@ import "dart:convert";
 import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/base_model.dart";
 
-class CosmicChatMessage implements BaseModel {
+class CosmicChatMessage implements APIModel {
   @override
   final String uuid;
 

@@ -3,7 +3,7 @@ import "dart:convert";
 import "package:intl/locale.dart";
 import "package:rpmtw_api_client/src/models/base_model.dart";
 
-class Glossary implements BaseModel {
+class Glossary implements APIModel {
   @override
   final String uuid;
   final String term;
