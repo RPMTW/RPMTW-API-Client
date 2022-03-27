@@ -36,7 +36,7 @@ class ModSourceInfo implements APIModel {
 
   /// [SourceFile] files included in this mod.
   Future<List<SourceFile>> get files {
-    return SourceFile.list(modSourceInfoUUID: uuid);
+    return SourceFile.list(modSourceInfo: this);
   }
 
   Future<List<SourceText>?> get patchouliAddonTexts async {

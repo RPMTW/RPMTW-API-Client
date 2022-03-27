@@ -3,6 +3,7 @@ import 'package:rpmtw_api_client/src/api_client.dart';
 import "package:rpmtw_api_client/src/http/api_http_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_response.dart";
 import 'package:rpmtw_api_client/src/models/auth/user.dart';
+import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
 import 'package:rpmtw_api_client/src/models/storage/storage.dart';
 import 'package:rpmtw_api_client/src/models/translate/mod_source_info.dart';
 import 'package:rpmtw_api_client/src/models/translate/source_file.dart';
@@ -214,6 +215,10 @@ class TranslateResource extends APIResource {
       List<String>? gameVersions,
       String? key,
       String? token}) async {
+    if (source == null && gameVersions == null && key == null) {
+      return sourceText;
+    }
+
     APIHttpResponse response =
         await httpClient.patch("/translate/source-text/${sourceText.uuid}",
             body: {
@@ -339,6 +344,15 @@ class TranslateResource extends APIResource {
       List<String>? gameVersions,
       List<String>? patchouliI18nKeys,
       String? token}) async {
+    if (modSourceInfo == null &&
+        storage == null &&
+        path == null &&
+        type == null &&
+        gameVersions == null &&
+        patchouliI18nKeys == null) {
+      return sourceFile;
+    }
+
     APIHttpResponse response = await httpClient.patch(
         "/translate/source-file/${sourceFile.uuid}",
         body: {
@@ -360,6 +374,97 @@ class TranslateResource extends APIResource {
   /// - [token] The token to use for authentication (optional if you have set a global token).
   Future<void> deleteSourceFile(SourceFile sourceFile, {String? token}) async {
     await httpClient.delete("/translate/source-file/${sourceFile.uuid}",
+        token: token);
+  }
+
+  /// Get a mod source info by uuid.
+  Future<ModSourceInfo> getModSourceInfo(String uuid) async {
+    APIHttpResponse response =
+        await httpClient.get("/translate/mod-source-info/$uuid");
+
+    return ModSourceInfo.fromMap(response.data);
+  }
+
+  /// List all mod source infos.
+  /// **Parameters**
+  /// - [name] filter by name or translated name.
+  /// - [namespace] filter by namespace.
+  /// - [limit] limit the number of results. (max 50)
+  /// - [skip] skip the first n results.
+  Future<List<ModSourceInfo>> listModSourceInfo(
+      {String? name, String? namespace, int limit = 50, int skip = 0}) async {
+    APIHttpResponse response =
+        await httpClient.get("/translate/mod-source-info/", query: {
+      if (name != null) "name": name,
+      if (namespace != null) "namespace": namespace,
+      "limit": limit,
+      "skip": skip,
+    });
+
+    return List<ModSourceInfo>.from(
+        (response.data as List).map((e) => ModSourceInfo.fromMap(e)));
+  }
+
+  /// Add a mod source info.
+  /// **Parameters**
+  /// - [namespace] The namespace of the mod.
+  /// - [mod] The mod of the info (optional).
+  /// - [patchouliAddons] Used to store specially formatted [SourceText] in patchouli manuals (optional).
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<ModSourceInfo> addModSourceInfo(
+      {required String namespace,
+      MinecraftMod? mod,
+      List<SourceText>? patchouliAddons,
+      String? token}) async {
+    APIHttpResponse response =
+        await httpClient.post("/translate/mod-source-info/",
+            body: {
+              "namespace": namespace,
+              if (mod != null) "modUUID": mod.uuid,
+              if (patchouliAddons != null)
+                "patchouliAddons": patchouliAddons.map((e) => e.uuid).toList(),
+            },
+            token: token);
+
+    return ModSourceInfo.fromMap(response.data);
+  }
+
+  /// Edit a mod source info.
+  /// **Parameters**
+  /// - [modSourceInfo] The mod source info to edit.
+  /// - [namespace] The namespace of the mod (optional).
+  /// - [mod] The mod of the info (optional).
+  /// - [patchouliAddons] Used to store specially formatted [SourceText] in patchouli manuals (optional).
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<ModSourceInfo> editModSourceInfo(ModSourceInfo modSourceInfo,
+      {String? namespace,
+      MinecraftMod? mod,
+      List<SourceText>? patchouliAddons,
+      String? token}) async {
+    if (namespace == null && mod == null && patchouliAddons == null) {
+      return modSourceInfo;
+    }
+
+    APIHttpResponse response = await httpClient.patch(
+        "/translate/mod-source-info/${modSourceInfo.uuid}",
+        body: {
+          if (namespace != null) "namespace": namespace,
+          if (mod != null) "modUUID": mod.uuid,
+          if (patchouliAddons != null)
+            "patchouliAddons": patchouliAddons.map((e) => e.uuid).toList(),
+        },
+        token: token);
+
+    return ModSourceInfo.fromMap(response.data);
+  }
+
+  /// Delete a mod source info.
+  /// **Parameters**
+  /// - [modSourceInfo] The mod source info to delete.
+  /// - [token] The token to use for authentication (optional if you have set a global token).
+  Future<void> deleteModSourceInfo(ModSourceInfo modSourceInfo,
+      {String? token}) async {
+    await httpClient.delete("/translate/mod-source-info/${modSourceInfo.uuid}",
         token: token);
   }
 }

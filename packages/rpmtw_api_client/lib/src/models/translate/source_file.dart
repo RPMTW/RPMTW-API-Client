@@ -1,6 +1,7 @@
 import "dart:convert";
 
 import "package:collection/collection.dart";
+import 'package:rpmtw_api_client/src/api_client.dart';
 import "package:rpmtw_api_client/src/models/api_model.dart";
 import "package:rpmtw_api_client/src/models/storage/storage.dart";
 import "package:rpmtw_api_client/src/models/translate/mod_source_info.dart";
@@ -127,11 +128,12 @@ class SourceFile implements APIModel {
   }
 
   static Future<SourceFile> getByUUID(String uuid) =>
-      throw UnimplementedError();
+      RPMTWApiClient.instance.translateResource.getSourceFile(uuid);
 
   static Future<List<SourceFile>> list(
-          {String? modSourceInfoUUID, int? limit, int? skip}) =>
-      throw UnimplementedError();
+          {ModSourceInfo? modSourceInfo, int limit = 50, int skip = 0}) =>
+      RPMTWApiClient.instance.translateResource.listSourceFile(
+          modSourceInfo: modSourceInfo, limit: limit, skip: skip);
 }
 
 enum SourceFileType {
