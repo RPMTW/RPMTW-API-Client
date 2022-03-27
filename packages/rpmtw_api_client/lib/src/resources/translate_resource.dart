@@ -16,7 +16,7 @@ import "package:rpmtw_api_client/src/resources/base_resource.dart";
 import 'package:universal_io/io.dart';
 
 class TranslateResource extends APIResource {
-  TranslateResource(APIHttpClient httpClient) : super(httpClient);
+  const TranslateResource(APIHttpClient httpClient) : super(httpClient);
 
   /// Get a vote by uuid.
   Future<TranslationVote> getVote(String uuid) async {
@@ -616,8 +616,8 @@ class TranslateResource extends APIResource {
   ///
   /// **Returns**
   /// If the format is `minecraftJson` or `patchouli`
-  /// Returns a map of the source text and translation.  
-  /// Example:  
+  /// Returns a map of the source text and translation.
+  /// Example:
   /// ```json
   /// {
   ///   "hello": "你好",
@@ -626,8 +626,8 @@ class TranslateResource extends APIResource {
   /// ```
   ///
   /// If the format is `customText`
-  /// Returns a map of the source file path and translation texts.   
-  /// Example:  
+  /// Returns a map of the source file path and translation texts.
+  /// Example:
   /// ```json
   /// {
   ///  "assets/test/fqa.txt": "Q: RPMTW 是什麼？\n\nA: RPMTW 是個致力於推廣 Minecraft 中文社群\n並開發相關工具，希望為 Minecraft 玩家提供更好的體驗。",

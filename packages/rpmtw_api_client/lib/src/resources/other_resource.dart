@@ -3,7 +3,7 @@ import "package:rpmtw_api_client/src/http/api_http_response.dart";
 import "package:rpmtw_api_client/src/resources/base_resource.dart";
 
 class OtherResource extends APIResource {
-  OtherResource(APIHttpClient httpClient) : super(httpClient);
+  const OtherResource(APIHttpClient httpClient) : super(httpClient);
 
   Future<String> helloWorld() async {
     APIHttpResponse response = await httpClient.get("/");

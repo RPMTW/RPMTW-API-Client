@@ -5,7 +5,7 @@ import "package:rpmtw_api_client/src/models/auth/user.dart";
 import "package:rpmtw_api_client/src/resources/base_resource.dart";
 
 class AuthResource extends APIResource {
-  AuthResource(APIHttpClient httpClient) : super(httpClient);
+  const AuthResource(APIHttpClient httpClient) : super(httpClient);
 
   /// Get user info by uuid.
   ///

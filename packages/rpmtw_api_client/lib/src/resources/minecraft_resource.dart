@@ -10,7 +10,7 @@ import "package:rpmtw_api_client/src/resources/base_resource.dart";
 import "package:rpmtw_api_client/src/utilities/exceptions.dart";
 
 class MinecraftResource extends APIResource {
-  MinecraftResource(APIHttpClient httpClient) : super(httpClient);
+  const MinecraftResource(APIHttpClient httpClient) : super(httpClient);
 
   /// 建立 Minecraft 模組，如果建立成功將回傳 Minecraft 模組資訊
   ///

@@ -8,7 +8,7 @@ import 'package:rpmtw_api_client/src/utilities/utility.dart';
 import 'package:universal_io/io.dart';
 
 class StorageResource extends APIResource {
-  StorageResource(APIHttpClient httpClient) : super(httpClient);
+  const StorageResource(APIHttpClient httpClient) : super(httpClient);
 
   /// Get storage info by uuid.
   ///

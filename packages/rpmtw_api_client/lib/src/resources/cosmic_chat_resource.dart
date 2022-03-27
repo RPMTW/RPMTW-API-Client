@@ -13,7 +13,7 @@ bool _onlyListenMessage = false;
 class CosmicChatResource extends APIResource {
   final String cosmicChatBaseUrl;
 
-  CosmicChatResource(APIHttpClient httpClient,
+  const CosmicChatResource(APIHttpClient httpClient,
       {required this.cosmicChatBaseUrl})
       : super(httpClient);
 

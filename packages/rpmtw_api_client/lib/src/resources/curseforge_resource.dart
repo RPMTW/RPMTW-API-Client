@@ -4,7 +4,7 @@ import "package:rpmtw_api_client/src/models/curseforge/curseforge_mod.dart";
 import "package:rpmtw_api_client/src/resources/base_resource.dart";
 
 class CurseForgeResource extends APIResource {
-  CurseForgeResource(APIHttpClient httpClient) : super(httpClient);
+  const CurseForgeResource(APIHttpClient httpClient) : super(httpClient);
 
   Future<Map> get({required String path, int apiVersion = 1}) async {
     APIHttpResponse response = await httpClient
