@@ -1,11 +1,11 @@
-class CosmicChatInfo {
+class UniverseChatInfo {
   /// Number of online users.
   final int onlineUsers;
 
   /// Protocol version. (current version is 1)
   final int protocolVersion;
 
-  CosmicChatInfo({
+  UniverseChatInfo({
     required this.onlineUsers,
     required this.protocolVersion,
   });
@@ -17,8 +17,8 @@ class CosmicChatInfo {
     };
   }
 
-  factory CosmicChatInfo.fromMap(Map<String, dynamic> map) {
-    return CosmicChatInfo(
+  factory UniverseChatInfo.fromMap(Map<String, dynamic> map) {
+    return UniverseChatInfo(
       onlineUsers: map["onlineUsers"]?.toInt() ?? 0,
       protocolVersion: map["protocolVersion"]?.toInt() ?? 0,
     );

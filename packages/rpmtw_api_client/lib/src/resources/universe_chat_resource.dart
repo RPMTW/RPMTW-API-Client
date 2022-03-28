@@ -2,24 +2,24 @@ import "dart:convert";
 
 import "package:rpmtw_api_client/src/http/api_http_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_response.dart";
-import "package:rpmtw_api_client/src/models/cosmic_chat/cosmic_chat_info.dart";
-import "package:rpmtw_api_client/src/models/cosmic_chat/cosmic_chat_message.dart";
+import "package:rpmtw_api_client/src/models/universe_chat/universe_chat_info.dart";
+import "package:rpmtw_api_client/src/models/universe_chat/universe_chat_message.dart";
 import "package:rpmtw_api_client/src/resources/base_resource.dart";
 import "package:socket_io_client/socket_io_client.dart";
 
 Socket? _socket;
 bool _onlyListenMessage = false;
 
-class CosmicChatResource extends APIResource {
-  final String cosmicChatBaseUrl;
+class UniverseChatResource extends APIResource {
+  final String universeChatBaseUrl;
 
-  const CosmicChatResource(APIHttpClient httpClient,
-      {required this.cosmicChatBaseUrl})
+  const UniverseChatResource(APIHttpClient httpClient,
+      {required this.universeChatBaseUrl})
       : super(httpClient);
 
   bool get isConnected => _socket?.connected ?? false;
 
-  /// Connect to the Cosmic Chat server
+  /// Connect to the Universe Chat server
   ///
   /// - [minecraftUUID] player"s minecraft UUID (optional)
   /// - [token] rpmtw account token (optional)
@@ -44,11 +44,11 @@ class CosmicChatResource extends APIResource {
       baseOption.setExtraHeaders({"rpmtw_auth_token": token});
     }
 
-    Socket socket = io(cosmicChatBaseUrl, baseOption.build());
-    print("Connecting to Cosmic Chat server...");
+    Socket socket = io(universeChatBaseUrl, baseOption.build());
+    print("Connecting to Universe Chat server...");
     bool connected = false;
     socket.onConnect((data) {
-      print("Connected to Cosmic Chat server");
+      print("Connected to Universe Chat server");
       connected = true;
     });
     socket = socket.connect();
@@ -63,7 +63,7 @@ class CosmicChatResource extends APIResource {
     _socket = socket;
   }
 
-  /// Disconnect from the Cosmic Chat server
+  /// Disconnect from the Universe Chat server
   void disconnect() {
     _socket?.disconnect();
     _socket?.clearListeners();
@@ -73,7 +73,7 @@ class CosmicChatResource extends APIResource {
   void _connectCheck({bool onlyListen = false}) {
     if (_socket == null && !onlyListen && !_onlyListenMessage) {
       throw StateError(
-          "Not connected to the Cosmic Chat server, call connect() first");
+          "Not connected to the Universe Chat server, call connect() first");
     }
   }
 
@@ -131,15 +131,15 @@ class CosmicChatResource extends APIResource {
   }
 
   /// Receive messages sent by other users
-  Stream<CosmicChatMessage> get onMessageSent {
+  Stream<UniverseChatMessage> get onMessageSent {
     _connectCheck(onlyListen: true);
 
     String decodeMessage(List<dynamic> message) =>
         utf8.decode(List<int>.from(message));
 
-    Stream<CosmicChatMessage> stream = Stream.multi((p0) {
+    Stream<UniverseChatMessage> stream = Stream.multi((p0) {
       _socket!.on("sentMessage", (data) {
-        p0.add(CosmicChatMessage.fromJson(decodeMessage(data)));
+        p0.add(UniverseChatMessage.fromJson(decodeMessage(data)));
       });
     });
 
@@ -147,15 +147,16 @@ class CosmicChatResource extends APIResource {
   }
 
   /// Get message by message uuid
-  Future<CosmicChatMessage> getMessage(String uuid) async {
-    APIHttpResponse response = await httpClient.get("/cosmic-chat/view/$uuid");
-    return CosmicChatMessage.fromMap(response.data);
+  Future<UniverseChatMessage> getMessage(String uuid) async {
+    APIHttpResponse response =
+        await httpClient.get("/universe-chat/view/$uuid");
+    return UniverseChatMessage.fromMap(response.data);
   }
 
-  /// Get cosmic chat info (online users, protocolVersion, etc.)
-  Future<CosmicChatInfo> getInfo() async {
-    APIHttpResponse response = await httpClient.get("/cosmic-chat/info");
+  /// Get universe chat info (online users, protocolVersion, etc.)
+  Future<UniverseChatInfo> getInfo() async {
+    APIHttpResponse response = await httpClient.get("/universe-chat/info");
 
-    return CosmicChatInfo.fromMap(response.data);
+    return UniverseChatInfo.fromMap(response.data);
   }
 }

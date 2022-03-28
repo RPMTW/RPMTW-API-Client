@@ -15,7 +15,7 @@ export "src/models/minecraft/mod_side.dart";
 export "src/models/minecraft/relation_mod.dart";
 export "src/models/minecraft/rpmwiki/wiki_change_log.dart";
 export "src/models/curseforge/curseforge_mod.dart";
-export "src/models/cosmic_chat/cosmic_chat_message.dart";
+export "src/models/universe_chat/universe_chat_message.dart";
 export "src/models/auth/user_role_permission.dart";
 export "src/models/auth/user_role.dart";
 export "src/models/comment/comment.dart";
@@ -33,7 +33,7 @@ export "src/resources/storage_resource.dart";
 export "src/resources/minecraft_resource.dart";
 export "src/resources/other_resource.dart";
 export "src/resources/curseforge_resource.dart";
-export "src/resources/cosmic_chat_resource.dart";
+export "src/resources/universe_chat_resource.dart";
 export "src/resources/translate_resource.dart";
 export "src/resources/comment_resource.dart";
 

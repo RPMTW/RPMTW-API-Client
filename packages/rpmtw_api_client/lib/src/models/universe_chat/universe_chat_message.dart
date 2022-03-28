@@ -3,7 +3,7 @@ import "dart:convert";
 import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/api_model.dart";
 
-class CosmicChatMessage implements APIModel {
+class UniverseChatMessage implements APIModel {
   @override
   final String uuid;
 
@@ -20,12 +20,12 @@ class CosmicChatMessage implements APIModel {
   /// message sent time (UTC+0)
   final DateTime sentAt;
 
-  final CosmicChatUserType userType;
+  final UniverseChatUserType userType;
 
   /// Reply message uuid
   final String? replyMessageUUID;
 
-  const CosmicChatMessage({
+  const UniverseChatMessage({
     required this.uuid,
     required this.username,
     required this.message,
@@ -36,17 +36,17 @@ class CosmicChatMessage implements APIModel {
     this.replyMessageUUID,
   });
 
-  CosmicChatMessage copyWith({
+  UniverseChatMessage copyWith({
     String? uuid,
     String? username,
     String? message,
     String? nickname,
     String? avatarUrl,
     DateTime? sentAt,
-    CosmicChatUserType? userType,
+    UniverseChatUserType? userType,
     String? replyMessageUUID,
   }) {
-    return CosmicChatMessage(
+    return UniverseChatMessage(
       uuid: uuid ?? this.uuid,
       username: username ?? this.username,
       message: message ?? this.message,
@@ -72,34 +72,34 @@ class CosmicChatMessage implements APIModel {
     };
   }
 
-  factory CosmicChatMessage.fromMap(Map<String, dynamic> map) {
-    return CosmicChatMessage(
+  factory UniverseChatMessage.fromMap(Map<String, dynamic> map) {
+    return UniverseChatMessage(
       uuid: map["uuid"],
       username: map["username"],
       message: map["message"],
       nickname: map["nickname"],
       avatarUrl: map["avatarUrl"],
       sentAt: DateTime.fromMillisecondsSinceEpoch(map["sentAt"]),
-      userType: CosmicChatUserType.values.byName(map["userType"]),
+      userType: UniverseChatUserType.values.byName(map["userType"]),
       replyMessageUUID: map["replyMessageUUID"],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory CosmicChatMessage.fromJson(String source) =>
-      CosmicChatMessage.fromMap(json.decode(source));
+  factory UniverseChatMessage.fromJson(String source) =>
+      UniverseChatMessage.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return "CosmicChatMessage(uuid: $uuid, username: $username, message: $message, nickname: $nickname, avatarUrl: $avatarUrl, sentAt: $sentAt, userType: $userType, replyMessageUUID: $replyMessageUUID)";
+    return "UniverseChatMessage(uuid: $uuid, username: $username, message: $message, nickname: $nickname, avatarUrl: $avatarUrl, sentAt: $sentAt, userType: $userType, replyMessageUUID: $replyMessageUUID)";
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is CosmicChatMessage &&
+    return other is UniverseChatMessage &&
         other.uuid == uuid &&
         other.username == username &&
         other.message == message &&
@@ -122,11 +122,11 @@ class CosmicChatMessage implements APIModel {
         replyMessageUUID.hashCode;
   }
 
-  static Future<CosmicChatMessage?> getByUUID(String uuid) async =>
-      RPMTWApiClient.instance.cosmicChatResource.getMessage(uuid);
+  static Future<UniverseChatMessage?> getByUUID(String uuid) async =>
+      RPMTWApiClient.instance.universeChatResource.getMessage(uuid);
 }
 
-enum CosmicChatUserType {
+enum UniverseChatUserType {
   /// RPMTW account
   rpmtw,
 

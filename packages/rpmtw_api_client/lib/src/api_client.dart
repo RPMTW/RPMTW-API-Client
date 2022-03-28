@@ -1,7 +1,7 @@
 import "package:rpmtw_api_client/src/http/api_http_client.dart";
 import "package:rpmtw_api_client/src/resources/auth_resource.dart";
 import "package:rpmtw_api_client/src/resources/comment_resource.dart";
-import "package:rpmtw_api_client/src/resources/cosmic_chat_resource.dart";
+import "package:rpmtw_api_client/src/resources/universe_chat_resource.dart";
 import "package:rpmtw_api_client/src/resources/curseforge_resource.dart";
 import "package:rpmtw_api_client/src/resources/minecraft_resource.dart";
 import "package:rpmtw_api_client/src/resources/other_resource.dart";
@@ -14,7 +14,7 @@ class RPMTWApiClient {
 
   late final APIHttpClient _httpClient;
   final String _apiBaseUrl;
-  final String _cosmicChatBaseUrl;
+  final String _universeChatBaseUrl;
   static RPMTWApiClient? _apiClient;
 
   String? _globalToken;
@@ -29,19 +29,19 @@ class RPMTWApiClient {
   void setGlobalToken(String value) => _globalToken = value;
 
   String get apiBaseUrl => _apiBaseUrl;
-  String get cosmicChatBaseUrl => _cosmicChatBaseUrl;
+  String get universeChatBaseUrl => _universeChatBaseUrl;
   String? get apiGlobalToken => _globalToken;
 
   RPMTWApiClient(
       {bool development = false,
       String? apiBaseUrl,
-      String? cosmicChatBaseUrl,
+      String? universeChatBaseUrl,
       String? token})
       : _apiBaseUrl = apiBaseUrl ??
             (development
                 ? "http://localhost:8080"
                 : "https://api.rpmtw.com:2096"),
-        _cosmicChatBaseUrl = cosmicChatBaseUrl ??
+        _universeChatBaseUrl = universeChatBaseUrl ??
             (development
                 ? "http://localhost:2087"
                 : "https://api.rpmtw.com:2087") {
@@ -56,8 +56,9 @@ class RPMTWApiClient {
   MinecraftResource get minecraftResource => MinecraftResource(_httpClient);
   OtherResource get otherResource => OtherResource(_httpClient);
   CurseForgeResource get curseforgeResource => CurseForgeResource(_httpClient);
-  CosmicChatResource get cosmicChatResource =>
-      CosmicChatResource(_httpClient, cosmicChatBaseUrl: _cosmicChatBaseUrl);
+  UniverseChatResource get universeChatResource =>
+      UniverseChatResource(_httpClient,
+          universeChatBaseUrl: _universeChatBaseUrl);
   TranslateResource get translateResource => TranslateResource(_httpClient);
   CommentResource get commentResource => CommentResource(_httpClient);
 
@@ -73,7 +74,7 @@ class RPMTWApiClient {
   /// **Parameters**
   /// - [development] - Whether the client is in development mode
   /// - [apiBaseUrl] - The base url of the api
-  /// - [cosmicChatBaseUrl] - The base url of the cosmic chat api
+  /// - [universeChatBaseUrl] - The base url of the universe chat api
   /// - [token] - The global token
   ///
   /// **Example**
@@ -85,12 +86,12 @@ class RPMTWApiClient {
   static RPMTWApiClient init(
       {bool development = false,
       String? apiBaseUrl,
-      String? cosmicChatBaseUrl,
+      String? universeChatBaseUrl,
       String? token}) {
     RPMTWApiClient client = RPMTWApiClient(
         development: development,
         apiBaseUrl: apiBaseUrl,
-        cosmicChatBaseUrl: cosmicChatBaseUrl,
+        universeChatBaseUrl: universeChatBaseUrl,
         token: token);
     _apiClient = client;
     return client;
