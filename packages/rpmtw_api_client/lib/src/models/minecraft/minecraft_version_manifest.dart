@@ -31,7 +31,7 @@ class MinecraftVersionManifest implements APIModel {
       latestRelease: map["manifest"]["latest"]["release"],
       latestSnapshot: map["manifest"]["latest"]["snapshot"],
       uuid: map["uuid"],
-      lastUpdated: DateTime.fromMillisecondsSinceEpoch(map["lastUpdated"]),
+      lastUpdated: DateTime.fromMillisecondsSinceEpoch(map["lastUpdated"], isUtc: true),
     );
   }
 

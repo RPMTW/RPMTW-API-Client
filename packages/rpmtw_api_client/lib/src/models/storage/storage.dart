@@ -48,10 +48,11 @@ class Storage implements APIModel {
 
   factory Storage.fromMap(Map<String, dynamic> map) {
     return Storage(
-      uuid: map["uuid"] ?? "",
-      contentType: map["contentType"] ?? "",
-      type: map["type"] ?? "",
-      createAt: DateTime.fromMillisecondsSinceEpoch(map["createAt"]),
+      uuid: map["uuid"],
+      contentType: map["contentType"],
+      type: map["type"],
+      createAt:
+          DateTime.fromMillisecondsSinceEpoch(map["createAt"], isUtc: true),
       usageCount: map["usageCount"]?.toInt() ?? 0,
     );
   }

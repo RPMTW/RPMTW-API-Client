@@ -93,13 +93,15 @@ class Comment implements APIModel {
 
   factory Comment.fromMap(Map<String, dynamic> map) {
     return Comment(
-      uuid: map["uuid"] ?? "",
-      content: map["content"] ?? "",
+      uuid: map["uuid"],
+      content: map["content"],
       type: CommentType.values.byName(map["type"]),
-      userUUID: map["userUUID"] ?? "",
-      parentUUID: map["parentUUID"] ?? "",
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map["createdAt"]),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map["updatedAt"]),
+      userUUID: map["userUUID"],
+      parentUUID: map["parentUUID"],
+      createdAt:
+          DateTime.fromMillisecondsSinceEpoch(map["createdAt"], isUtc: true),
+      updatedAt:
+          DateTime.fromMillisecondsSinceEpoch(map["updatedAt"], isUtc: true),
       isHidden: map["isHidden"] ?? false,
       replyCommentUUID: map["replyCommentUUID"],
     );

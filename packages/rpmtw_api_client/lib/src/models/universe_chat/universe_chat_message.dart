@@ -79,7 +79,7 @@ class UniverseChatMessage implements APIModel {
       message: map["message"],
       nickname: map["nickname"],
       avatarUrl: map["avatarUrl"],
-      sentAt: DateTime.fromMillisecondsSinceEpoch(map["sentAt"]),
+      sentAt: DateTime.fromMillisecondsSinceEpoch(map["sentAt"], isUtc: true),
       userType: UniverseChatUserType.values.byName(map["userType"]),
       replyMessageUUID: map["replyMessageUUID"],
     );

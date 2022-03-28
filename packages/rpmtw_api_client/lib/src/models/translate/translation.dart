@@ -73,10 +73,10 @@ class Translation implements APIModel {
 
   factory Translation.fromMap(Map<String, dynamic> map) {
     return Translation(
-      uuid: map["uuid"] ?? "",
-      sourceUUID: map["sourceUUID"] ?? "",
-      content: map["content"] ?? "",
-      translatorUUID: map["translatorUUID"] ?? "",
+      uuid: map["uuid"],
+      sourceUUID: map["sourceUUID"],
+      content: map["content"],
+      translatorUUID: map["translatorUUID"],
       language: Locale.parse(map["language"]),
     );
   }

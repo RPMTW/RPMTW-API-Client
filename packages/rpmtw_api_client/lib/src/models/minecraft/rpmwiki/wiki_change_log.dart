@@ -85,7 +85,7 @@ class WikiChangelog implements APIModel {
       changedData: map["changedData"],
       unchangedData: map["unchangedData"],
       userUUID: map["userUUID"],
-      time: DateTime.fromMillisecondsSinceEpoch(map["time"]),
+      time: DateTime.fromMillisecondsSinceEpoch(map["time"], isUtc: true),
       uuid: map["uuid"],
     );
   }
