@@ -11,7 +11,6 @@ class User implements APIModel {
   final String username;
   final String email;
   final bool emailVerified;
-  final String passwordHash;
   final String? avatarStorageUUID;
   final UserRole role;
 
@@ -20,7 +19,6 @@ class User implements APIModel {
     required this.username,
     required this.email,
     required this.emailVerified,
-    required this.passwordHash,
     this.avatarStorageUUID,
     required this.role,
   });
@@ -40,7 +38,6 @@ class User implements APIModel {
     String? username,
     String? email,
     bool? emailVerified,
-    String? passwordHash,
     String? avatarStorageUUID,
     UserRole? role,
   }) {
@@ -49,7 +46,6 @@ class User implements APIModel {
       username: username ?? this.username,
       email: email ?? this.email,
       emailVerified: emailVerified ?? this.emailVerified,
-      passwordHash: passwordHash ?? this.passwordHash,
       avatarStorageUUID: avatarStorageUUID ?? this.avatarStorageUUID,
       role: role ?? this.role,
     );
@@ -62,7 +58,6 @@ class User implements APIModel {
       "username": username,
       "email": email,
       "emailVerified": emailVerified,
-      "passwordHash": passwordHash,
       "avatarStorageUUID": avatarStorageUUID,
       "role": role.toMap(),
     };
@@ -74,7 +69,6 @@ class User implements APIModel {
       username: map["username"],
       email: map["email"],
       emailVerified: map["emailVerified"] ?? false,
-      passwordHash: map["passwordHash"],
       avatarStorageUUID: map["avatarStorageUUID"],
       role: UserRole.fromMap(map["role"]),
     );
@@ -86,7 +80,7 @@ class User implements APIModel {
 
   @override
   String toString() {
-    return "User(uuid: $uuid, username: $username, email: $email, emailVerified: $emailVerified, passwordHash: $passwordHash, avatarStorageUUID: $avatarStorageUUID, role: $role)";
+    return "User(uuid: $uuid, username: $username, email: $email, emailVerified: $emailVerified, avatarStorageUUID: $avatarStorageUUID, role: $role)";
   }
 
   @override
@@ -98,7 +92,6 @@ class User implements APIModel {
         other.username == username &&
         other.email == email &&
         other.emailVerified == emailVerified &&
-        other.passwordHash == passwordHash &&
         other.avatarStorageUUID == avatarStorageUUID &&
         other.role == role;
   }
@@ -109,7 +102,6 @@ class User implements APIModel {
         username.hashCode ^
         email.hashCode ^
         emailVerified.hashCode ^
-        passwordHash.hashCode ^
         avatarStorageUUID.hashCode ^
         role.hashCode;
   }
