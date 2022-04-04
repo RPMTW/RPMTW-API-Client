@@ -3,6 +3,7 @@ import "dart:convert";
 import "package:collection/collection.dart";
 import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/api_model.dart";
+import 'package:rpmtw_api_client/src/models/list_model_response.dart';
 import "package:rpmtw_api_client/src/models/storage/storage.dart";
 import "package:rpmtw_api_client/src/models/translate/mod_source_info.dart";
 import "package:rpmtw_api_client/src/models/translate/source_text.dart";
@@ -120,7 +121,7 @@ class SourceFile implements APIModel {
   static Future<SourceFile> getByUUID(String uuid) =>
       RPMTWApiClient.instance.translateResource.getSourceFile(uuid);
 
-  static Future<List<SourceFile>> list(
+  static Future<ListModelResponse<SourceFile>> list(
           {ModSourceInfo? modSourceInfo, int limit = 50, int skip = 0}) =>
       RPMTWApiClient.instance.translateResource.listSourceFile(
           modSourceInfo: modSourceInfo, limit: limit, skip: skip);

@@ -5,6 +5,7 @@ import "package:collection/collection.dart";
 import "package:intl/locale.dart";
 import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/api_model.dart";
+import 'package:rpmtw_api_client/src/models/list_model_response.dart';
 import "package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart";
 import "package:rpmtw_api_client/src/models/translate/translation.dart";
 
@@ -32,7 +33,7 @@ class SourceText implements APIModel {
     required this.type,
   });
 
-  Future<List<Translation>> getTranslations({
+  Future<ListModelResponse<Translation>> getTranslations({
     Locale? language,
     int limit = 50,
     int skip = 0,
@@ -113,7 +114,7 @@ class SourceText implements APIModel {
   static Future<SourceText> getByUUID(String uuid) =>
       RPMTWApiClient.instance.translateResource.getSourceText(uuid);
 
-  static Future<List<SourceText>> list(
+  static Future<ListModelResponse<SourceText>> list(
           {String? source, String? key, int limit = 50, int skip = 0}) =>
       RPMTWApiClient.instance.translateResource
           .listSourceText(source: source, key: key, limit: limit, skip: skip);

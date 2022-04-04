@@ -4,9 +4,10 @@ import "package:rpmtw_api_client/src/http/api_http_response.dart";
 import "package:rpmtw_api_client/src/models/api_model.dart";
 import "package:rpmtw_api_client/src/models/comment/comment.dart";
 import "package:rpmtw_api_client/src/models/comment/comment_type.dart";
+import 'package:rpmtw_api_client/src/models/list_model_response.dart';
 import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
 import "package:rpmtw_api_client/src/models/translate/translation.dart";
-import "package:rpmtw_api_client/src/resources/base_resource.dart";
+import 'package:rpmtw_api_client/src/resources/api_resource.dart';
 
 class CommentResource extends APIResource {
   const CommentResource(APIHttpClient httpClient) : super(httpClient);
@@ -26,7 +27,7 @@ class CommentResource extends APIResource {
   /// - [limit] limit the number of results. (max 50)
   /// - [skip] skip the first n results.
   @internal
-  Future<List<Comment>> listCommentInternal(
+  Future<ListModelResponse<Comment>> listCommentInternal(
       {required CommentType type,
       required String parentUUID,
       Comment? replyComment,
@@ -40,8 +41,7 @@ class CommentResource extends APIResource {
       "skip": skip.toString()
     });
 
-    return List<Comment>.from(
-        (response.data as List).map((comment) => Comment.fromMap(comment)));
+    return ListModelResponse.fromMap<Comment>(response.data);
   }
 
   /// List all comment
@@ -51,7 +51,7 @@ class CommentResource extends APIResource {
   /// - [replyComment] The comment to reply to (optional)
   /// - [limit] limit the number of results. (max 50)
   /// - [skip] skip the first n results.
-  Future<List<Comment>> listComment<T extends APIModel>(
+  Future<ListModelResponse<Comment>> listComment<T extends APIModel>(
       {required CommentType type,
       required T parent,
       Comment? replyComment,

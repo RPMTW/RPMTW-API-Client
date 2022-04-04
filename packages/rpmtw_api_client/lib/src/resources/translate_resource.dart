@@ -3,6 +3,7 @@ import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_response.dart";
 import "package:rpmtw_api_client/src/models/auth/user.dart";
+import 'package:rpmtw_api_client/src/models/list_model_response.dart';
 import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
 import "package:rpmtw_api_client/src/models/storage/storage.dart";
 import "package:rpmtw_api_client/src/models/translate/glossary.dart";
@@ -12,7 +13,7 @@ import "package:rpmtw_api_client/src/models/translate/source_text.dart";
 import "package:rpmtw_api_client/src/models/translate/translation.dart";
 import "package:rpmtw_api_client/src/models/translate/translation_export_format.dart";
 import "package:rpmtw_api_client/src/models/translate/translation_vote.dart";
-import "package:rpmtw_api_client/src/resources/base_resource.dart";
+import 'package:rpmtw_api_client/src/resources/api_resource.dart';
 import "package:universal_io/io.dart";
 
 class TranslateResource extends APIResource {
@@ -29,7 +30,7 @@ class TranslateResource extends APIResource {
   /// - [translation] filter by translation
   /// - [limit] limit the number of results. (max 50)
   /// - [skip] skip the first n results.
-  Future<List<TranslationVote>> listVote(
+  Future<ListModelResponse<TranslationVote>> listVote(
       {Translation? translation, int limit = 50, int skip = 0}) async {
     APIHttpResponse response = await httpClient.get("/translate/vote/", query: {
       if (translation != null) "translationUUID": translation.uuid,
@@ -37,8 +38,7 @@ class TranslateResource extends APIResource {
       "skip": skip.toString(),
     });
 
-    return List<TranslationVote>.from(
-        (response.data as List).map((e) => TranslationVote.fromMap(e)));
+    return ListModelResponse.fromMap<TranslationVote>(response.data);
   }
 
   /// Add a vote to a translation.
@@ -101,7 +101,7 @@ class TranslateResource extends APIResource {
   /// - [translator] filter by translator.
   /// - [limit] limit the number of results. (max 50)
   /// - [skip] skip the first n results.
-  Future<List<Translation>> listTranslation(
+  Future<ListModelResponse<Translation>> listTranslation(
       {SourceText? sourceText,
       Locale? language,
       User? translator,
@@ -116,8 +116,7 @@ class TranslateResource extends APIResource {
       "skip": skip.toString(),
     });
 
-    return List<Translation>.from(
-        (response.data as List).map((e) => Translation.fromMap(e)));
+    return ListModelResponse.fromMap<Translation>(response.data);
   }
 
   /// Add a translation.
@@ -162,11 +161,11 @@ class TranslateResource extends APIResource {
 
   /// List all source texts.
   /// **Parameters**
-  /// - [source] filter by source.
+  /// - [source] filter by source content.
   /// - [key] filter by key.
   /// - [limit] limit the number of results. (max 50)
   /// - [skip] skip the first n results.
-  Future<List<SourceText>> listSourceText(
+  Future<ListModelResponse<SourceText>> listSourceText(
       {String? source, String? key, int limit = 50, int skip = 0}) async {
     APIHttpResponse response =
         await httpClient.get("/translate/source-text/", query: {
@@ -176,8 +175,7 @@ class TranslateResource extends APIResource {
       "skip": skip.toString(),
     });
 
-    return List<SourceText>.from(
-        (response.data as List).map((e) => SourceText.fromMap(e)));
+    return ListModelResponse.fromMap<SourceText>(response.data);
   }
 
   /// Add a source text.
@@ -255,7 +253,7 @@ class TranslateResource extends APIResource {
   /// - [modSourceInfo] filter by mod source info.
   /// - [limit] limit the number of results. (max 50)
   /// - [skip] skip the first n results.
-  Future<List<SourceFile>> listSourceFile(
+  Future<ListModelResponse<SourceFile>> listSourceFile(
       {ModSourceInfo? modSourceInfo, int limit = 50, int skip = 0}) async {
     APIHttpResponse response =
         await httpClient.get("/translate/source-file/", query: {
@@ -264,8 +262,7 @@ class TranslateResource extends APIResource {
       "skip": skip.toString(),
     });
 
-    return List<SourceFile>.from(
-        (response.data as List).map((e) => SourceFile.fromMap(e)));
+    return ListModelResponse.fromMap<SourceFile>(response.data);
   }
 
   /// Add a source file.
@@ -394,7 +391,7 @@ class TranslateResource extends APIResource {
   /// - [mod] filter by minecraft mod.
   /// - [limit] limit the number of results. (max 50)
   /// - [skip] skip the first n results.
-  Future<List<ModSourceInfo>> listModSourceInfo(
+  Future<ListModelResponse<ModSourceInfo>> listModSourceInfo(
       {String? name,
       String? namespace,
       MinecraftMod? mod,
@@ -409,8 +406,7 @@ class TranslateResource extends APIResource {
       "skip": skip.toString(),
     });
 
-    return List<ModSourceInfo>.from(
-        (response.data as List).map((e) => ModSourceInfo.fromMap(e)));
+    return ListModelResponse.fromMap<ModSourceInfo>(response.data);
   }
 
   /// Add a mod source info.
@@ -491,7 +487,7 @@ class TranslateResource extends APIResource {
   /// - [filter] filter by term name or translated name.
   /// - [limit] limit the number of results. (max 50)
   /// - [skip] skip the first n results.
-  Future<List<Glossary>> listGlossary(
+  Future<ListModelResponse<Glossary>> listGlossary(
       {String? language,
       MinecraftMod? mod,
       String? filter,
@@ -506,8 +502,7 @@ class TranslateResource extends APIResource {
       "skip": skip.toString(),
     });
 
-    return List<Glossary>.from(
-        (response.data as List).map((e) => Glossary.fromMap(e)));
+    return ListModelResponse.fromMap<Glossary>(response.data);
   }
 
   /// Add a glossary.

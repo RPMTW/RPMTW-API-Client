@@ -3,6 +3,7 @@ import "dart:convert";
 import "package:intl/locale.dart";
 import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/api_model.dart";
+import 'package:rpmtw_api_client/src/models/list_model_response.dart';
 import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
 
 class Glossary implements APIModel {
@@ -100,7 +101,7 @@ class Glossary implements APIModel {
   static Future<Glossary> getByUUID(String uuid) =>
       RPMTWApiClient.instance.translateResource.getGlossary(uuid);
 
-  static Future<List<Glossary>> list(
+  static Future<ListModelResponse<Glossary>> list(
           {String? language,
           MinecraftMod? mod,
           String? filter,

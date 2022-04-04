@@ -1,7 +1,7 @@
 import "package:rpmtw_api_client/src/http/api_http_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_response.dart";
 import "package:rpmtw_api_client/src/models/curseforge/curseforge_mod.dart";
-import "package:rpmtw_api_client/src/resources/base_resource.dart";
+import 'package:rpmtw_api_client/src/resources/api_resource.dart';
 
 class CurseForgeResource extends APIResource {
   const CurseForgeResource(APIHttpClient httpClient) : super(httpClient);

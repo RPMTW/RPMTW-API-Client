@@ -4,7 +4,7 @@ import "package:rpmtw_api_client/src/http/api_http_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_response.dart";
 import "package:rpmtw_api_client/src/models/universe_chat/universe_chat_info.dart";
 import "package:rpmtw_api_client/src/models/universe_chat/universe_chat_message.dart";
-import "package:rpmtw_api_client/src/resources/base_resource.dart";
+import 'package:rpmtw_api_client/src/resources/api_resource.dart';
 import "package:socket_io_client/socket_io_client.dart";
 
 Socket? _socket;

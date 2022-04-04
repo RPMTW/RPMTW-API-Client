@@ -3,7 +3,7 @@ import "dart:typed_data";
 import "package:rpmtw_api_client/src/http/api_http_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_response.dart";
 import "package:rpmtw_api_client/src/models/storage/storage.dart";
-import "package:rpmtw_api_client/src/resources/base_resource.dart";
+import 'package:rpmtw_api_client/src/resources/api_resource.dart';
 import "package:rpmtw_api_client/src/utilities/utility.dart";
 import "package:universal_io/io.dart";
 

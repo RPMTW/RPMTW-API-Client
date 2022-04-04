@@ -4,6 +4,7 @@ import "package:intl/locale.dart";
 import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/auth/user.dart";
 import "package:rpmtw_api_client/src/models/api_model.dart";
+import 'package:rpmtw_api_client/src/models/list_model_response.dart';
 import "package:rpmtw_api_client/src/models/translate/source_text.dart";
 import "package:rpmtw_api_client/src/models/translate/translation_vote.dart";
 
@@ -28,12 +29,12 @@ class Translation implements APIModel {
     return User.getByUUID(translatorUUID);
   }
 
-  Future<List<TranslationVote>> get votes {
-    return TranslationVote.getAllByTranslation(this);
-  }
-
   Future<SourceText> get source {
     return SourceText.getByUUID(sourceUUID);
+  }
+
+  Future<ListModelResponse<TranslationVote>> getVotes({int limit = 50, int skip = 0}) {
+    return TranslationVote.getAllByTranslation(this, limit: limit, skip: skip);
   }
 
   const Translation({
@@ -115,7 +116,7 @@ class Translation implements APIModel {
   static Future<Translation> getByUUID(String uuid) async =>
       RPMTWApiClient.instance.translateResource.getTranslation(uuid);
 
-  static Future<List<Translation>> list(
+  static Future<ListModelResponse<Translation>> list(
           {SourceText? sourceText,
           Locale? language,
           User? translator,

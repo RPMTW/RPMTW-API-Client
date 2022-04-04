@@ -2,7 +2,7 @@ import "package:rpmtw_api_client/src/http/api_http_client.dart";
 import "package:rpmtw_api_client/src/http/api_http_response.dart";
 import "package:rpmtw_api_client/src/models/auth/password_validated_result.dart";
 import "package:rpmtw_api_client/src/models/auth/user.dart";
-import "package:rpmtw_api_client/src/resources/base_resource.dart";
+import 'package:rpmtw_api_client/src/resources/api_resource.dart';
 
 class AuthResource extends APIResource {
   const AuthResource(APIHttpClient httpClient) : super(httpClient);

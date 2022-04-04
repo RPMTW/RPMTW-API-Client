@@ -1,4 +1,5 @@
 # 1.0.8
+- feat: list model response
 - feat: modify the time zone to UTC+0
 - style: renamed `cosmic chat` to `universe chat`
 - feat: support RPMTranslator APIs

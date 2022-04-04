@@ -28,6 +28,8 @@ export "src/models/translate/translation_export_format.dart";
 export "src/models/translate/translation_vote.dart";
 export "src/models/translate/translation.dart";
 
+export 'src/models/list_model_response.dart';
+
 export "src/resources/auth_resource.dart";
 export "src/resources/storage_resource.dart";
 export "src/resources/minecraft_resource.dart";
