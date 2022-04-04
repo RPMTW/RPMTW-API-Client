@@ -1,12 +1,12 @@
-import "package:meta/meta.dart";
-import "package:rpmtw_api_client/src/http/api_http_client.dart";
-import "package:rpmtw_api_client/src/http/api_http_response.dart";
-import "package:rpmtw_api_client/src/models/api_model.dart";
-import "package:rpmtw_api_client/src/models/comment/comment.dart";
-import "package:rpmtw_api_client/src/models/comment/comment_type.dart";
+import 'package:meta/meta.dart';
+import 'package:rpmtw_api_client/src/http/api_http_client.dart';
+import 'package:rpmtw_api_client/src/http/api_http_response.dart';
+import 'package:rpmtw_api_client/src/models/api_model.dart';
+import 'package:rpmtw_api_client/src/models/comment/comment.dart';
+import 'package:rpmtw_api_client/src/models/comment/comment_type.dart';
 import 'package:rpmtw_api_client/src/models/list_model_response.dart';
-import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
-import "package:rpmtw_api_client/src/models/translate/translation.dart";
+import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
+import 'package:rpmtw_api_client/src/models/translate/translation.dart';
 import 'package:rpmtw_api_client/src/resources/api_resource.dart';
 
 class CommentResource extends APIResource {
@@ -14,7 +14,7 @@ class CommentResource extends APIResource {
 
   /// Get a comment by uuid.
   Future<Comment> getComment(String uuid) async {
-    APIHttpResponse response = await httpClient.get("/comment/$uuid");
+    APIHttpResponse response = await httpClient.get('/comment/$uuid');
 
     return Comment.fromMap(response.data);
   }
@@ -33,12 +33,12 @@ class CommentResource extends APIResource {
       Comment? replyComment,
       int limit = 50,
       skip = 0}) async {
-    APIHttpResponse response = await httpClient.get("/comment/", query: {
-      "type": type.name,
-      "parentUUID": parentUUID,
-      if (replyComment != null) "replyCommentUUID": replyComment.uuid,
-      "limit": limit.toString(),
-      "skip": skip.toString()
+    APIHttpResponse response = await httpClient.get('/comment/', query: {
+      'type': type.name,
+      'parentUUID': parentUUID,
+      if (replyComment != null) 'replyCommentUUID': replyComment.uuid,
+      'limit': limit.toString(),
+      'skip': skip.toString()
     });
 
     return ListModelResponse.fromMap<Comment>(response.data);
@@ -65,7 +65,7 @@ class CommentResource extends APIResource {
           limit: limit,
           skip: skip);
     } else {
-      throw Exception("parent must be a Translation or a MinecraftMod");
+      throw Exception('parent must be a Translation or a MinecraftMod');
     }
   }
 
@@ -81,17 +81,17 @@ class CommentResource extends APIResource {
       required String content,
       String? token}) async {
     if (parent is Translation || parent is MinecraftMod) {
-      APIHttpResponse response = await httpClient.post("/comment/",
+      APIHttpResponse response = await httpClient.post('/comment/',
           body: {
-            "type": type.name,
-            "parentUUID": parent.uuid,
-            "content": content
+            'type': type.name,
+            'parentUUID': parent.uuid,
+            'content': content
           },
           token: token);
 
       return Comment.fromMap(response.data);
     } else {
-      throw Exception("parent must be a Translation or a MinecraftMod");
+      throw Exception('parent must be a Translation or a MinecraftMod');
     }
   }
 
@@ -105,8 +105,8 @@ class CommentResource extends APIResource {
       required String content,
       String? token}) async {
     APIHttpResponse response = await httpClient.patch(
-        "/comment/${comment.uuid}",
-        body: {"content": content},
+        '/comment/${comment.uuid}',
+        body: {'content': content},
         token: token);
 
     return Comment.fromMap(response.data);
@@ -117,7 +117,7 @@ class CommentResource extends APIResource {
   /// - [comment] The comment to delete
   /// - [token] The token to use for authentication (optional if you have set a global token).
   Future<void> deleteComment({required Comment comment, String? token}) async {
-    await httpClient.delete("/comment/${comment.uuid}", token: token);
+    await httpClient.delete('/comment/${comment.uuid}', token: token);
   }
 
   /// Reply to a comment.
@@ -130,8 +130,8 @@ class CommentResource extends APIResource {
       required String content,
       String? token}) async {
     APIHttpResponse response = await httpClient.post(
-        "/comment/${comment.uuid}/reply",
-        body: {"content": content},
+        '/comment/${comment.uuid}/reply',
+        body: {'content': content},
         token: token);
 
     return Comment.fromMap(response.data);

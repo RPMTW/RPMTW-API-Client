@@ -1,27 +1,29 @@
-import "package:intl/locale.dart";
-import "package:rpmtw_api_client/src/api_client.dart";
-import "package:rpmtw_api_client/src/http/api_http_client.dart";
-import "package:rpmtw_api_client/src/http/api_http_response.dart";
-import "package:rpmtw_api_client/src/models/auth/user.dart";
+import 'package:intl/locale.dart';
+import 'package:rpmtw_api_client/src/api_client.dart';
+import 'package:rpmtw_api_client/src/http/api_http_client.dart';
+import 'package:rpmtw_api_client/src/http/api_http_response.dart';
+import 'package:rpmtw_api_client/src/models/auth/user.dart';
 import 'package:rpmtw_api_client/src/models/list_model_response.dart';
-import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
-import "package:rpmtw_api_client/src/models/storage/storage.dart";
-import "package:rpmtw_api_client/src/models/translate/glossary.dart";
-import "package:rpmtw_api_client/src/models/translate/mod_source_info.dart";
-import "package:rpmtw_api_client/src/models/translate/source_file.dart";
-import "package:rpmtw_api_client/src/models/translate/source_text.dart";
-import "package:rpmtw_api_client/src/models/translate/translation.dart";
-import "package:rpmtw_api_client/src/models/translate/translation_export_format.dart";
-import "package:rpmtw_api_client/src/models/translate/translation_vote.dart";
+import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
+import 'package:rpmtw_api_client/src/models/storage/storage.dart';
+import 'package:rpmtw_api_client/src/models/translate/glossary.dart';
+import 'package:rpmtw_api_client/src/models/translate/mod_source_info.dart';
+import 'package:rpmtw_api_client/src/models/translate/source_file.dart';
+import 'package:rpmtw_api_client/src/models/translate/source_text.dart';
+import 'package:rpmtw_api_client/src/models/translate/translate_status.dart';
+import 'package:rpmtw_api_client/src/models/translate/translation.dart';
+import 'package:rpmtw_api_client/src/models/translate/translation_export_format.dart';
+import 'package:rpmtw_api_client/src/models/translate/translation_vote.dart';
+import 'package:rpmtw_api_client/src/models/translate/translator_info.dart';
 import 'package:rpmtw_api_client/src/resources/api_resource.dart';
-import "package:universal_io/io.dart";
+import 'package:universal_io/io.dart';
 
 class TranslateResource extends APIResource {
   const TranslateResource(APIHttpClient httpClient) : super(httpClient);
 
   /// Get a vote by uuid.
   Future<TranslationVote> getVote(String uuid) async {
-    APIHttpResponse response = await httpClient.get("/translate/vote/$uuid");
+    APIHttpResponse response = await httpClient.get('/translate/vote/$uuid');
     return TranslationVote.fromMap(response.data);
   }
 
@@ -32,10 +34,10 @@ class TranslateResource extends APIResource {
   /// - [skip] skip the first n results.
   Future<ListModelResponse<TranslationVote>> listVote(
       {Translation? translation, int limit = 50, int skip = 0}) async {
-    APIHttpResponse response = await httpClient.get("/translate/vote/", query: {
-      if (translation != null) "translationUUID": translation.uuid,
-      "limit": limit.toString(),
-      "skip": skip.toString(),
+    APIHttpResponse response = await httpClient.get('/translate/vote/', query: {
+      if (translation != null) 'translationUUID': translation.uuid,
+      'limit': limit.toString(),
+      'skip': skip.toString(),
     });
 
     return ListModelResponse.fromMap<TranslationVote>(response.data);
@@ -49,10 +51,10 @@ class TranslateResource extends APIResource {
   Future<TranslationVote> addVote(
       Translation translation, TranslationVoteType type,
       {String? token}) async {
-    APIHttpResponse response = await httpClient.post("/translate/vote/",
+    APIHttpResponse response = await httpClient.post('/translate/vote/',
         body: {
-          "translationUUID": translation.uuid,
-          "type": type.name,
+          'translationUUID': translation.uuid,
+          'type': type.name,
         },
         token: token);
 
@@ -71,8 +73,8 @@ class TranslateResource extends APIResource {
     }
 
     APIHttpResponse response =
-        await httpClient.patch("/translate/vote/${vote.uuid}", body: {
-      "type": type.name,
+        await httpClient.patch('/translate/vote/${vote.uuid}', body: {
+      'type': type.name,
     });
 
     return TranslationVote.fromMap(response.data);
@@ -83,13 +85,13 @@ class TranslateResource extends APIResource {
   /// - [vote] The vote to cancel.
   /// - [token] The token to use for authentication (optional if you have set a global token).
   Future<void> cancelVote(TranslationVote vote, {String? token}) async {
-    await httpClient.delete("/translate/vote/${vote.uuid}");
+    await httpClient.delete('/translate/vote/${vote.uuid}');
   }
 
   /// Get a translation by uuid.
   Future<Translation> getTranslation(String uuid) async {
     APIHttpResponse response =
-        await httpClient.get("/translate/translation/$uuid");
+        await httpClient.get('/translate/translation/$uuid');
 
     return Translation.fromMap(response.data);
   }
@@ -108,12 +110,12 @@ class TranslateResource extends APIResource {
       int limit = 50,
       int skip = 0}) async {
     APIHttpResponse response =
-        await httpClient.get("/translate/translation/", query: {
-      if (sourceText != null) "sourceUUID": sourceText.uuid,
-      if (language != null) "language": language.toLanguageTag(),
-      if (translator != null) "translatorUUID": translator.uuid,
-      "limit": limit.toString(),
-      "skip": skip.toString(),
+        await httpClient.get('/translate/translation/', query: {
+      if (sourceText != null) 'sourceUUID': sourceText.uuid,
+      if (language != null) 'language': language.toLanguageTag(),
+      if (translator != null) 'translatorUUID': translator.uuid,
+      'limit': limit.toString(),
+      'skip': skip.toString(),
     });
 
     return ListModelResponse.fromMap<Translation>(response.data);
@@ -130,11 +132,11 @@ class TranslateResource extends APIResource {
       required Locale language,
       required String content,
       String? token}) async {
-    APIHttpResponse response = await httpClient.post("/translate/translation/",
+    APIHttpResponse response = await httpClient.post('/translate/translation/',
         body: {
-          "sourceUUID": sourceText.uuid,
-          "language": language.toLanguageTag(),
-          "content": content
+          'sourceUUID': sourceText.uuid,
+          'language': language.toLanguageTag(),
+          'content': content
         },
         token: token);
 
@@ -147,14 +149,14 @@ class TranslateResource extends APIResource {
   /// - [token] The token to use for authentication (optional if you have set a global token).
   Future<void> deleteTranslation(Translation translation,
       {String? token}) async {
-    await httpClient.delete("/translate/translation/${translation.uuid}",
+    await httpClient.delete('/translate/translation/${translation.uuid}',
         token: token);
   }
 
   /// Get a source text by uuid.
   Future<SourceText> getSourceText(String uuid) async {
     APIHttpResponse response =
-        await httpClient.get("/translate/source-text/$uuid");
+        await httpClient.get('/translate/source-text/$uuid');
 
     return SourceText.fromMap(response.data);
   }
@@ -168,11 +170,11 @@ class TranslateResource extends APIResource {
   Future<ListModelResponse<SourceText>> listSourceText(
       {String? source, String? key, int limit = 50, int skip = 0}) async {
     APIHttpResponse response =
-        await httpClient.get("/translate/source-text/", query: {
-      if (source != null) "source": source,
-      if (key != null) "key": key,
-      "limit": limit.toString(),
-      "skip": skip.toString(),
+        await httpClient.get('/translate/source-text/', query: {
+      if (source != null) 'source': source,
+      if (key != null) 'key': key,
+      'limit': limit.toString(),
+      'skip': skip.toString(),
     });
 
     return ListModelResponse.fromMap<SourceText>(response.data);
@@ -191,12 +193,12 @@ class TranslateResource extends APIResource {
       required String key,
       required SourceTextType type,
       String? token}) async {
-    APIHttpResponse response = await httpClient.post("/translate/source-text/",
+    APIHttpResponse response = await httpClient.post('/translate/source-text/',
         body: {
-          "source": source,
-          "gameVersions": gameVersions,
-          "key": key,
-          "type": type.name
+          'source': source,
+          'gameVersions': gameVersions,
+          'key': key,
+          'type': type.name
         },
         token: token);
 
@@ -220,11 +222,11 @@ class TranslateResource extends APIResource {
     }
 
     APIHttpResponse response =
-        await httpClient.patch("/translate/source-text/${sourceText.uuid}",
+        await httpClient.patch('/translate/source-text/${sourceText.uuid}',
             body: {
-              if (source != null) "source": source,
-              if (gameVersions != null) "gameVersions": gameVersions,
-              if (key != null) "key": key,
+              if (source != null) 'source': source,
+              if (gameVersions != null) 'gameVersions': gameVersions,
+              if (key != null) 'key': key,
             },
             token: token);
 
@@ -236,14 +238,14 @@ class TranslateResource extends APIResource {
   /// - [sourceText] The source text to delete.
   /// - [token] The token to use for authentication (optional if you have set a global token).
   Future<void> deleteSourceText(SourceText sourceText, {String? token}) async {
-    await httpClient.delete("/translate/source-text/${sourceText.uuid}",
+    await httpClient.delete('/translate/source-text/${sourceText.uuid}',
         token: token);
   }
 
   /// Get a source file by uuid.
   Future<SourceFile> getSourceFile(String uuid) async {
     APIHttpResponse response =
-        await httpClient.get("/translate/source-file/$uuid");
+        await httpClient.get('/translate/source-file/$uuid');
 
     return SourceFile.fromMap(response.data);
   }
@@ -256,10 +258,10 @@ class TranslateResource extends APIResource {
   Future<ListModelResponse<SourceFile>> listSourceFile(
       {ModSourceInfo? modSourceInfo, int limit = 50, int skip = 0}) async {
     APIHttpResponse response =
-        await httpClient.get("/translate/source-file/", query: {
-      if (modSourceInfo != null) "modSourceInfoUUID": modSourceInfo.uuid,
-      "limit": limit.toString(),
-      "skip": skip.toString(),
+        await httpClient.get('/translate/source-file/', query: {
+      if (modSourceInfo != null) 'modSourceInfoUUID': modSourceInfo.uuid,
+      'limit': limit.toString(),
+      'skip': skip.toString(),
     });
 
     return ListModelResponse.fromMap<SourceFile>(response.data);
@@ -282,14 +284,14 @@ class TranslateResource extends APIResource {
       required List<String> gameVersions,
       List<String>? patchouliI18nKeys,
       String? token}) async {
-    APIHttpResponse response = await httpClient.post("/translate/source-file/",
+    APIHttpResponse response = await httpClient.post('/translate/source-file/',
         body: {
-          "modSourceInfoUUID": modSourceInfo.uuid,
-          "storageUUID": storage.uuid,
-          "path": path,
-          "type": type.name,
-          "gameVersions": gameVersions,
-          if (patchouliI18nKeys != null) "patchouliI18nKeys": patchouliI18nKeys,
+          'modSourceInfoUUID': modSourceInfo.uuid,
+          'storageUUID': storage.uuid,
+          'path': path,
+          'type': type.name,
+          'gameVersions': gameVersions,
+          if (patchouliI18nKeys != null) 'patchouliI18nKeys': patchouliI18nKeys,
         },
         token: token);
 
@@ -353,14 +355,14 @@ class TranslateResource extends APIResource {
     }
 
     APIHttpResponse response = await httpClient.patch(
-        "/translate/source-file/${sourceFile.uuid}",
+        '/translate/source-file/${sourceFile.uuid}',
         body: {
-          if (modSourceInfo != null) "modSourceInfoUUID": modSourceInfo.uuid,
-          if (storage != null) "storageUUID": storage.uuid,
-          if (path != null) "path": path,
-          if (type != null) "type": type.name,
-          if (gameVersions != null) "gameVersions": gameVersions,
-          if (patchouliI18nKeys != null) "patchouliI18nKeys": patchouliI18nKeys,
+          if (modSourceInfo != null) 'modSourceInfoUUID': modSourceInfo.uuid,
+          if (storage != null) 'storageUUID': storage.uuid,
+          if (path != null) 'path': path,
+          if (type != null) 'type': type.name,
+          if (gameVersions != null) 'gameVersions': gameVersions,
+          if (patchouliI18nKeys != null) 'patchouliI18nKeys': patchouliI18nKeys,
         },
         token: token);
 
@@ -372,14 +374,14 @@ class TranslateResource extends APIResource {
   /// - [sourceFile] The source file to delete.
   /// - [token] The token to use for authentication (optional if you have set a global token).
   Future<void> deleteSourceFile(SourceFile sourceFile, {String? token}) async {
-    await httpClient.delete("/translate/source-file/${sourceFile.uuid}",
+    await httpClient.delete('/translate/source-file/${sourceFile.uuid}',
         token: token);
   }
 
   /// Get a mod source info by uuid.
   Future<ModSourceInfo> getModSourceInfo(String uuid) async {
     APIHttpResponse response =
-        await httpClient.get("/translate/mod-source-info/$uuid");
+        await httpClient.get('/translate/mod-source-info/$uuid');
 
     return ModSourceInfo.fromMap(response.data);
   }
@@ -398,12 +400,12 @@ class TranslateResource extends APIResource {
       int limit = 50,
       int skip = 0}) async {
     APIHttpResponse response =
-        await httpClient.get("/translate/mod-source-info/", query: {
-      if (name != null) "name": name,
-      if (namespace != null) "namespace": namespace,
-      if (mod != null) "modUUID": mod.uuid,
-      "limit": limit.toString(),
-      "skip": skip.toString(),
+        await httpClient.get('/translate/mod-source-info/', query: {
+      if (name != null) 'name': name,
+      if (namespace != null) 'namespace': namespace,
+      if (mod != null) 'modUUID': mod.uuid,
+      'limit': limit.toString(),
+      'skip': skip.toString(),
     });
 
     return ListModelResponse.fromMap<ModSourceInfo>(response.data);
@@ -421,12 +423,12 @@ class TranslateResource extends APIResource {
       List<SourceText>? patchouliAddons,
       String? token}) async {
     APIHttpResponse response =
-        await httpClient.post("/translate/mod-source-info/",
+        await httpClient.post('/translate/mod-source-info/',
             body: {
-              "namespace": namespace,
-              if (mod != null) "modUUID": mod.uuid,
+              'namespace': namespace,
+              if (mod != null) 'modUUID': mod.uuid,
               if (patchouliAddons != null)
-                "patchouliAddons": patchouliAddons.map((e) => e.uuid).toList(),
+                'patchouliAddons': patchouliAddons.map((e) => e.uuid).toList(),
             },
             token: token);
 
@@ -450,12 +452,12 @@ class TranslateResource extends APIResource {
     }
 
     APIHttpResponse response = await httpClient.patch(
-        "/translate/mod-source-info/${modSourceInfo.uuid}",
+        '/translate/mod-source-info/${modSourceInfo.uuid}',
         body: {
-          if (namespace != null) "namespace": namespace,
-          if (mod != null) "modUUID": mod.uuid,
+          if (namespace != null) 'namespace': namespace,
+          if (mod != null) 'modUUID': mod.uuid,
           if (patchouliAddons != null)
-            "patchouliAddons": patchouliAddons.map((e) => e.uuid).toList(),
+            'patchouliAddons': patchouliAddons.map((e) => e.uuid).toList(),
         },
         token: token);
 
@@ -468,14 +470,14 @@ class TranslateResource extends APIResource {
   /// - [token] The token to use for authentication (optional if you have set a global token).
   Future<void> deleteModSourceInfo(ModSourceInfo modSourceInfo,
       {String? token}) async {
-    await httpClient.delete("/translate/mod-source-info/${modSourceInfo.uuid}",
+    await httpClient.delete('/translate/mod-source-info/${modSourceInfo.uuid}',
         token: token);
   }
 
   /// Get a glossary by uuid.
   Future<Glossary> getGlossary(String uuid) async {
     APIHttpResponse response =
-        await httpClient.get("/translate/glossary/$uuid");
+        await httpClient.get('/translate/glossary/$uuid');
 
     return Glossary.fromMap(response.data);
   }
@@ -494,12 +496,12 @@ class TranslateResource extends APIResource {
       int limit = 50,
       int skip = 0}) async {
     APIHttpResponse response =
-        await httpClient.get("/translate/glossary/", query: {
-      if (language != null) "language": language,
-      if (mod != null) "modUUID": mod.uuid,
-      if (filter != null) "filter": filter,
-      "limit": limit.toString(),
-      "skip": skip.toString(),
+        await httpClient.get('/translate/glossary/', query: {
+      if (language != null) 'language': language,
+      if (mod != null) 'modUUID': mod.uuid,
+      if (filter != null) 'filter': filter,
+      'limit': limit.toString(),
+      'skip': skip.toString(),
     });
 
     return ListModelResponse.fromMap<Glossary>(response.data);
@@ -520,13 +522,13 @@ class TranslateResource extends APIResource {
       required String language,
       MinecraftMod? mod,
       String? token}) async {
-    APIHttpResponse response = await httpClient.post("/translate/glossary/",
+    APIHttpResponse response = await httpClient.post('/translate/glossary/',
         body: {
-          "term": term,
-          "translation": translation,
-          if (description != null) "description": description,
-          "language": language,
-          if (mod != null) "modUUID": mod.uuid,
+          'term': term,
+          'translation': translation,
+          if (description != null) 'description': description,
+          'language': language,
+          if (mod != null) 'modUUID': mod.uuid,
         },
         token: token);
 
@@ -558,15 +560,15 @@ class TranslateResource extends APIResource {
     }
 
     APIHttpResponse response =
-        await httpClient.patch("/translate/glossary/${glossary.uuid}",
+        await httpClient.patch('/translate/glossary/${glossary.uuid}',
             body: {
-              if (term != null) "term": term,
-              if (translation != null) "translation": translation,
-              if (description != null) "description": description,
+              if (term != null) 'term': term,
+              if (translation != null) 'translation': translation,
+              if (description != null) 'description': description,
               if (global && mod == null)
-                "modUUID": null
+                'modUUID': null
               else if (mod != null)
-                "modUUID": mod.uuid,
+                'modUUID': mod.uuid,
             },
             token: token);
 
@@ -578,7 +580,7 @@ class TranslateResource extends APIResource {
   /// - [glossary] The glossary to delete.
   /// - [token] The token to use for authentication (optional if you have set a global token).
   Future<void> deleteGlossary(Glossary glossary, {String? token}) async {
-    await httpClient.delete("/translate/glossary/${glossary.uuid}",
+    await httpClient.delete('/translate/glossary/${glossary.uuid}',
         token: token);
   }
 
@@ -592,16 +594,16 @@ class TranslateResource extends APIResource {
   /// Example:
   /// ```json
   /// {
-  ///   "word1": <Glossary1>,
-  ///   "word2": <Glossary2>
+  ///   'word1': <Glossary1>,
+  ///   'word2': <Glossary2>
   /// }
   /// ```
   Future<Map<String, Glossary>> getGlossaryHighlight(
       String text, String language) async {
     APIHttpResponse response =
-        await httpClient.get("/translate/glossary-highlight/", query: {
-      "text": text,
-      "language": language,
+        await httpClient.get('/translate/glossary-highlight/', query: {
+      'text': text,
+      'language': language,
     });
 
     return Map<String, Glossary>.from((response.data as Map)
@@ -621,8 +623,8 @@ class TranslateResource extends APIResource {
   /// Example:
   /// ```json
   /// {
-  ///   "hello": "你好",
-  ///   "world": "世界"
+  ///   'hello': '你好',
+  ///   'world': '世界'
   /// }
   /// ```
   ///
@@ -631,7 +633,7 @@ class TranslateResource extends APIResource {
   /// Example:
   /// ```json
   /// {
-  ///  "assets/test/fqa.txt": "Q: RPMTW 是什麼？\n\nA: RPMTW 是個致力於推廣 Minecraft 中文社群\n並開發相關工具，希望為 Minecraft 玩家提供更好的體驗。",
+  ///  'assets/test/fqa.txt': 'Q: RPMTW 是什麼？\n\nA: RPMTW 是個致力於推廣 Minecraft 中文社群\n並開發相關工具，希望為 Minecraft 玩家提供更好的體驗。',
   /// }
   /// ```
   Future<Map<String, String>> exportTranslations(
@@ -640,13 +642,46 @@ class TranslateResource extends APIResource {
       required TranslationExportFormat format,
       required String version}) async {
     APIHttpResponse response =
-        await httpClient.post("/translate/export/", body: {
-      "namespaces": namespaces,
-      "language": language.toLanguageTag(),
-      "format": format.name,
-      "version": version,
+        await httpClient.post('/translate/export/', body: {
+      'namespaces': namespaces,
+      'language': language.toLanguageTag(),
+      'format': format.name,
+      'version': version,
     });
 
     return response.data;
+  }
+
+  /// Get a translator info by uuid.
+  Future<TranslatorInfo> getTranslatorInfo(String uuid) async {
+    APIHttpResponse response =
+        await httpClient.get('/translate/translator-info/$uuid');
+
+    return TranslatorInfo.fromMap(response.data);
+  }
+
+  /// Get a translator info by user.
+  Future<TranslatorInfo> getTranslatorInfoByUser(User user) async {
+    APIHttpResponse response =
+        await httpClient.get('/translate/translator-info/user/${user.uuid}');
+
+    return TranslatorInfo.fromMap(response.data);
+  }
+
+  /// Get a translate status by mod source info.
+  Future<TranslateStatus> getModTranslateStatus(ModSourceInfo info) async {
+    APIHttpResponse response =
+        await httpClient.get('/translate/status/${info.uuid}');
+
+    return TranslateStatus.fromMap(response.data);
+  }
+
+
+  /// Get global translate status.
+  Future<TranslateStatus> getGlobalTranslateStatus() async {
+    APIHttpResponse response =
+        await httpClient.get('/translate/status');
+
+    return TranslateStatus.fromMap(response.data);
   }
 }

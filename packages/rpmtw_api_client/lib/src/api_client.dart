@@ -1,16 +1,16 @@
-import "package:rpmtw_api_client/src/http/api_http_client.dart";
-import "package:rpmtw_api_client/src/resources/auth_resource.dart";
-import "package:rpmtw_api_client/src/resources/comment_resource.dart";
-import "package:rpmtw_api_client/src/resources/universe_chat_resource.dart";
-import "package:rpmtw_api_client/src/resources/curseforge_resource.dart";
-import "package:rpmtw_api_client/src/resources/minecraft_resource.dart";
-import "package:rpmtw_api_client/src/resources/other_resource.dart";
-import "package:rpmtw_api_client/src/resources/storage_resource.dart";
-import "package:rpmtw_api_client/src/resources/translate_resource.dart";
-import "package:rpmtw_api_client/src/utilities/exceptions.dart";
+import 'package:rpmtw_api_client/src/http/api_http_client.dart';
+import 'package:rpmtw_api_client/src/resources/auth_resource.dart';
+import 'package:rpmtw_api_client/src/resources/comment_resource.dart';
+import 'package:rpmtw_api_client/src/resources/universe_chat_resource.dart';
+import 'package:rpmtw_api_client/src/resources/curseforge_resource.dart';
+import 'package:rpmtw_api_client/src/resources/minecraft_resource.dart';
+import 'package:rpmtw_api_client/src/resources/other_resource.dart';
+import 'package:rpmtw_api_client/src/resources/storage_resource.dart';
+import 'package:rpmtw_api_client/src/resources/translate_resource.dart';
+import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
 
 class RPMTWApiClient {
-  static String get version => "1.0.8-dev.1";
+  static String get version => '1.0.8-dev.1';
 
   late final APIHttpClient _httpClient;
   final String _apiBaseUrl;
@@ -24,7 +24,7 @@ class RPMTWApiClient {
   /// *Example*
   /// ```dart
   /// RPMTWApiClient client = RPMTWApiClient.instance;
-  /// client.setGlobalToken("my-token");
+  /// client.setGlobalToken('my-token');
   /// ```
   void setGlobalToken(String value) => _globalToken = value;
 
@@ -39,12 +39,12 @@ class RPMTWApiClient {
       String? token})
       : _apiBaseUrl = apiBaseUrl ??
             (development
-                ? "http://localhost:8080"
-                : "https://api.rpmtw.com:2096"),
+                ? 'http://localhost:8080'
+                : 'https://api.rpmtw.com:2096'),
         _universeChatBaseUrl = universeChatBaseUrl ??
             (development
-                ? "http://localhost:2087"
-                : "https://api.rpmtw.com:2087") {
+                ? 'http://localhost:2087'
+                : 'https://api.rpmtw.com:2087') {
     _apiClient = this;
 
     if (token != null) _globalToken = token;

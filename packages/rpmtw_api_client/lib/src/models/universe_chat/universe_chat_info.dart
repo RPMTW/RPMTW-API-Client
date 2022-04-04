@@ -12,15 +12,15 @@ class UniverseChatInfo {
 
   Map<String, dynamic> toMap() {
     return {
-      "onlineUsers": onlineUsers,
-      "protocolVersion": protocolVersion,
+      'onlineUsers': onlineUsers,
+      'protocolVersion': protocolVersion,
     };
   }
 
   factory UniverseChatInfo.fromMap(Map<String, dynamic> map) {
     return UniverseChatInfo(
-      onlineUsers: map["onlineUsers"]?.toInt() ?? 0,
-      protocolVersion: map["protocolVersion"]?.toInt() ?? 0,
+      onlineUsers: map['onlineUsers'],
+      protocolVersion: map['protocolVersion'],
     );
   }
 }

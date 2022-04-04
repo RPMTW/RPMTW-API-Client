@@ -1,4 +1,6 @@
 # 1.0.8
+- feat: get translator info by uuid/user
+- feat: get global/mod translate status
 - feat: list model response
 - feat: modify the time zone to UTC+0
 - style: renamed `cosmic chat` to `universe chat`

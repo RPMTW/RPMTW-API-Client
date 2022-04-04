@@ -1,13 +1,13 @@
-import "dart:collection";
-import "dart:convert";
+import 'dart:collection';
+import 'dart:convert';
 
-import "package:collection/collection.dart";
-import "package:intl/locale.dart";
-import "package:rpmtw_api_client/src/api_client.dart";
-import "package:rpmtw_api_client/src/models/api_model.dart";
+import 'package:collection/collection.dart';
+import 'package:intl/locale.dart';
+import 'package:rpmtw_api_client/src/api_client.dart';
+import 'package:rpmtw_api_client/src/models/api_model.dart';
 import 'package:rpmtw_api_client/src/models/list_model_response.dart';
-import "package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart";
-import "package:rpmtw_api_client/src/models/translate/translation.dart";
+import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart';
+import 'package:rpmtw_api_client/src/models/translate/translation.dart';
 
 /// Represents a source text entry in a text format.
 /// Can be referenced by `sources` of [SourceFile] or `patchouliAddons` of [ModSourceInfo].
@@ -60,22 +60,22 @@ class SourceText implements APIModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      "uuid": uuid,
-      "source": source,
-      "gameVersions": gameVersions.map((x) => x.toMap()).toList(),
-      "key": key,
-      "type": type.name,
+      'uuid': uuid,
+      'source': source,
+      'gameVersions': gameVersions.map((x) => x.toMap()).toList(),
+      'key': key,
+      'type': type.name,
     };
   }
 
   factory SourceText.fromMap(Map<String, dynamic> map) {
     return SourceText(
-      uuid: map["uuid"],
-      source: map["source"],
+      uuid: map['uuid'],
+      source: map['source'],
       gameVersions: List<MinecraftVersion>.from(
-          map["gameVersions"]?.map((x) => MinecraftVersion.fromMap(x))),
-      key: map["key"],
-      type: SourceTextType.values.byName(map["type"]),
+          map['gameVersions']?.map((x) => MinecraftVersion.fromMap(x))),
+      key: map['key'],
+      type: SourceTextType.values.byName(map['type']),
     );
   }
 
@@ -86,7 +86,7 @@ class SourceText implements APIModel {
 
   @override
   String toString() {
-    return "SourceText(uuid: $uuid, source: $source, gameVersions: $gameVersions, key: $key, type: $type)";
+    return 'SourceText(uuid: $uuid, source: $source, gameVersions: $gameVersions, key: $key, type: $type)';
   }
 
   @override

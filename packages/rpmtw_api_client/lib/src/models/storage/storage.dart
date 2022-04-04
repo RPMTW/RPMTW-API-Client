@@ -53,7 +53,7 @@ class Storage implements APIModel {
       type: map["type"],
       createAt:
           DateTime.fromMillisecondsSinceEpoch(map["createAt"], isUtc: true),
-      usageCount: map["usageCount"]?.toInt() ?? 0,
+      usageCount: map["usageCount"],
     );
   }
 

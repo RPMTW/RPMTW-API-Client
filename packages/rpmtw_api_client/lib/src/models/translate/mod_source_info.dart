@@ -1,12 +1,12 @@
-import "dart:convert";
+import 'dart:convert';
 
-import "package:collection/collection.dart";
-import "package:rpmtw_api_client/src/api_client.dart";
-import "package:rpmtw_api_client/src/models/api_model.dart";
+import 'package:collection/collection.dart';
+import 'package:rpmtw_api_client/src/api_client.dart';
+import 'package:rpmtw_api_client/src/models/api_model.dart';
 import 'package:rpmtw_api_client/src/models/list_model_response.dart';
-import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
-import "package:rpmtw_api_client/src/models/translate/source_file.dart";
-import "package:rpmtw_api_client/src/models/translate/source_text.dart";
+import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
+import 'package:rpmtw_api_client/src/models/translate/source_file.dart';
+import 'package:rpmtw_api_client/src/models/translate/source_text.dart';
 
 class ModSourceInfo implements APIModel {
   @override
@@ -70,19 +70,19 @@ class ModSourceInfo implements APIModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      "uuid": uuid,
-      "namespace": namespace,
-      "modUUID": modUUID,
-      "patchouliAddons": patchouliAddons,
+      'uuid': uuid,
+      'namespace': namespace,
+      'modUUID': modUUID,
+      'patchouliAddons': patchouliAddons,
     };
   }
 
   factory ModSourceInfo.fromMap(Map<String, dynamic> map) {
     return ModSourceInfo(
-      uuid: map["uuid"],
-      namespace: map["namespace"],
-      modUUID: map["modUUID"],
-      patchouliAddons: List<String>.from(map["patchouliAddons"]),
+      uuid: map['uuid'],
+      namespace: map['namespace'],
+      modUUID: map['modUUID'],
+      patchouliAddons: List<String>.from(map['patchouliAddons']),
     );
   }
 
@@ -93,7 +93,7 @@ class ModSourceInfo implements APIModel {
 
   @override
   String toString() {
-    return "ModSourceInfo(uuid: $uuid, namespace: $namespace, modUUID: $modUUID, patchouliAddons: $patchouliAddons)";
+    return 'ModSourceInfo(uuid: $uuid, namespace: $namespace, modUUID: $modUUID, patchouliAddons: $patchouliAddons)';
   }
 
   @override

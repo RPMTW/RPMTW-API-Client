@@ -2,14 +2,14 @@
 
 ## Example
 ```dart
-import "package:rpmtw_api_client/rpmtw_api_client.dart";
+import 'package:rpmtw_api_client/rpmtw_api_client.dart';
 
 void main() async {
   RPMTWApiClient.init(); // Initialize RPMTW API Client
   RPMTWApiClient apiClient = RPMTWApiClient.instance;
   print(apiClient.apiBaseUrl);
   PasswordValidatedResult result =
-      await apiClient.authResource.validPassword("12345"); // Valid password
+      await apiClient.authResource.validPassword('12345'); // Valid password
   print(result.message);
 
   String message = await apiClient.otherResource.helloWorld();

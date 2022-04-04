@@ -1,10 +1,10 @@
-import "dart:convert";
+import 'dart:convert';
 
-import "package:intl/locale.dart";
-import "package:rpmtw_api_client/src/api_client.dart";
-import "package:rpmtw_api_client/src/models/api_model.dart";
+import 'package:intl/locale.dart';
+import 'package:rpmtw_api_client/src/api_client.dart';
+import 'package:rpmtw_api_client/src/models/api_model.dart';
 import 'package:rpmtw_api_client/src/models/list_model_response.dart';
-import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
+import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
 
 class Glossary implements APIModel {
   @override
@@ -45,23 +45,23 @@ class Glossary implements APIModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      "uuid": uuid,
-      "term": term,
-      "translation": translation,
-      "description": description,
-      "language": language.toLanguageTag(),
-      "modUUID": modUUID,
+      'uuid': uuid,
+      'term': term,
+      'translation': translation,
+      'description': description,
+      'language': language.toLanguageTag(),
+      'modUUID': modUUID,
     };
   }
 
   factory Glossary.fromMap(Map<String, dynamic> map) {
     return Glossary(
-      uuid: map["uuid"],
-      term: map["term"],
-      translation: map["translation"],
-      description: map["description"],
-      language: Locale.parse(map["language"]),
-      modUUID: map["modUUID"],
+      uuid: map['uuid'],
+      term: map['term'],
+      translation: map['translation'],
+      description: map['description'],
+      language: Locale.parse(map['language']),
+      modUUID: map['modUUID'],
     );
   }
 
@@ -72,7 +72,7 @@ class Glossary implements APIModel {
 
   @override
   String toString() {
-    return "Glossary(uuid: $uuid, term: $term, translation: $translation, description: $description, language: $language, modUUID: $modUUID)";
+    return 'Glossary(uuid: $uuid, term: $term, translation: $translation, description: $description, language: $language, modUUID: $modUUID)';
   }
 
   @override
