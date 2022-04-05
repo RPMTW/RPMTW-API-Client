@@ -26,7 +26,8 @@ class CurseForgeMod {
   final String dateReleased;
   final bool allowModDistribution;
   final int gamePopularityRank;
-  CurseForgeMod({
+
+  const CurseForgeMod({
     required this.id,
     required this.gameId,
     required this.name,
@@ -320,7 +321,7 @@ class CurseForgeModCategorie {
   final bool isClass;
   final int classId;
   final int parentCategoryId;
-  CurseForgeModCategorie({
+  const CurseForgeModCategorie({
     required this.id,
     required this.gameId,
     required this.name,
@@ -435,7 +436,7 @@ class CurseForgeModAuthor {
   final int id;
   final String name;
   final String url;
-  CurseForgeModAuthor({
+  const CurseForgeModAuthor({
     required this.id,
     required this.name,
     required this.url,
@@ -498,7 +499,7 @@ class CurseForgeModLogo {
   final String description;
   final String thumbnailUrl;
   final String url;
-  CurseForgeModLogo({
+  const CurseForgeModLogo({
     required this.id,
     required this.modId,
     required this.title,
@@ -588,7 +589,7 @@ class CurseForgeModScreenshot {
   final String description;
   final String thumbnailUrl;
   final String url;
-  CurseForgeModScreenshot({
+  const CurseForgeModScreenshot({
     required this.id,
     required this.modId,
     required this.title,
@@ -692,7 +693,7 @@ class CurseForgeModLatestFile {
   final bool isServerPack;
   final int fileFingerprint;
   final List<CurseForgeModModule> modules;
-  CurseForgeModLatestFile({
+  const CurseForgeModLatestFile({
     required this.id,
     required this.gameId,
     required this.modId,
@@ -882,7 +883,7 @@ class CurseForgeModLatestFile {
 class CurseForgeModHashe {
   final String value;
   final int algo;
-  CurseForgeModHashe({
+  const CurseForgeModHashe({
     required this.value,
     required this.algo,
   });
@@ -938,7 +939,7 @@ class CurseForgeModSortableGameVersion {
   final String gameVersion;
   final String gameVersionReleaseDate;
   final int gameVersionTypeId;
-  CurseForgeModSortableGameVersion({
+  const CurseForgeModSortableGameVersion({
     required this.gameVersionName,
     required this.gameVersionPadded,
     required this.gameVersion,
@@ -1018,7 +1019,7 @@ class CurseForgeModSortableGameVersion {
 class CurseForgeModModule {
   final String name;
   final int fingerprint;
-  CurseForgeModModule({
+  const CurseForgeModModule({
     required this.name,
     required this.fingerprint,
   });
@@ -1075,7 +1076,7 @@ class CurseForgeModLatestFilesIndexe {
   final int releaseType;
   final int gameVersionTypeId;
   final int modLoader;
-  CurseForgeModLatestFilesIndexe({
+  const CurseForgeModLatestFilesIndexe({
     required this.gameVersion,
     required this.fileId,
     required this.filename,
