@@ -20,7 +20,7 @@ jobs:
       - uses: marceloprado/has-changed-path@v1
         id: changed-flutter
         with:
-          paths: packages/rpmtw_api_client
+          paths: packages/rpmtw_api_client_flutter
 
       - name: "Dart package rpmtw_api_client"
         if: steps.changed-dart.outputs.changed == 'true'

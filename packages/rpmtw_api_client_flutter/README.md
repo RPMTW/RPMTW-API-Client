@@ -1,5 +1,8 @@
 # RPMTW API Client (Flutter)
-
+## Install
+```bash
+flutter pub add rpmtw_api_client
+```
 ### Example
 ```dart
 import "package:rpmtw_api_client_flutter/rpmtw_api_client_flutter.dart";

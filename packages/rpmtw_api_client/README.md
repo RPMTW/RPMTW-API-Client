@@ -1,5 +1,8 @@
 # RPMTW API Client (Dart)
-
+## Install
+```bash
+dart pub add rpmtw_api_client
+```
 ### Example
 ```dart
 import "package:rpmtw_api_client/rpmtw_api_client.dart";
