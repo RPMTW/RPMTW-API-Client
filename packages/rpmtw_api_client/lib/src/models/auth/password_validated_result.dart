@@ -34,7 +34,7 @@ class PasswordValidatedResult {
   factory PasswordValidatedResult.fromMap(Map<String, dynamic> map) {
     return PasswordValidatedResult(
       isValid: map["isValid"] ?? false,
-      code: map["code"]?.toInt() ?? 0,
+      code: map["code"],
       message: map["message"],
     );
   }

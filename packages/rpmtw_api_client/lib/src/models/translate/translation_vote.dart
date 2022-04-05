@@ -1,8 +1,9 @@
-import "dart:convert";
+import 'dart:convert';
 
-import "package:rpmtw_api_client/src/api_client.dart";
-import "package:rpmtw_api_client/src/models/api_model.dart";
-import "package:rpmtw_api_client/src/models/translate/translation.dart";
+import 'package:rpmtw_api_client/src/api_client.dart';
+import 'package:rpmtw_api_client/src/models/api_model.dart';
+import 'package:rpmtw_api_client/src/models/list_model_response.dart';
+import 'package:rpmtw_api_client/src/models/translate/translation.dart';
 
 class TranslationVote implements APIModel {
   @override
@@ -38,19 +39,19 @@ class TranslationVote implements APIModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      "uuid": uuid,
-      "type": type.name,
-      "translationUUID": translationUUID,
-      "userUUID": userUUID,
+      'uuid': uuid,
+      'type': type.name,
+      'translationUUID': translationUUID,
+      'userUUID': userUUID,
     };
   }
 
   factory TranslationVote.fromMap(Map<String, dynamic> map) {
     return TranslationVote(
-      uuid: map["uuid"],
-      type: TranslationVoteType.values.byName(map["type"]),
-      translationUUID: map["translationUUID"],
-      userUUID: map["userUUID"],
+      uuid: map['uuid'],
+      type: TranslationVoteType.values.byName(map['type']),
+      translationUUID: map['translationUUID'],
+      userUUID: map['userUUID'],
     );
   }
 
@@ -61,7 +62,7 @@ class TranslationVote implements APIModel {
 
   @override
   String toString() {
-    return "TranslationVote(uuid: $uuid, type: $type, translationUUID: $translationUUID, userUUID: $userUUID)";
+    return 'TranslationVote(uuid: $uuid, type: $type, translationUUID: $translationUUID, userUUID: $userUUID)';
   }
 
   @override
@@ -86,7 +87,7 @@ class TranslationVote implements APIModel {
   static Future<TranslationVote> getByUUID(String uuid) async =>
       RPMTWApiClient.instance.translateResource.getVote(uuid);
 
-  static Future<List<TranslationVote>> getAllByTranslation(
+  static Future<ListModelResponse<TranslationVote>> getAllByTranslation(
           Translation translation,
           {int limit = 50,
           int skip = 0}) async =>

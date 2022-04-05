@@ -134,25 +134,25 @@ class CurseForgeMod {
 
   factory CurseForgeMod.fromMap(Map<String, dynamic> map) {
     return CurseForgeMod(
-      id: map["id"]?.toInt() ?? 0,
-      gameId: map["gameId"]?.toInt() ?? 0,
+      id: map["id"],
+      gameId: map["gameId"],
       name: map["name"],
       slug: map["slug"],
       links: CurseForgeModLinks.fromMap(map["links"]),
       summary: map["summary"],
-      status: map["status"]?.toInt() ?? 0,
-      downloadCount: map["downloadCount"]?.toInt() ?? 0,
+      status: map["status"],
+      downloadCount: map["downloadCount"],
       isFeatured: map["isFeatured"] ?? false,
-      primaryCategoryId: map["primaryCategoryId"]?.toInt() ?? 0,
+      primaryCategoryId: map["primaryCategoryId"],
       categories: List<CurseForgeModCategorie>.from(
           map["categories"]?.map((x) => CurseForgeModCategorie.fromMap(x))),
-      classId: map["classId"]?.toInt() ?? 0,
+      classId: map["classId"],
       authors: List<CurseForgeModAuthor>.from(
           map["authors"]?.map((x) => CurseForgeModAuthor.fromMap(x))),
       logo: CurseForgeModLogo.fromMap(map["logo"]),
       screenshots: List<CurseForgeModScreenshot>.from(
           map["screenshots"]?.map((x) => CurseForgeModScreenshot.fromMap(x))),
-      mainFileId: map["mainFileId"]?.toInt() ?? 0,
+      mainFileId: map["mainFileId"],
       latestFiles: List<CurseForgeModLatestFile>.from(
           map["latestFiles"]?.map((x) => CurseForgeModLatestFile.fromMap(x))),
       latestFilesIndexes: List<CurseForgeModLatestFilesIndexe>.from(
@@ -162,7 +162,7 @@ class CurseForgeMod {
       dateModified: map["dateModified"],
       dateReleased: map["dateReleased"],
       allowModDistribution: map["allowModDistribution"] ?? false,
-      gamePopularityRank: map["gamePopularityRank"]?.toInt() ?? 0,
+      gamePopularityRank: map["gamePopularityRank"],
     );
   }
 
@@ -376,16 +376,16 @@ class CurseForgeModCategorie {
 
   factory CurseForgeModCategorie.fromMap(Map<String, dynamic> map) {
     return CurseForgeModCategorie(
-      id: map["id"]?.toInt() ?? 0,
-      gameId: map["gameId"]?.toInt() ?? 0,
+      id: map["id"],
+      gameId: map["gameId"],
       name: map["name"],
       slug: map["slug"],
       url: map["url"],
       iconUrl: map["iconUrl"],
       dateModified: map["dateModified"],
       isClass: map["isClass"] ?? false,
-      classId: map["classId"]?.toInt() ?? 0,
-      parentCategoryId: map["parentCategoryId"]?.toInt() ?? 0,
+      classId: map["classId"],
+      parentCategoryId: map["parentCategoryId"],
     );
   }
 
@@ -463,7 +463,7 @@ class CurseForgeModAuthor {
 
   factory CurseForgeModAuthor.fromMap(Map<String, dynamic> map) {
     return CurseForgeModAuthor(
-      id: map["id"]?.toInt() ?? 0,
+      id: map["id"],
       name: map["name"],
       url: map["url"],
     );
@@ -538,8 +538,8 @@ class CurseForgeModLogo {
 
   factory CurseForgeModLogo.fromMap(Map<String, dynamic> map) {
     return CurseForgeModLogo(
-      id: map["id"]?.toInt() ?? 0,
-      modId: map["modId"]?.toInt() ?? 0,
+      id: map["id"],
+      modId: map["modId"],
       title: map["title"],
       description: map["description"],
       thumbnailUrl: map["thumbnailUrl"],
@@ -628,8 +628,8 @@ class CurseForgeModScreenshot {
 
   factory CurseForgeModScreenshot.fromMap(Map<String, dynamic> map) {
     return CurseForgeModScreenshot(
-      id: map["id"]?.toInt() ?? 0,
-      modId: map["modId"]?.toInt() ?? 0,
+      id: map["id"],
+      modId: map["modId"],
       title: map["title"],
       description: map["description"],
       thumbnailUrl: map["thumbnailUrl"],
@@ -789,28 +789,28 @@ class CurseForgeModLatestFile {
 
   factory CurseForgeModLatestFile.fromMap(Map<String, dynamic> map) {
     return CurseForgeModLatestFile(
-      id: map["id"]?.toInt() ?? 0,
-      gameId: map["gameId"]?.toInt() ?? 0,
-      modId: map["modId"]?.toInt() ?? 0,
+      id: map["id"],
+      gameId: map["gameId"],
+      modId: map["modId"],
       isAvailable: map["isAvailable"] ?? false,
       displayName: map["displayName"],
       fileName: map["fileName"],
-      releaseType: map["releaseType"]?.toInt() ?? 0,
-      fileStatus: map["fileStatus"]?.toInt() ?? 0,
+      releaseType: map["releaseType"],
+      fileStatus: map["fileStatus"],
       hashes: List<CurseForgeModHashe>.from(
           map["hashes"]?.map((x) => CurseForgeModHashe.fromMap(x))),
       fileDate: map["fileDate"],
-      fileLength: map["fileLength"]?.toInt() ?? 0,
-      downloadCount: map["downloadCount"]?.toInt() ?? 0,
+      fileLength: map["fileLength"],
+      downloadCount: map["downloadCount"],
       downloadUrl: map["downloadUrl"],
       gameVersions: List<String>.from(map["gameVersions"]),
       sortableGameVersions: List<CurseForgeModSortableGameVersion>.from(
           map["sortableGameVersions"]
               ?.map((x) => CurseForgeModSortableGameVersion.fromMap(x))),
       dependencies: List<dynamic>.from(map["dependencies"]),
-      alternateFileId: map["alternateFileId"]?.toInt() ?? 0,
+      alternateFileId: map["alternateFileId"],
       isServerPack: map["isServerPack"] ?? false,
-      fileFingerprint: map["fileFingerprint"]?.toInt() ?? 0,
+      fileFingerprint: map["fileFingerprint"],
       modules: List<CurseForgeModModule>.from(
           map["modules"]?.map((x) => CurseForgeModModule.fromMap(x))),
     );
@@ -907,7 +907,7 @@ class CurseForgeModHashe {
   factory CurseForgeModHashe.fromMap(Map<String, dynamic> map) {
     return CurseForgeModHashe(
       value: map["value"],
-      algo: map["algo"]?.toInt() ?? 0,
+      algo: map["algo"],
     );
   }
 
@@ -979,7 +979,7 @@ class CurseForgeModSortableGameVersion {
       gameVersionPadded: map["gameVersionPadded"],
       gameVersion: map["gameVersion"],
       gameVersionReleaseDate: map["gameVersionReleaseDate"],
-      gameVersionTypeId: map["gameVersionTypeId"]?.toInt() ?? 0,
+      gameVersionTypeId: map["gameVersionTypeId"],
     );
   }
 
@@ -1043,7 +1043,7 @@ class CurseForgeModModule {
   factory CurseForgeModModule.fromMap(Map<String, dynamic> map) {
     return CurseForgeModModule(
       name: map["name"],
-      fingerprint: map["fingerprint"]?.toInt() ?? 0,
+      fingerprint: map["fingerprint"],
     );
   }
 
@@ -1116,11 +1116,11 @@ class CurseForgeModLatestFilesIndexe {
   factory CurseForgeModLatestFilesIndexe.fromMap(Map<String, dynamic> map) {
     return CurseForgeModLatestFilesIndexe(
       gameVersion: map["gameVersion"],
-      fileId: map["fileId"]?.toInt() ?? 0,
+      fileId: map["fileId"],
       filename: map["filename"],
-      releaseType: map["releaseType"]?.toInt() ?? 0,
-      gameVersionTypeId: map["gameVersionTypeId"]?.toInt() ?? 0,
-      modLoader: map["modLoader"]?.toInt() ?? 0,
+      releaseType: map["releaseType"],
+      gameVersionTypeId: map["gameVersionTypeId"],
+      modLoader: map["modLoader"],
     );
   }
 
