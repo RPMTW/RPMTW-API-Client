@@ -13,17 +13,7 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
-      - uses: marceloprado/has-changed-path@v1
-        id: changed-dart
-        with:
-          paths: packages/rpmtw_api_client
-      - uses: marceloprado/has-changed-path@v1
-        id: changed-flutter
-        with:
-          paths: packages/rpmtw_api_client_flutter
-
       - name: "Dart package rpmtw_api_client"
-        if: steps.changed-dart.outputs.changed == 'true'
         uses: k-paxian/dart-package-publisher@5107bea93e50dba6afb494c449aaa816cf194c34
         with:
           accessToken: ${{ secrets.OAUTH_ACCESS_TOKEN }}
@@ -34,7 +24,6 @@ jobs:
           force: true
 
       - name: "Dart package rpmtw_api_client_flutter"
-        if: steps.changed-flutter.outputs.changed == 'true'
         uses: k-paxian/dart-package-publisher@5107bea93e50dba6afb494c449aaa816cf194c34
         with:
           accessToken: ${{ secrets.OAUTH_ACCESS_TOKEN }}
