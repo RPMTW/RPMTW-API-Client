@@ -3,6 +3,7 @@ import "dart:convert";
 import "package:rpmtw_api_client/src/api_client.dart";
 import "package:rpmtw_api_client/src/models/api_model.dart";
 import "package:rpmtw_api_client/src/models/comment/comment_type.dart";
+import 'package:rpmtw_api_client/src/models/list_model_response.dart';
 
 class Comment implements APIModel {
   @override
@@ -45,7 +46,7 @@ class Comment implements APIModel {
     this.replyCommentUUID,
   });
 
-  Future<List<Comment>> getReplies() async {
+  Future<ListModelResponse<Comment>> getReplies() async {
     return RPMTWApiClient.instance.commentResource.listCommentInternal(
       type: type,
       parentUUID: parentUUID,
@@ -149,7 +150,7 @@ class Comment implements APIModel {
   static Future<Comment?> getByUUID(String uuid) =>
       RPMTWApiClient.instance.commentResource.getComment(uuid);
 
-  static Future<List<Comment>> list<T extends APIModel>(
+  static Future<ListModelResponse<Comment>> list<T extends APIModel>(
           {required CommentType type,
           required T parent,
           Comment? replyComment,

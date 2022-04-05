@@ -38,7 +38,7 @@ class MinecraftVersion {
       map["time"],
       map["releaseTime"],
       map["sha1"],
-      map["complianceLevel"]?.toInt() ?? 0,
+      map["complianceLevel"],
     );
   }
 

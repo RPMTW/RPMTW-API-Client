@@ -1,11 +1,11 @@
-import "dart:convert";
+import 'dart:convert';
 
-import "package:rpmtw_api_client/src/http/api_http_client.dart";
-import "package:rpmtw_api_client/src/http/api_http_response.dart";
-import "package:rpmtw_api_client/src/models/universe_chat/universe_chat_info.dart";
-import "package:rpmtw_api_client/src/models/universe_chat/universe_chat_message.dart";
-import "package:rpmtw_api_client/src/resources/base_resource.dart";
-import "package:socket_io_client/socket_io_client.dart";
+import 'package:rpmtw_api_client/src/http/api_http_client.dart';
+import 'package:rpmtw_api_client/src/http/api_http_response.dart';
+import 'package:rpmtw_api_client/src/models/universe_chat/universe_chat_info.dart';
+import 'package:rpmtw_api_client/src/models/universe_chat/universe_chat_message.dart';
+import 'package:rpmtw_api_client/src/resources/api_resource.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 Socket? _socket;
 bool _onlyListenMessage = false;
@@ -21,7 +21,7 @@ class UniverseChatResource extends APIResource {
 
   /// Connect to the Universe Chat server
   ///
-  /// - [minecraftUUID] player"s minecraft UUID (optional)
+  /// - [minecraftUUID] player's minecraft UUID (optional)
   /// - [token] rpmtw account token (optional)
   /// - [onlyListenMessage] if true, only listen to message event, [minecraftUUID] and [token] can be empty
   /// [minecraftUUID], [token] cannot both be empty
@@ -31,24 +31,24 @@ class UniverseChatResource extends APIResource {
       bool onlyListenMessage = false}) async {
     _onlyListenMessage = onlyListenMessage;
     final baseOption =
-        OptionBuilder().setTransports(["websocket"]).disableAutoConnect();
+        OptionBuilder().setTransports(['websocket']).disableAutoConnect();
 
     if (minecraftUUID == null && token == null && !onlyListenMessage) {
-      throw ArgumentError("minecraftUUID and token cannot both be null");
+      throw ArgumentError('minecraftUUID and token cannot both be null');
     }
 
     if (minecraftUUID != null) {
-      baseOption.setExtraHeaders({"minecraft_uuid": minecraftUUID});
+      baseOption.setExtraHeaders({'minecraft_uuid': minecraftUUID});
     }
     if (token != null) {
-      baseOption.setExtraHeaders({"rpmtw_auth_token": token});
+      baseOption.setExtraHeaders({'rpmtw_auth_token': token});
     }
 
     Socket socket = io(universeChatBaseUrl, baseOption.build());
-    print("Connecting to Universe Chat server...");
+    print('Connecting to Universe Chat server...');
     bool connected = false;
     socket.onConnect((data) {
-      print("Connected to Universe Chat server");
+      print('Connected to Universe Chat server');
       connected = true;
     });
     socket = socket.connect();
@@ -73,7 +73,7 @@ class UniverseChatResource extends APIResource {
   void _connectCheck({bool onlyListen = false}) {
     if (_socket == null && !onlyListen && !_onlyListenMessage) {
       throw StateError(
-          "Not connected to the Universe Chat server, call connect() first");
+          'Not connected to the Universe Chat server, call connect() first');
     }
   }
 
@@ -81,19 +81,19 @@ class UniverseChatResource extends APIResource {
   ///
   /// **Parameters**
   /// - [message] message content
-  /// - [nickname] user"s nickname
+  /// - [nickname] user's nickname
   Future<String> sendMessage(String message, {String? nickname}) async {
     _connectCheck();
     String? status;
 
     _socket!.emitWithAck(
-        "clientMessage",
+        'clientMessage',
         utf8.encode(json.encode({
-          "message": message,
-          if (nickname != null) "nickname": nickname,
+          'message': message,
+          if (nickname != null) 'nickname': nickname,
         })), ack: (_response) {
       Map response = json.decode(_response);
-      status = response["status"];
+      status = response['status'];
     });
 
     while (status == null) {
@@ -107,21 +107,21 @@ class UniverseChatResource extends APIResource {
   /// **Parameters**
   /// - [message] message content
   /// - [uuid] message uuid to reply to
-  /// - [nickname] user"s nickname
+  /// - [nickname] user's nickname
   Future<String> replyMessage(String message,
       {required String uuid, String? nickname}) async {
     _connectCheck();
     String? status;
 
     _socket!.emitWithAck(
-        "clientMessage",
+        'clientMessage',
         utf8.encode(json.encode({
-          "message": message,
-          if (nickname != null) "nickname": nickname,
-          "replyMessageUUID": uuid
+          'message': message,
+          if (nickname != null) 'nickname': nickname,
+          'replyMessageUUID': uuid
         })), ack: (_response) {
       Map response = json.decode(_response);
-      status = response["status"];
+      status = response['status'];
     });
 
     while (status == null) {
@@ -138,7 +138,7 @@ class UniverseChatResource extends APIResource {
         utf8.decode(List<int>.from(message));
 
     Stream<UniverseChatMessage> stream = Stream.multi((p0) {
-      _socket!.on("sentMessage", (data) {
+      _socket!.on('sentMessage', (data) {
         p0.add(UniverseChatMessage.fromJson(decodeMessage(data)));
       });
     });
@@ -149,13 +149,13 @@ class UniverseChatResource extends APIResource {
   /// Get message by message uuid
   Future<UniverseChatMessage> getMessage(String uuid) async {
     APIHttpResponse response =
-        await httpClient.get("/universe-chat/view/$uuid");
+        await httpClient.get('/universe-chat/view/$uuid');
     return UniverseChatMessage.fromMap(response.data);
   }
 
   /// Get universe chat info (online users, protocolVersion, etc.)
   Future<UniverseChatInfo> getInfo() async {
-    APIHttpResponse response = await httpClient.get("/universe-chat/info");
+    APIHttpResponse response = await httpClient.get('/universe-chat/info');
 
     return UniverseChatInfo.fromMap(response.data);
   }
