@@ -9,6 +9,7 @@ import 'package:rpmtw_api_client/src/models/translate/source_file.dart';
 import 'package:rpmtw_api_client/src/models/translate/source_text.dart';
 import 'package:rpmtw_api_client/src/models/translate/translation.dart';
 import 'package:rpmtw_api_client/src/models/translate/translation_vote.dart';
+import 'package:rpmtw_api_client/src/models/translate/translator_info.dart';
 
 class ListModelResponse<T extends APIModel> {
   final List<T> data;
@@ -70,5 +71,6 @@ class ListModelResponse<T extends APIModel> {
     'SourceFile': SourceFile.fromMap,
     'ModSourceInfo': ModSourceInfo.fromMap,
     'Glossary': Glossary.fromMap,
+    'TranslatorInfo': TranslatorInfo.fromMap, 
   }.cast<String, dynamic Function(Map<String, dynamic>)>();
 }

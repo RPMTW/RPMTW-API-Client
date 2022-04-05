@@ -85,8 +85,8 @@ class TranslateStatus {
   }
 
   static Future<TranslateStatus> getByModSourceInfoUUID(ModSourceInfo info) =>
-      RPMTWApiClient.instance.translateResource.getModTranslateStatus(info);
+      RPMTWApiClient.instance.translateResource.getModSourceInfoStatus(info);
 
   static Future<TranslateStatus> getGlobalInfo() =>
-      RPMTWApiClient.instance.translateResource.getGlobalTranslateStatus();
+      RPMTWApiClient.instance.translateResource.getGlobalStatus();
 }

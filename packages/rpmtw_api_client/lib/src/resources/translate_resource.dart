@@ -10,6 +10,8 @@ import 'package:rpmtw_api_client/src/models/translate/glossary.dart';
 import 'package:rpmtw_api_client/src/models/translate/mod_source_info.dart';
 import 'package:rpmtw_api_client/src/models/translate/source_file.dart';
 import 'package:rpmtw_api_client/src/models/translate/source_text.dart';
+import 'package:rpmtw_api_client/src/models/translate/translate_report.dart';
+import 'package:rpmtw_api_client/src/models/translate/translate_report_sort_type.dart';
 import 'package:rpmtw_api_client/src/models/translate/translate_status.dart';
 import 'package:rpmtw_api_client/src/models/translate/translation.dart';
 import 'package:rpmtw_api_client/src/models/translate/translation_export_format.dart';
@@ -669,19 +671,47 @@ class TranslateResource extends APIResource {
   }
 
   /// Get a translate status by mod source info.
-  Future<TranslateStatus> getModTranslateStatus(ModSourceInfo info) async {
+  Future<TranslateStatus> getModSourceInfoStatus(ModSourceInfo info) async {
     APIHttpResponse response =
         await httpClient.get('/translate/status/${info.uuid}');
 
     return TranslateStatus.fromMap(response.data);
   }
 
-
   /// Get global translate status.
-  Future<TranslateStatus> getGlobalTranslateStatus() async {
-    APIHttpResponse response =
-        await httpClient.get('/translate/status');
+  Future<TranslateStatus> getGlobalStatus() async {
+    APIHttpResponse response = await httpClient.get('/translate/status');
 
     return TranslateStatus.fromMap(response.data);
+  }
+
+  /// Get translate report.
+  /// **Parameters**
+  /// - [start] The start time of the report.
+  /// - [end] The end time of the report.
+  /// - [sort] The sort type of the report.
+  /// - [limit] limit the number of results. (max 50)
+  /// - [skip] skip the first n results.
+  Future<TranslateReport> getReport({
+    required DateTime start,
+    required DateTime end,
+    required TranslateReportSortType sort,
+    int? limit,
+    int? skip,
+  }) async {
+    APIHttpResponse response =
+        await httpClient.post('/translate/report', body: {
+      'startTime': start.millisecondsSinceEpoch,
+      'endTime': end.millisecondsSinceEpoch,
+      'sortType': sort.name,
+      if (limit != null) 'limit': limit,
+      if (skip != null) 'skip': skip,
+    });
+
+    ListModelResponse<TranslatorInfo> _response =
+        ListModelResponse.fromMap<TranslatorInfo>(response.data);
+
+    return TranslateReport(_response.data, start, end, _response.limit,
+        _response.skip, _response.total);
   }
 }
