@@ -42,19 +42,17 @@ class CurseForgeResource extends APIResource {
   }
 
   /// Get all mods that match the search criteria.
-  Future<List<CurseForgeMod>> searchMods({
-    int? gameId,
-    int? classId,
-    int? categoryId,
-    String? gameVersion,
-    String? searchFilter
-  }) async {
+  Future<List<CurseForgeMod>> searchMods(
+      {int? gameId,
+      int? classId,
+      int? categoryId,
+      String? gameVersion,
+      String? searchFilter}) async {
+    throw UnimplementedError();
+
     List<Map<String, dynamic>> data =
-        (await _get(path: 'mods/search', query: {
-
-        }))
+        (await _get(path: 'mods/search', query: {}))
             .cast<Map<String, dynamic>>();
-
     return data.map((mod) => CurseForgeMod.fromMap(mod)).toList();
   }
 }
