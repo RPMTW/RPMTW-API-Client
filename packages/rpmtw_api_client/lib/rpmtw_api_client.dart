@@ -30,6 +30,7 @@ export 'src/models/translate/translation.dart';
 export 'src/models/translate/translate_report_sort_type.dart';
 export 'src/models/translate/translate_status.dart';
 export 'src/models/translate/translator_info.dart';
+export 'src/models/translate/translate_report.dart';
 
 export 'src/models/list_model_response.dart';
 
