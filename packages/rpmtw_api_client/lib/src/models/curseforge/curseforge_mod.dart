@@ -144,7 +144,7 @@ class CurseForgeMod {
       summary: map['summary'],
       status: map['status'],
       downloadCount: (map['downloadCount'] as double).toInt(),
-      isFeatured: map['isFeatured'] ?? false,
+      isFeatured: map['isFeatured'],
       primaryCategoryId: map['primaryCategoryId'],
       categories: List<CurseForgeModCategorie>.from(
           map['categories']?.map((x) => CurseForgeModCategorie.fromMap(x))),
@@ -385,7 +385,7 @@ class CurseForgeModCategorie {
       url: map['url'],
       iconUrl: map['iconUrl'],
       dateModified: map['dateModified'],
-      isClass: map['isClass'] ?? false,
+      isClass: map['isClass'],
       classId: map['classId'],
       parentCategoryId: map['parentCategoryId'],
     );
@@ -794,7 +794,7 @@ class CurseForgeModLatestFile {
       id: map['id'],
       gameId: map['gameId'],
       modId: map['modId'],
-      isAvailable: map['isAvailable'] ?? false,
+      isAvailable: map['isAvailable'],
       displayName: map['displayName'],
       fileName: map['fileName'],
       releaseType: map['releaseType'],
@@ -811,7 +811,7 @@ class CurseForgeModLatestFile {
               ?.map((x) => CurseForgeModSortableGameVersion.fromMap(x))),
       dependencies: List<dynamic>.from(map['dependencies']),
       alternateFileId: map['alternateFileId'],
-      isServerPack: map['isServerPack'] ?? false,
+      isServerPack: map['isServerPack'],
       fileFingerprint: map['fileFingerprint'],
       modules: List<CurseForgeModModule>.from(
           map['modules']?.map((x) => CurseForgeModModule.fromMap(x))),

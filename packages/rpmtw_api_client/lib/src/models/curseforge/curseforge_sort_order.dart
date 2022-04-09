@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class CurseForgeSortOrder {
   final String data;
-  
+
   const CurseForgeSortOrder({
     required this.data,
   });
@@ -23,7 +23,7 @@ class CurseForgeSortOrder {
 
   factory CurseForgeSortOrder.fromMap(Map<String, dynamic> map) {
     return CurseForgeSortOrder(
-      data: map['data'] ?? '',
+      data: map['data'],
     );
   }
 

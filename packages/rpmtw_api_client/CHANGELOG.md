@@ -1,4 +1,5 @@
 # 1.0.8
+- feat: support curseforge APIs
 - feat: get translator info by uuid/user
 - feat: get global/mod translate status
 - feat: list model response

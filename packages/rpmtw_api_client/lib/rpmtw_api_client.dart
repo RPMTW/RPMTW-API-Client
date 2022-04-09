@@ -19,6 +19,7 @@ export 'src/models/curseforge/curseforge_games.dart';
 export 'src/models/curseforge/curseforge_mod_loader_type.dart';
 export 'src/models/curseforge/curseforge_mods_search_sort.dart';
 export 'src/models/curseforge/curseforge_sort_order.dart';
+export 'src/models/curseforge/curseforge_mod_file.dart';
 export 'src/models/universe_chat/universe_chat_message.dart';
 export 'src/models/auth/user_role_permission.dart';
 export 'src/models/auth/user_role.dart';

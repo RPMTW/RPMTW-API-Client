@@ -4,6 +4,7 @@ import 'package:rpmtw_api_client/src/http/api_http_client.dart';
 import 'package:rpmtw_api_client/src/http/api_http_response.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_games.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod.dart';
+import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod_file.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod_loader_type.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mods_search_sort.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_sort_order.dart';
@@ -32,18 +33,20 @@ class CurseForgeResource extends APIResource {
   }
 
   /// Get a single mod.
-  Future<CurseForgeMod> getMod(int id) async {
+  Future<CurseForgeMod> getMod(int modID) async {
     return CurseForgeMod.fromMap(
-        (await _get(path: 'mods/$id')).cast<String, dynamic>()['data']);
+        (await _get(path: 'mods/$modID')).cast<String, dynamic>()['data']);
   }
 
   /// Get a list of mods.
-  Future<List<CurseForgeMod>> getMods(List<int> ids) async {
-    List<Map<String, dynamic>> data =
-        (await _post(path: 'mods', body: {'modIds': ids}))
-            .cast<Map<String, dynamic>>();
+  Future<List<CurseForgeMod>> getMods(List<int> modIds) async {
+    Map<String, dynamic> data =
+        (await _post(path: 'mods', body: {'modIds': modIds}))
+            .cast<String, dynamic>();
 
-    return data.map((mod) => CurseForgeMod.fromMap(mod)).toList();
+    return (data['data'] as List)
+        .map((mod) => CurseForgeMod.fromMap(mod))
+        .toList();
   }
 
   /// Get all mods that match the search criteria.
@@ -80,5 +83,65 @@ class CurseForgeResource extends APIResource {
     return (data['data'] as List)
         .map((mod) => CurseForgeMod.fromMap(mod))
         .toList();
+  }
+
+  /// Get the full description of a mod in HTML format.
+  Future<String> getModDescription(int modID) async {
+    Map<String, dynamic> data =
+        (await _get(path: 'mods/$modID/description')).cast<String, dynamic>();
+
+    return data['data'];
+  }
+
+  /// Get a single file of the specified mod.
+  Future<CurseForgeModFile> getModFile(int modID, int fileID) async {
+    Map<String, dynamic> data =
+        (await _get(path: 'mods/$modID/files/$fileID')).cast<String, dynamic>();
+
+    return CurseForgeModFile.fromMap(data['data']);
+  }
+
+  /// Get all files of the specified mod.
+  Future<List<CurseForgeModFile>> getModFiles(int modID,
+      {String? gameVersion,
+      CurseForgeModLoaderType? modLoaderType,
+      String? gameVersionTypeId,
+      int? index,
+      int? pageSize}) async {
+    Map<String, dynamic> data =
+        (await _get(path: 'mods/$modID/files', query: {}))
+            .cast<String, dynamic>();
+
+    return (data['data'] as List)
+        .map((file) => CurseForgeModFile.fromMap(file))
+        .toList();
+  }
+
+  /// Get a list of files.
+  Future<List<CurseForgeModFile>> getFiles(List<int> fileIds) async {
+    Map<String, dynamic> data =
+        (await _post(path: 'mods/files', body: {'fileIds': fileIds}))
+            .cast<String, dynamic>();
+
+    return (data['data'] as List)
+        .map((file) => CurseForgeModFile.fromMap(file))
+        .toList();
+  }
+
+  /// Get the changelog of a file in HTML format.
+  Future<String> getModFileChangelog(int modId, int fileID) async {
+    Map<String, dynamic> data =
+        (await _get(path: 'mods/$modId/files/$fileID/changelog'))
+            .cast<String, dynamic>();
+
+    return data['data'];
+  }
+
+  /// Get a download url for a specific file.
+  Future<String> getModFileDownloadUrl(int modID, int fileID) async {
+    Map<String, dynamic> data =
+        (await _get(path: 'mods/$modID/files/$fileID/download-url')).cast<String, dynamic>();
+
+    return data['data'];
   }
 }
