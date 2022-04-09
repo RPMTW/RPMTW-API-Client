@@ -18,7 +18,7 @@ class CurseForgeModFile {
   final String downloadUrl;
   final List<String> gameVersions;
   final List<SortableGameVersion> sortableGameVersions;
-  final List<Dependencie> dependencies;
+  final List<Dependency> dependencies;
   final bool exposeAsAlternative;
   final int? parentProjectFileId;
   final int alternateFileId;
@@ -69,7 +69,7 @@ class CurseForgeModFile {
     String? downloadUrl,
     List<String>? gameVersions,
     List<SortableGameVersion>? sortableGameVersions,
-    List<Dependencie>? dependencies,
+    List<Dependency>? dependencies,
     bool? exposeAsAlternative,
     int? parentProjectFileId,
     int? alternateFileId,
@@ -153,8 +153,8 @@ class CurseForgeModFile {
       sortableGameVersions: List<SortableGameVersion>.from(
           map['sortableGameVersions']
               ?.map((x) => SortableGameVersion.fromMap(x))),
-      dependencies: List<Dependencie>.from(
-          map['dependencies']?.map((x) => Dependencie.fromMap(x))),
+      dependencies: List<Dependency>.from(
+          map['dependencies']?.map((x) => Dependency.fromMap(x))),
       exposeAsAlternative: map['exposeAsAlternative'] ?? false,
       parentProjectFileId: map['parentProjectFileId'],
       alternateFileId: map['alternateFileId'],
@@ -237,7 +237,7 @@ class CurseForgeModFile {
 class Hash {
   final String value;
   final int algo;
-  Hash({
+  const Hash({
     required this.value,
     required this.algo,
   });
@@ -290,7 +290,7 @@ class SortableGameVersion {
   final String gameVersion;
   final String gameVersionReleaseDate;
   final int gameVersionTypeId;
-  SortableGameVersion({
+  const SortableGameVersion({
     required this.gameVersionName,
     required this.gameVersionPadded,
     required this.gameVersion,
@@ -367,19 +367,19 @@ class SortableGameVersion {
   }
 }
 
-class Dependencie {
+class Dependency {
   final int modId;
   final int relationType;
-  Dependencie({
+  const Dependency({
     required this.modId,
     required this.relationType,
   });
 
-  Dependencie copyWith({
+  Dependency copyWith({
     int? modId,
     int? relationType,
   }) {
-    return Dependencie(
+    return Dependency(
       modId: modId ?? this.modId,
       relationType: relationType ?? this.relationType,
     );
@@ -392,8 +392,8 @@ class Dependencie {
     };
   }
 
-  factory Dependencie.fromMap(Map<String, dynamic> map) {
-    return Dependencie(
+  factory Dependency.fromMap(Map<String, dynamic> map) {
+    return Dependency(
       modId: map['modId'],
       relationType: map['relationType'],
     );
@@ -401,18 +401,17 @@ class Dependencie {
 
   String toJson() => json.encode(toMap());
 
-  factory Dependencie.fromJson(String source) =>
-      Dependencie.fromMap(json.decode(source));
+  factory Dependency.fromJson(String source) =>
+      Dependency.fromMap(json.decode(source));
 
   @override
-  String toString() =>
-      'Dependencie(modId: $modId, relationType: $relationType)';
+  String toString() => 'Dependency(modId: $modId, relationType: $relationType)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Dependencie &&
+    return other is Dependency &&
         other.modId == modId &&
         other.relationType == relationType;
   }
@@ -424,7 +423,7 @@ class Dependencie {
 class Module {
   final String name;
   final int fingerprint;
-  Module({
+  const Module({
     required this.name,
     required this.fingerprint,
   });

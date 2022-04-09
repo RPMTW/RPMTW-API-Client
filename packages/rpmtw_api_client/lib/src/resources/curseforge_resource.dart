@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:rpmtw_api_client/src/http/api_http_client.dart';
 import 'package:rpmtw_api_client/src/http/api_http_response.dart';
+import 'package:rpmtw_api_client/src/models/curseforge/curseforge_folder_fingerprint.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_games.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod.dart';
+import 'package:rpmtw_api_client/src/models/curseforge/curseforge_category.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod_file.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod_loader_type.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mods_search_sort.dart';
@@ -140,8 +142,50 @@ class CurseForgeResource extends APIResource {
   /// Get a download url for a specific file.
   Future<String> getModFileDownloadUrl(int modID, int fileID) async {
     Map<String, dynamic> data =
-        (await _get(path: 'mods/$modID/files/$fileID/download-url')).cast<String, dynamic>();
+        (await _get(path: 'mods/$modID/files/$fileID/download-url'))
+            .cast<String, dynamic>();
 
     return data['data'];
+  }
+
+  /// Get mod files that match a list of fingerprints.
+  Future<List<CurseForgeModFile>> getFilesByFingerprint(
+      List<int> fingerprints) async {
+    Map<String, dynamic> data = (await _post(
+            path: 'fingerprints', body: {'fingerprints': fingerprints}))
+        .cast<String, dynamic>();
+
+    return (data['data']['exactMatches'] as List)
+        .map((file) => CurseForgeModFile.fromMap(file))
+        .toList();
+  }
+
+  /// Get mod files that match a list of fingerprints using fuzzy matching.
+  Future<List<CurseForgeModFile>> getFilesByFingerprintFuzzy(
+      CurseForgeGames game,
+      List<CurseForgeFolderFingerprint> fingerprints) async {
+    Map<String, dynamic> data = (await _post(path: 'fingerprints/fuzzy', body: {
+      'gameId': game.id,
+      'fingerprints': fingerprints.map((e) => e.toMap()).toList()
+    }))
+        .cast<String, dynamic>();
+
+    return (data['data']['fuzzyMatches'] as List)
+        .map((file) => CurseForgeModFile.fromMap(file))
+        .toList();
+  }
+
+  /// Get all available classes and categories of the specified game. Specify a game id for a list of all game categories, or a class id for a list of categories under that class.
+  Future<List<CurseForgeCategory>> getCategories(
+      {required CurseForgeGames game, int? classId}) async {
+    Map<String, dynamic> data = (await _get(path: 'categories', query: {
+      'gameId': game.id.toString(),
+      if (classId != null) 'classId': classId.toString()
+    }))
+        .cast<String, dynamic>();
+
+    return (data['data'] as List)
+        .map((category) => CurseForgeCategory.fromMap(category))
+        .toList();
   }
 }

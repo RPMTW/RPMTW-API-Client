@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:rpmtw_api_client/src/models/curseforge/curseforge_category.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod_loader_type.dart';
 
 class CurseForgeMod {
@@ -14,14 +15,14 @@ class CurseForgeMod {
   final int downloadCount;
   final bool isFeatured;
   final int primaryCategoryId;
-  final List<CurseForgeModCategorie> categories;
+  final List<CurseForgeCategory> categories;
   final int classId;
   final List<CurseForgeModAuthor> authors;
   final CurseForgeModLogo logo;
   final List<CurseForgeModScreenshot> screenshots;
   final int mainFileId;
   final List<CurseForgeModLatestFile> latestFiles;
-  final List<CurseForgeModLatestFilesIndexe> latestFilesIndexes;
+  final List<CurseForgeModLatestFilesIndex> latestFilesIndexes;
   final String dateCreated;
   final String dateModified;
   final String dateReleased;
@@ -65,14 +66,14 @@ class CurseForgeMod {
     int? downloadCount,
     bool? isFeatured,
     int? primaryCategoryId,
-    List<CurseForgeModCategorie>? categories,
+    List<CurseForgeCategory>? categories,
     int? classId,
     List<CurseForgeModAuthor>? authors,
     CurseForgeModLogo? logo,
     List<CurseForgeModScreenshot>? screenshots,
     int? mainFileId,
     List<CurseForgeModLatestFile>? latestFiles,
-    List<CurseForgeModLatestFilesIndexe>? latestFilesIndexes,
+    List<CurseForgeModLatestFilesIndex>? latestFilesIndexes,
     String? dateCreated,
     String? dateModified,
     String? dateReleased,
@@ -146,8 +147,8 @@ class CurseForgeMod {
       downloadCount: (map['downloadCount'] as double).toInt(),
       isFeatured: map['isFeatured'],
       primaryCategoryId: map['primaryCategoryId'],
-      categories: List<CurseForgeModCategorie>.from(
-          map['categories']?.map((x) => CurseForgeModCategorie.fromMap(x))),
+      categories: List<CurseForgeCategory>.from(
+          map['categories']?.map((x) => CurseForgeCategory.fromMap(x))),
       classId: map['classId'],
       authors: List<CurseForgeModAuthor>.from(
           map['authors']?.map((x) => CurseForgeModAuthor.fromMap(x))),
@@ -157,9 +158,9 @@ class CurseForgeMod {
       mainFileId: map['mainFileId'],
       latestFiles: List<CurseForgeModLatestFile>.from(
           map['latestFiles']?.map((x) => CurseForgeModLatestFile.fromMap(x))),
-      latestFilesIndexes: List<CurseForgeModLatestFilesIndexe>.from(
+      latestFilesIndexes: List<CurseForgeModLatestFilesIndex>.from(
           map['latestFilesIndexes']
-              ?.map((x) => CurseForgeModLatestFilesIndexe.fromMap(x))),
+              ?.map((x) => CurseForgeModLatestFilesIndex.fromMap(x))),
       dateCreated: map['dateCreated'],
       dateModified: map['dateModified'],
       dateReleased: map['dateReleased'],
@@ -308,128 +309,6 @@ class CurseForgeModLinks {
         wikiUrl.hashCode ^
         issuesUrl.hashCode ^
         sourceUrl.hashCode;
-  }
-}
-
-class CurseForgeModCategorie {
-  final int id;
-  final int gameId;
-  final String name;
-  final String? slug;
-  final String url;
-  final String iconUrl;
-  final String dateModified;
-  final bool isClass;
-  final int classId;
-  final int parentCategoryId;
-  const CurseForgeModCategorie({
-    required this.id,
-    required this.gameId,
-    required this.name,
-    required this.slug,
-    required this.url,
-    required this.iconUrl,
-    required this.dateModified,
-    required this.isClass,
-    required this.classId,
-    required this.parentCategoryId,
-  });
-
-  CurseForgeModCategorie copyWith({
-    int? id,
-    int? gameId,
-    String? name,
-    String? slug,
-    String? url,
-    String? iconUrl,
-    String? dateModified,
-    bool? isClass,
-    int? classId,
-    int? parentCategoryId,
-  }) {
-    return CurseForgeModCategorie(
-      id: id ?? this.id,
-      gameId: gameId ?? this.gameId,
-      name: name ?? this.name,
-      slug: slug ?? this.slug,
-      url: url ?? this.url,
-      iconUrl: iconUrl ?? this.iconUrl,
-      dateModified: dateModified ?? this.dateModified,
-      isClass: isClass ?? this.isClass,
-      classId: classId ?? this.classId,
-      parentCategoryId: parentCategoryId ?? this.parentCategoryId,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'gameId': gameId,
-      'name': name,
-      'slug': slug,
-      'url': url,
-      'iconUrl': iconUrl,
-      'dateModified': dateModified,
-      'isClass': isClass,
-      'classId': classId,
-      'parentCategoryId': parentCategoryId,
-    };
-  }
-
-  factory CurseForgeModCategorie.fromMap(Map<String, dynamic> map) {
-    return CurseForgeModCategorie(
-      id: map['id'],
-      gameId: map['gameId'],
-      name: map['name'],
-      slug: map['slug'],
-      url: map['url'],
-      iconUrl: map['iconUrl'],
-      dateModified: map['dateModified'],
-      isClass: map['isClass'],
-      classId: map['classId'],
-      parentCategoryId: map['parentCategoryId'],
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory CurseForgeModCategorie.fromJson(String source) =>
-      CurseForgeModCategorie.fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return 'Categorie(id: $id, gameId: $gameId, name: $name, slug: $slug, url: $url, iconUrl: $iconUrl, dateModified: $dateModified, isClass: $isClass, classId: $classId, parentCategoryId: $parentCategoryId)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is CurseForgeModCategorie &&
-        other.id == id &&
-        other.gameId == gameId &&
-        other.name == name &&
-        other.slug == slug &&
-        other.url == url &&
-        other.iconUrl == iconUrl &&
-        other.dateModified == dateModified &&
-        other.isClass == isClass &&
-        other.classId == classId &&
-        other.parentCategoryId == parentCategoryId;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        gameId.hashCode ^
-        name.hashCode ^
-        slug.hashCode ^
-        url.hashCode ^
-        iconUrl.hashCode ^
-        dateModified.hashCode ^
-        isClass.hashCode ^
-        classId.hashCode ^
-        parentCategoryId.hashCode;
   }
 }
 
@@ -1070,14 +949,14 @@ class CurseForgeModModule {
   int get hashCode => name.hashCode ^ fingerprint.hashCode;
 }
 
-class CurseForgeModLatestFilesIndexe {
+class CurseForgeModLatestFilesIndex {
   final String gameVersion;
   final int fileId;
   final String filename;
   final int releaseType;
   final int? gameVersionTypeId;
   final CurseForgeModLoaderType? modLoader;
-  const CurseForgeModLatestFilesIndexe({
+  const CurseForgeModLatestFilesIndex({
     required this.gameVersion,
     required this.fileId,
     required this.filename,
@@ -1086,7 +965,7 @@ class CurseForgeModLatestFilesIndexe {
     required this.modLoader,
   });
 
-  CurseForgeModLatestFilesIndexe copyWith({
+  CurseForgeModLatestFilesIndex copyWith({
     String? gameVersion,
     int? fileId,
     String? filename,
@@ -1094,7 +973,7 @@ class CurseForgeModLatestFilesIndexe {
     int? gameVersionTypeId,
     CurseForgeModLoaderType? modLoader,
   }) {
-    return CurseForgeModLatestFilesIndexe(
+    return CurseForgeModLatestFilesIndex(
       gameVersion: gameVersion ?? this.gameVersion,
       fileId: fileId ?? this.fileId,
       filename: filename ?? this.filename,
@@ -1115,8 +994,8 @@ class CurseForgeModLatestFilesIndexe {
     };
   }
 
-  factory CurseForgeModLatestFilesIndexe.fromMap(Map<String, dynamic> map) {
-    return CurseForgeModLatestFilesIndexe(
+  factory CurseForgeModLatestFilesIndex.fromMap(Map<String, dynamic> map) {
+    return CurseForgeModLatestFilesIndex(
       gameVersion: map['gameVersion'],
       fileId: map['fileId'],
       filename: map['filename'],
@@ -1130,19 +1009,19 @@ class CurseForgeModLatestFilesIndexe {
 
   String toJson() => json.encode(toMap());
 
-  factory CurseForgeModLatestFilesIndexe.fromJson(String source) =>
-      CurseForgeModLatestFilesIndexe.fromMap(json.decode(source));
+  factory CurseForgeModLatestFilesIndex.fromJson(String source) =>
+      CurseForgeModLatestFilesIndex.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'LatestFilesIndexe(gameVersion: $gameVersion, fileId: $fileId, filename: $filename, releaseType: $releaseType, gameVersionTypeId: $gameVersionTypeId, modLoader: $modLoader)';
+    return 'LatestFilesIndex(gameVersion: $gameVersion, fileId: $fileId, filename: $filename, releaseType: $releaseType, gameVersionTypeId: $gameVersionTypeId, modLoader: $modLoader)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is CurseForgeModLatestFilesIndexe &&
+    return other is CurseForgeModLatestFilesIndex &&
         other.gameVersion == gameVersion &&
         other.fileId == fileId &&
         other.filename == filename &&
