@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:rpmtw_api_client/src/models/curseforge/curseforge_file_release_type.dart';
 
 class CurseForgeModFile {
   final int id;
@@ -9,7 +10,7 @@ class CurseForgeModFile {
   final bool isAvailable;
   final String displayName;
   final String fileName;
-  final int releaseType;
+  final CurseForgeFileReleaseType releaseType;
   final int fileStatus;
   final List<Hash> hashes;
   final String fileDate;
@@ -60,7 +61,7 @@ class CurseForgeModFile {
     bool? isAvailable,
     String? displayName,
     String? fileName,
-    int? releaseType,
+    CurseForgeFileReleaseType? releaseType,
     int? fileStatus,
     List<Hash>? hashes,
     String? fileDate,
@@ -113,7 +114,7 @@ class CurseForgeModFile {
       'isAvailable': isAvailable,
       'displayName': displayName,
       'fileName': fileName,
-      'releaseType': releaseType,
+      'releaseType': releaseType.value,
       'fileStatus': fileStatus,
       'hashes': hashes.map((x) => x.toMap()).toList(),
       'fileDate': fileDate,
@@ -142,7 +143,8 @@ class CurseForgeModFile {
       isAvailable: map['isAvailable'],
       displayName: map['displayName'],
       fileName: map['fileName'],
-      releaseType: map['releaseType'],
+      releaseType: CurseForgeFileReleaseType.values
+          .firstWhere((e) => e.value == map['releaseType']),
       fileStatus: map['fileStatus'],
       hashes: List<Hash>.from(map['hashes']?.map((x) => Hash.fromMap(x))),
       fileDate: map['fileDate'],

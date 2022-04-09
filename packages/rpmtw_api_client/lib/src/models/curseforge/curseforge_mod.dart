@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_category.dart';
+import 'package:rpmtw_api_client/src/models/curseforge/curseforge_file_release_type.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod_loader_type.dart';
 
 class CurseForgeMod {
@@ -559,7 +560,7 @@ class CurseForgeModLatestFile {
   final bool isAvailable;
   final String displayName;
   final String fileName;
-  final int releaseType;
+  final CurseForgeFileReleaseType releaseType;
   final int fileStatus;
   final List<CurseForgeModHashe> hashes;
   final String fileDate;
@@ -603,7 +604,7 @@ class CurseForgeModLatestFile {
     bool? isAvailable,
     String? displayName,
     String? fileName,
-    int? releaseType,
+    CurseForgeFileReleaseType? releaseType,
     int? fileStatus,
     List<CurseForgeModHashe>? hashes,
     String? fileDate,
@@ -650,7 +651,7 @@ class CurseForgeModLatestFile {
       'isAvailable': isAvailable,
       'displayName': displayName,
       'fileName': fileName,
-      'releaseType': releaseType,
+      'releaseType': releaseType.value,
       'fileStatus': fileStatus,
       'hashes': hashes.map((x) => x.toMap()).toList(),
       'fileDate': fileDate,
@@ -676,7 +677,8 @@ class CurseForgeModLatestFile {
       isAvailable: map['isAvailable'],
       displayName: map['displayName'],
       fileName: map['fileName'],
-      releaseType: map['releaseType'],
+      releaseType: CurseForgeFileReleaseType.values
+          .firstWhere((e) => e.value == map['releaseType']),
       fileStatus: map['fileStatus'],
       hashes: List<CurseForgeModHashe>.from(
           map['hashes']?.map((x) => CurseForgeModHashe.fromMap(x))),
@@ -953,7 +955,7 @@ class CurseForgeModLatestFilesIndex {
   final String gameVersion;
   final int fileId;
   final String filename;
-  final int releaseType;
+  final CurseForgeFileReleaseType releaseType;
   final int? gameVersionTypeId;
   final CurseForgeModLoaderType? modLoader;
   const CurseForgeModLatestFilesIndex({
@@ -969,7 +971,7 @@ class CurseForgeModLatestFilesIndex {
     String? gameVersion,
     int? fileId,
     String? filename,
-    int? releaseType,
+    CurseForgeFileReleaseType? releaseType,
     int? gameVersionTypeId,
     CurseForgeModLoaderType? modLoader,
   }) {
@@ -988,7 +990,7 @@ class CurseForgeModLatestFilesIndex {
       'gameVersion': gameVersion,
       'fileId': fileId,
       'filename': filename,
-      'releaseType': releaseType,
+      'releaseType': releaseType.value,
       'gameVersionTypeId': gameVersionTypeId,
       'modLoader': modLoader?.value,
     };
@@ -999,7 +1001,8 @@ class CurseForgeModLatestFilesIndex {
       gameVersion: map['gameVersion'],
       fileId: map['fileId'],
       filename: map['filename'],
-      releaseType: map['releaseType'],
+      releaseType: CurseForgeFileReleaseType.values
+          .firstWhere((e) => e.value == map['releaseType']),
       gameVersionTypeId: map['gameVersionTypeId'],
       modLoader: CurseForgeModLoaderType.values
           .cast<CurseForgeModLoaderType?>()
