@@ -1,5 +1,5 @@
-import "dart:io";
-import "package:rpmtw_api_client/rpmtw_api_client.dart";
+import 'dart:io';
+import 'package:rpmtw_api_client/rpmtw_api_client.dart';
 
 void main() async {
   RPMTWApiClient.init(); // Initialize RPMTW API Client
@@ -8,7 +8,7 @@ void main() async {
 
   // Valid password
   PasswordValidatedResult result =
-      await apiClient.authResource.validPassword("12345");
+      await apiClient.authResource.validPassword('12345');
   print(result.message);
 
   // Print hello world

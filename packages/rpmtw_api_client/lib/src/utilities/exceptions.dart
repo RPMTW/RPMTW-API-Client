@@ -3,7 +3,7 @@ class UnauthorizedException implements Exception {
 
   UnauthorizedException(
       {this.message =
-          "Unauthorized, please use RPMTWApiClient#setGlobalToken to set the authorization Token"});
+          'Unauthorized, please use RPMTWApiClient#setGlobalToken to set the authorization Token'});
 
   @override
   String toString() {
@@ -18,7 +18,7 @@ class ModelNotFoundException<T> implements Exception {
 
   @override
   String toString() {
-    return "${modelName ?? T.toString()} not found";
+    return '${modelName ?? T.toString()} not found';
   }
 }
 
@@ -27,7 +27,7 @@ class ClientUninitializedException implements Exception {
 
   ClientUninitializedException(
       {this.message =
-          "Client is not initialized, please call RPMTWApiClient.init() first"});
+          'Client is not initialized, please call RPMTWApiClient.init() first'});
 
   @override
   String toString() {

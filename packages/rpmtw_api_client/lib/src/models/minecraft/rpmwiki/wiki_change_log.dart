@@ -1,8 +1,8 @@
-import "dart:convert";
+import 'dart:convert';
 
-import "package:rpmtw_api_client/src/models/auth/user.dart";
-import "package:rpmtw_api_client/src/models/api_model.dart";
-import "package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart";
+import 'package:rpmtw_api_client/src/models/auth/user.dart';
+import 'package:rpmtw_api_client/src/models/api_model.dart';
+import 'package:rpmtw_api_client/src/models/minecraft/minecraft_mod.dart';
 
 class WikiChangelog implements APIModel {
   @override
@@ -65,28 +65,28 @@ class WikiChangelog implements APIModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      "changelog": changelog,
-      "type": type.name,
-      "dataUUID": dataUUID,
-      "changedData": json.encode(changedData),
-      "unchangedData":
+      'changelog': changelog,
+      'type': type.name,
+      'dataUUID': dataUUID,
+      'changedData': json.encode(changedData),
+      'unchangedData':
           unchangedData != null ? json.encode(unchangedData) : null,
-      "userUUID": userUUID,
-      "time": time.millisecondsSinceEpoch,
-      "uuid": uuid,
+      'userUUID': userUUID,
+      'time': time.millisecondsSinceEpoch,
+      'uuid': uuid,
     };
   }
 
   factory WikiChangelog.fromMap(Map<String, dynamic> map) {
     return WikiChangelog(
-      changelog: map["changelog"],
-      type: WikiChangelogType.values.byName(map["type"]),
-      dataUUID: map["dataUUID"],
-      changedData: map["changedData"],
-      unchangedData: map["unchangedData"],
-      userUUID: map["userUUID"],
-      time: DateTime.fromMillisecondsSinceEpoch(map["time"], isUtc: true),
-      uuid: map["uuid"],
+      changelog: map['changelog'],
+      type: WikiChangelogType.values.byName(map['type']),
+      dataUUID: map['dataUUID'],
+      changedData: map['changedData'],
+      unchangedData: map['unchangedData'],
+      userUUID: map['userUUID'],
+      time: DateTime.fromMillisecondsSinceEpoch(map['time'], isUtc: true),
+      uuid: map['uuid'],
     );
   }
 
@@ -97,7 +97,7 @@ class WikiChangelog implements APIModel {
 
   @override
   String toString() {
-    return "WikiChangelog(changelog: $changelog, type: $type, dataUUID: $dataUUID, changedData: $changedData, unchangedData: $unchangedData, userUUID: $userUUID, time: $time, uuid: $uuid)";
+    return 'WikiChangelog(changelog: $changelog, type: $type, dataUUID: $dataUUID, changedData: $changedData, unchangedData: $unchangedData, userUUID: $userUUID, time: $time, uuid: $uuid)';
   }
 
   @override

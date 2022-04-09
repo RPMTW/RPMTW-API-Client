@@ -1,9 +1,9 @@
-import "dart:convert";
+import 'dart:convert';
 
-import "package:rpmtw_api_client/src/api_client.dart";
-import "package:rpmtw_api_client/src/models/auth/user_role.dart";
-import "package:rpmtw_api_client/src/models/api_model.dart";
-import "package:rpmtw_api_client/src/models/storage/storage.dart";
+import 'package:rpmtw_api_client/src/api_client.dart';
+import 'package:rpmtw_api_client/src/models/auth/user_role.dart';
+import 'package:rpmtw_api_client/src/models/api_model.dart';
+import 'package:rpmtw_api_client/src/models/storage/storage.dart';
 
 class User implements APIModel {
   @override
@@ -23,7 +23,7 @@ class User implements APIModel {
     required this.role,
   });
 
-  /// Get the user"s avatar url.
+  /// Get the user's avatar url.
   /// if the user has no avatar, it will return null.
   String? avatarUrl() => avatarStorageUUID == null
       ? null
@@ -54,23 +54,23 @@ class User implements APIModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      "uuid": uuid,
-      "username": username,
-      "email": email,
-      "emailVerified": emailVerified,
-      "avatarStorageUUID": avatarStorageUUID,
-      "role": role.toMap(),
+      'uuid': uuid,
+      'username': username,
+      'email': email,
+      'emailVerified': emailVerified,
+      'avatarStorageUUID': avatarStorageUUID,
+      'role': role.toMap(),
     };
   }
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      uuid: map["uuid"],
-      username: map["username"],
-      email: map["email"],
-      emailVerified: map["emailVerified"] ?? false,
-      avatarStorageUUID: map["avatarStorageUUID"],
-      role: UserRole.fromMap(map["role"]),
+      uuid: map['uuid'],
+      username: map['username'],
+      email: map['email'],
+      emailVerified: map['emailVerified'] ?? false,
+      avatarStorageUUID: map['avatarStorageUUID'],
+      role: UserRole.fromMap(map['role']),
     );
   }
 
@@ -80,7 +80,7 @@ class User implements APIModel {
 
   @override
   String toString() {
-    return "User(uuid: $uuid, username: $username, email: $email, emailVerified: $emailVerified, avatarStorageUUID: $avatarStorageUUID, role: $role)";
+    return 'User(uuid: $uuid, username: $username, email: $email, emailVerified: $emailVerified, avatarStorageUUID: $avatarStorageUUID, role: $role)';
   }
 
   @override
