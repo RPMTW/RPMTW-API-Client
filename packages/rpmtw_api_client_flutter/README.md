@@ -1,7 +1,11 @@
+[![pub package](https://img.shields.io/pub/v/rpmtw_api_client_flutter.svg)](https://pub.dev/packages/rpmtw_api_client_flutter)
+[![likes](https://badges.bar/rpmtw_api_client_flutter/likes)](https://pub.dev/packages/rpmtw_api_client_flutter/score)
+[![popularity](https://badges.bar/rpmtw_api_client_flutter/popularity)](https://pub.dev/packages/rpmtw_api_client_flutter/score)
+[![pub points](https://badges.bar/rpmtw_api_client_flutter/pub%20points)](https://pub.dev/packages/rpmtw_api_client_flutter/score)
 # RPMTW API Client (Flutter)
 ## Install
 ```bash
-flutter pub add rpmtw_api_client
+flutter pub add rpmtw_api_client_flutter
 ```
 ### Example
 ```dart

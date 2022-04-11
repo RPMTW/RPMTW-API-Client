@@ -1,3 +1,7 @@
+[![pub package](https://img.shields.io/pub/v/rpmtw_api_client.svg)](https://pub.dev/packages/rpmtw_api_client)
+[![likes](https://badges.bar/rpmtw_api_client/likes)](https://pub.dev/packages/rpmtw_api_client/score)
+[![popularity](https://badges.bar/rpmtw_api_client/popularity)](https://pub.dev/packages/rpmtw_api_client/score)
+[![pub points](https://badges.bar/rpmtw_api_client/pub%20points)](https://pub.dev/packages/rpmtw_api_client/score)
 # RPMTW API Client (Dart)
 ## Install
 ```bash
