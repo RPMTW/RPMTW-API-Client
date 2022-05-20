@@ -71,6 +71,6 @@ class ListModelResponse<T extends APIModel> {
     'SourceFile': SourceFile.fromMap,
     'ModSourceInfo': ModSourceInfo.fromMap,
     'Glossary': Glossary.fromMap,
-    'TranslatorInfo': TranslatorInfo.fromMap, 
+    'TranslatorInfo': TranslatorInfo.fromMap,
   }.cast<String, dynamic Function(Map<String, dynamic>)>();
 }

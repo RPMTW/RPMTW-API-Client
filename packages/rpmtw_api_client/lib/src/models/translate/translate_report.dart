@@ -8,6 +8,6 @@ class TranslateReport {
   final int skip;
   final int total;
 
-  const TranslateReport(this.translators, this.start, this.end, this.limit, this.skip,
-      this.total);
+  const TranslateReport(this.translators, this.start, this.end, this.limit,
+      this.skip, this.total);
 }

@@ -1,4 +1,4 @@
-import "dart:convert";
+import 'dart:convert';
 
 class PasswordValidatedResult {
   final bool isValid;
@@ -25,17 +25,17 @@ class PasswordValidatedResult {
 
   Map<String, dynamic> toMap() {
     return {
-      "isValid": isValid,
-      "code": code,
-      "message": message,
+      'isValid': isValid,
+      'code': code,
+      'message': message,
     };
   }
 
   factory PasswordValidatedResult.fromMap(Map<String, dynamic> map) {
     return PasswordValidatedResult(
-      isValid: map["isValid"] ?? false,
-      code: map["code"],
-      message: map["message"],
+      isValid: map['isValid'] ?? false,
+      code: map['code'],
+      message: map['message'],
     );
   }
 
@@ -59,5 +59,5 @@ class PasswordValidatedResult {
 
   @override
   String toString() =>
-      "PasswordValidatedResult(isValid: $isValid, code: $code, resultMessage: $message)";
+      'PasswordValidatedResult(isValid: $isValid, code: $code, resultMessage: $message)';
 }

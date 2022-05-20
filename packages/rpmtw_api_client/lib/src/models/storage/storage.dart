@@ -1,7 +1,7 @@
-import "dart:convert";
+import 'dart:convert';
 
-import "package:rpmtw_api_client/src/api_client.dart";
-import "package:rpmtw_api_client/src/models/api_model.dart";
+import 'package:rpmtw_api_client/src/api_client.dart';
+import 'package:rpmtw_api_client/src/models/api_model.dart';
 
 class Storage implements APIModel {
   @override
@@ -38,22 +38,22 @@ class Storage implements APIModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      "uuid": uuid,
-      "contentType": contentType,
-      "type": type,
-      "createAt": createAt.millisecondsSinceEpoch,
-      "usageCount": usageCount,
+      'uuid': uuid,
+      'contentType': contentType,
+      'type': type,
+      'createAt': createAt.millisecondsSinceEpoch,
+      'usageCount': usageCount,
     };
   }
 
   factory Storage.fromMap(Map<String, dynamic> map) {
     return Storage(
-      uuid: map["uuid"],
-      contentType: map["contentType"],
-      type: map["type"],
+      uuid: map['uuid'],
+      contentType: map['contentType'],
+      type: map['type'],
       createAt:
-          DateTime.fromMillisecondsSinceEpoch(map["createAt"], isUtc: true),
-      usageCount: map["usageCount"],
+          DateTime.fromMillisecondsSinceEpoch(map['createAt'], isUtc: true),
+      usageCount: map['usageCount'],
     );
   }
 
@@ -64,7 +64,7 @@ class Storage implements APIModel {
 
   @override
   String toString() {
-    return "Storage(uuid: $uuid, contentType: $contentType, type: $type, createAt: $createAt, usageCount: $usageCount)";
+    return 'Storage(uuid: $uuid, contentType: $contentType, type: $type, createAt: $createAt, usageCount: $usageCount)';
   }
 
   @override
@@ -98,6 +98,6 @@ class Storage implements APIModel {
   /// - [apiBaseUrl] api base url (optional)
   static String getDownloadUrl(String uuid, {String? apiBaseUrl}) {
     apiBaseUrl ??= RPMTWApiClient.instance.apiBaseUrl;
-    return "$apiBaseUrl/storage/$uuid/download";
+    return '$apiBaseUrl/storage/$uuid/download';
   }
 }

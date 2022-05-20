@@ -16,8 +16,8 @@ jobs:
       - name: "Dart package rpmtw_api_client"
         uses: k-paxian/dart-package-publisher@5107bea93e50dba6afb494c449aaa816cf194c34
         with:
-          accessToken: ${{ secrets.OAUTH_ACCESS_TOKEN }}
-          refreshToken: ${{ secrets.OAUTH_REFRESH_TOKEN }}
+          accessToken: ${{ secrets.DART_PUB_OAUTH_ACCESS_TOKEN }}
+          refreshToken: ${{ secrets.DART_PUB_OAUTH_REFRESH_TOKEN }}
           relativePath: packages/rpmtw_api_client
           format: true
           skipTests: true
@@ -26,8 +26,8 @@ jobs:
       - name: "Dart package rpmtw_api_client_flutter"
         uses: k-paxian/dart-package-publisher@5107bea93e50dba6afb494c449aaa816cf194c34
         with:
-          accessToken: ${{ secrets.OAUTH_ACCESS_TOKEN }}
-          refreshToken: ${{ secrets.OAUTH_REFRESH_TOKEN }}
+          accessToken: ${{ secrets.DART_PUB_OAUTH_ACCESS_TOKEN }}
+          refreshToken: ${{ secrets.DART_PUB_OAUTH_REFRESH_TOKEN }}
           relativePath: packages/rpmtw_api_client_flutter
           format: true
           skipTests: true

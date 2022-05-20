@@ -1,13 +1,13 @@
-import "dart:convert";
+import 'dart:convert';
 
-import "package:collection/collection.dart";
-import "package:rpmtw_api_client/src/api_client.dart";
-import "package:rpmtw_api_client/src/models/api_model.dart";
-import "package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart";
-import "package:rpmtw_api_client/src/models/minecraft/mod_integration.dart";
-import "package:rpmtw_api_client/src/models/minecraft/mod_side.dart";
-import "package:rpmtw_api_client/src/models/minecraft/relation_mod.dart";
-import "package:rpmtw_api_client/src/models/storage/storage.dart";
+import 'package:collection/collection.dart';
+import 'package:rpmtw_api_client/src/api_client.dart';
+import 'package:rpmtw_api_client/src/models/api_model.dart';
+import 'package:rpmtw_api_client/src/models/minecraft/minecraft_version.dart';
+import 'package:rpmtw_api_client/src/models/minecraft/mod_integration.dart';
+import 'package:rpmtw_api_client/src/models/minecraft/mod_side.dart';
+import 'package:rpmtw_api_client/src/models/minecraft/relation_mod.dart';
+import 'package:rpmtw_api_client/src/models/storage/storage.dart';
 
 class MinecraftMod implements APIModel {
   @override
@@ -116,46 +116,46 @@ class MinecraftMod implements APIModel {
   @override
   Map<String, dynamic> toMap() {
     return {
-      "uuid": uuid,
-      "name": name,
-      "description": description,
-      "id": id,
-      "supportVersions": supportVersions.map((x) => x.toMap()).toList(),
-      "relationMods": relationMods.map((x) => x.toMap()).toList(),
-      "integration": integration.toMap(),
-      "side": side.map((x) => x.toMap()).toList(),
-      "lastUpdate": lastUpdate.millisecondsSinceEpoch,
-      "createTime": createTime.millisecondsSinceEpoch,
-      "loader": loader?.map((x) => x.name).toList(),
-      "translatedName": translatedName,
-      "introduction": introduction,
-      "imageStorageUUID": imageStorageUUID,
-      "viewCount": viewCount,
+      'uuid': uuid,
+      'name': name,
+      'description': description,
+      'id': id,
+      'supportVersions': supportVersions.map((x) => x.toMap()).toList(),
+      'relationMods': relationMods.map((x) => x.toMap()).toList(),
+      'integration': integration.toMap(),
+      'side': side.map((x) => x.toMap()).toList(),
+      'lastUpdate': lastUpdate.millisecondsSinceEpoch,
+      'createTime': createTime.millisecondsSinceEpoch,
+      'loader': loader?.map((x) => x.name).toList(),
+      'translatedName': translatedName,
+      'introduction': introduction,
+      'imageStorageUUID': imageStorageUUID,
+      'viewCount': viewCount,
     };
   }
 
   factory MinecraftMod.fromMap(Map<String, dynamic> map) {
     return MinecraftMod(
-      uuid: map["uuid"]!,
-      name: map["name"],
-      description: map["description"],
-      id: map["id"],
+      uuid: map['uuid']!,
+      name: map['name'],
+      description: map['description'],
+      id: map['id'],
       supportVersions: List<MinecraftVersion>.from(
-          map["supportVersions"]?.map((x) => MinecraftVersion.fromMap(x))),
+          map['supportVersions']?.map((x) => MinecraftVersion.fromMap(x))),
       relationMods: List<RelationMod>.from(
-          map["relationMods"]?.map((x) => RelationMod.fromMap(x))),
-      integration: ModIntegrationPlatform.fromMap(map["integration"]),
-      side: List<ModSide>.from(map["side"]?.map((x) => ModSide.fromMap(x))),
+          map['relationMods']?.map((x) => RelationMod.fromMap(x))),
+      integration: ModIntegrationPlatform.fromMap(map['integration']),
+      side: List<ModSide>.from(map['side']?.map((x) => ModSide.fromMap(x))),
       lastUpdate:
-          DateTime.fromMillisecondsSinceEpoch(map["lastUpdate"], isUtc: true),
+          DateTime.fromMillisecondsSinceEpoch(map['lastUpdate'], isUtc: true),
       createTime:
-          DateTime.fromMillisecondsSinceEpoch(map["createTime"], isUtc: true),
+          DateTime.fromMillisecondsSinceEpoch(map['createTime'], isUtc: true),
       loader: List<ModLoader>.from(
-          map["loader"]?.map((x) => ModLoader.values.byName(x)) ?? []),
-      translatedName: map["translatedName"],
-      introduction: map["introduction"],
-      imageStorageUUID: map["imageStorageUUID"],
-      viewCount: map["viewCount"] ?? 0,
+          map['loader']?.map((x) => ModLoader.values.byName(x)) ?? []),
+      translatedName: map['translatedName'],
+      introduction: map['introduction'],
+      imageStorageUUID: map['imageStorageUUID'],
+      viewCount: map['viewCount'] ?? 0,
     );
   }
 
@@ -166,7 +166,7 @@ class MinecraftMod implements APIModel {
 
   @override
   String toString() {
-    return "MinecraftMod(uuid:$uuid, name: $name, description: $description, id: $id, supportVersions: $supportVersions, relationMods: $relationMods, integration: $integration, side: $side, lastUpdate: $lastUpdate, createTime: $createTime, loader: $loader, translatedName: $translatedName, introduction: $introduction, imageStorageUUID: $imageStorageUUID, viewCount: $viewCount)";
+    return 'MinecraftMod(uuid:$uuid, name: $name, description: $description, id: $id, supportVersions: $supportVersions, relationMods: $relationMods, integration: $integration, side: $side, lastUpdate: $lastUpdate, createTime: $createTime, loader: $loader, translatedName: $translatedName, introduction: $introduction, imageStorageUUID: $imageStorageUUID, viewCount: $viewCount)';
   }
 
   @override

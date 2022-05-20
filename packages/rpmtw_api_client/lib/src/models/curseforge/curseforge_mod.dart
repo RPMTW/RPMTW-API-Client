@@ -1,6 +1,9 @@
-import "dart:convert";
+import 'dart:convert';
 
-import "package:collection/collection.dart";
+import 'package:collection/collection.dart';
+import 'package:rpmtw_api_client/src/models/curseforge/curseforge_category.dart';
+import 'package:rpmtw_api_client/src/models/curseforge/curseforge_file_release_type.dart';
+import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod_loader_type.dart';
 
 class CurseForgeMod {
   final int id;
@@ -13,20 +16,21 @@ class CurseForgeMod {
   final int downloadCount;
   final bool isFeatured;
   final int primaryCategoryId;
-  final List<CurseForgeModCategorie> categories;
+  final List<CurseForgeCategory> categories;
   final int classId;
   final List<CurseForgeModAuthor> authors;
   final CurseForgeModLogo logo;
   final List<CurseForgeModScreenshot> screenshots;
   final int mainFileId;
   final List<CurseForgeModLatestFile> latestFiles;
-  final List<CurseForgeModLatestFilesIndexe> latestFilesIndexes;
+  final List<CurseForgeModLatestFilesIndex> latestFilesIndexes;
   final String dateCreated;
   final String dateModified;
   final String dateReleased;
   final bool allowModDistribution;
   final int gamePopularityRank;
-  CurseForgeMod({
+
+  const CurseForgeMod({
     required this.id,
     required this.gameId,
     required this.name,
@@ -63,14 +67,14 @@ class CurseForgeMod {
     int? downloadCount,
     bool? isFeatured,
     int? primaryCategoryId,
-    List<CurseForgeModCategorie>? categories,
+    List<CurseForgeCategory>? categories,
     int? classId,
     List<CurseForgeModAuthor>? authors,
     CurseForgeModLogo? logo,
     List<CurseForgeModScreenshot>? screenshots,
     int? mainFileId,
     List<CurseForgeModLatestFile>? latestFiles,
-    List<CurseForgeModLatestFilesIndexe>? latestFilesIndexes,
+    List<CurseForgeModLatestFilesIndex>? latestFilesIndexes,
     String? dateCreated,
     String? dateModified,
     String? dateReleased,
@@ -106,63 +110,63 @@ class CurseForgeMod {
 
   Map<String, dynamic> toMap() {
     return {
-      "id": id,
-      "gameId": gameId,
-      "name": name,
-      "slug": slug,
-      "links": links.toMap(),
-      "summary": summary,
-      "status": status,
-      "downloadCount": downloadCount,
-      "isFeatured": isFeatured,
-      "primaryCategoryId": primaryCategoryId,
-      "categories": categories.map((x) => x.toMap()).toList(),
-      "classId": classId,
-      "authors": authors.map((x) => x.toMap()).toList(),
-      "logo": logo.toMap(),
-      "screenshots": screenshots.map((x) => x.toMap()).toList(),
-      "mainFileId": mainFileId,
-      "latestFiles": latestFiles.map((x) => x.toMap()).toList(),
-      "latestFilesIndexes": latestFilesIndexes.map((x) => x.toMap()).toList(),
-      "dateCreated": dateCreated,
-      "dateModified": dateModified,
-      "dateReleased": dateReleased,
-      "allowModDistribution": allowModDistribution,
-      "gamePopularityRank": gamePopularityRank,
+      'id': id,
+      'gameId': gameId,
+      'name': name,
+      'slug': slug,
+      'links': links.toMap(),
+      'summary': summary,
+      'status': status,
+      'downloadCount': downloadCount,
+      'isFeatured': isFeatured,
+      'primaryCategoryId': primaryCategoryId,
+      'categories': categories.map((x) => x.toMap()).toList(),
+      'classId': classId,
+      'authors': authors.map((x) => x.toMap()).toList(),
+      'logo': logo.toMap(),
+      'screenshots': screenshots.map((x) => x.toMap()).toList(),
+      'mainFileId': mainFileId,
+      'latestFiles': latestFiles.map((x) => x.toMap()).toList(),
+      'latestFilesIndexes': latestFilesIndexes.map((x) => x.toMap()).toList(),
+      'dateCreated': dateCreated,
+      'dateModified': dateModified,
+      'dateReleased': dateReleased,
+      'allowModDistribution': allowModDistribution,
+      'gamePopularityRank': gamePopularityRank,
     };
   }
 
   factory CurseForgeMod.fromMap(Map<String, dynamic> map) {
     return CurseForgeMod(
-      id: map["id"],
-      gameId: map["gameId"],
-      name: map["name"],
-      slug: map["slug"],
-      links: CurseForgeModLinks.fromMap(map["links"]),
-      summary: map["summary"],
-      status: map["status"],
-      downloadCount: map["downloadCount"],
-      isFeatured: map["isFeatured"] ?? false,
-      primaryCategoryId: map["primaryCategoryId"],
-      categories: List<CurseForgeModCategorie>.from(
-          map["categories"]?.map((x) => CurseForgeModCategorie.fromMap(x))),
-      classId: map["classId"],
+      id: map['id'],
+      gameId: map['gameId'],
+      name: map['name'],
+      slug: map['slug'],
+      links: CurseForgeModLinks.fromMap(map['links']),
+      summary: map['summary'],
+      status: map['status'],
+      downloadCount: (map['downloadCount'] as double).toInt(),
+      isFeatured: map['isFeatured'],
+      primaryCategoryId: map['primaryCategoryId'],
+      categories: List<CurseForgeCategory>.from(
+          map['categories']?.map((x) => CurseForgeCategory.fromMap(x))),
+      classId: map['classId'],
       authors: List<CurseForgeModAuthor>.from(
-          map["authors"]?.map((x) => CurseForgeModAuthor.fromMap(x))),
-      logo: CurseForgeModLogo.fromMap(map["logo"]),
+          map['authors']?.map((x) => CurseForgeModAuthor.fromMap(x))),
+      logo: CurseForgeModLogo.fromMap(map['logo']),
       screenshots: List<CurseForgeModScreenshot>.from(
-          map["screenshots"]?.map((x) => CurseForgeModScreenshot.fromMap(x))),
-      mainFileId: map["mainFileId"],
+          map['screenshots']?.map((x) => CurseForgeModScreenshot.fromMap(x))),
+      mainFileId: map['mainFileId'],
       latestFiles: List<CurseForgeModLatestFile>.from(
-          map["latestFiles"]?.map((x) => CurseForgeModLatestFile.fromMap(x))),
-      latestFilesIndexes: List<CurseForgeModLatestFilesIndexe>.from(
-          map["latestFilesIndexes"]
-              ?.map((x) => CurseForgeModLatestFilesIndexe.fromMap(x))),
-      dateCreated: map["dateCreated"],
-      dateModified: map["dateModified"],
-      dateReleased: map["dateReleased"],
-      allowModDistribution: map["allowModDistribution"] ?? false,
-      gamePopularityRank: map["gamePopularityRank"],
+          map['latestFiles']?.map((x) => CurseForgeModLatestFile.fromMap(x))),
+      latestFilesIndexes: List<CurseForgeModLatestFilesIndex>.from(
+          map['latestFilesIndexes']
+              ?.map((x) => CurseForgeModLatestFilesIndex.fromMap(x))),
+      dateCreated: map['dateCreated'],
+      dateModified: map['dateModified'],
+      dateReleased: map['dateReleased'],
+      allowModDistribution: map['allowModDistribution'] ?? false,
+      gamePopularityRank: map['gamePopularityRank'],
     );
   }
 
@@ -173,7 +177,7 @@ class CurseForgeMod {
 
   @override
   String toString() {
-    return "CurseForgeMod(id: $id, gameId: $gameId, name: $name, slug: $slug, links: $links, summary: $summary, status: $status, downloadCount: $downloadCount, isFeatured: $isFeatured, primaryCategoryId: $primaryCategoryId, categories: $categories, classId: $classId, authors: $authors, logo: $logo, screenshots: $screenshots, mainFileId: $mainFileId, latestFiles: $latestFiles, latestFilesIndexes: $latestFilesIndexes, dateCreated: $dateCreated, dateModified: $dateModified, dateReleased: $dateReleased, allowModDistribution: $allowModDistribution, gamePopularityRank: $gamePopularityRank)";
+    return 'CurseForgeMod(id: $id, gameId: $gameId, name: $name, slug: $slug, links: $links, summary: $summary, status: $status, downloadCount: $downloadCount, isFeatured: $isFeatured, primaryCategoryId: $primaryCategoryId, categories: $categories, classId: $classId, authors: $authors, logo: $logo, screenshots: $screenshots, mainFileId: $mainFileId, latestFiles: $latestFiles, latestFilesIndexes: $latestFilesIndexes, dateCreated: $dateCreated, dateModified: $dateModified, dateReleased: $dateReleased, allowModDistribution: $allowModDistribution, gamePopularityRank: $gamePopularityRank)';
   }
 
   @override
@@ -237,9 +241,9 @@ class CurseForgeMod {
 
 class CurseForgeModLinks {
   final String websiteUrl;
-  final String wikiUrl;
-  final String issuesUrl;
-  final String sourceUrl;
+  final String? wikiUrl;
+  final String? issuesUrl;
+  final String? sourceUrl;
   CurseForgeModLinks({
     required this.websiteUrl,
     required this.wikiUrl,
@@ -263,19 +267,19 @@ class CurseForgeModLinks {
 
   Map<String, dynamic> toMap() {
     return {
-      "websiteUrl": websiteUrl,
-      "wikiUrl": wikiUrl,
-      "issuesUrl": issuesUrl,
-      "sourceUrl": sourceUrl,
+      'websiteUrl': websiteUrl,
+      'wikiUrl': wikiUrl,
+      'issuesUrl': issuesUrl,
+      'sourceUrl': sourceUrl,
     };
   }
 
   factory CurseForgeModLinks.fromMap(Map<String, dynamic> map) {
     return CurseForgeModLinks(
-      websiteUrl: map["websiteUrl"],
-      wikiUrl: map["wikiUrl"],
-      issuesUrl: map["issuesUrl"],
-      sourceUrl: map["sourceUrl"],
+      websiteUrl: map['websiteUrl'],
+      wikiUrl: map['wikiUrl'],
+      issuesUrl: map['issuesUrl'],
+      sourceUrl: map['sourceUrl'],
     );
   }
 
@@ -286,7 +290,7 @@ class CurseForgeModLinks {
 
   @override
   String toString() {
-    return "Links(websiteUrl: $websiteUrl, wikiUrl: $wikiUrl, issuesUrl: $issuesUrl, sourceUrl: $sourceUrl)";
+    return 'Links(websiteUrl: $websiteUrl, wikiUrl: $wikiUrl, issuesUrl: $issuesUrl, sourceUrl: $sourceUrl)';
   }
 
   @override
@@ -309,133 +313,11 @@ class CurseForgeModLinks {
   }
 }
 
-class CurseForgeModCategorie {
-  final int id;
-  final int gameId;
-  final String name;
-  final String slug;
-  final String url;
-  final String iconUrl;
-  final String dateModified;
-  final bool isClass;
-  final int classId;
-  final int parentCategoryId;
-  CurseForgeModCategorie({
-    required this.id,
-    required this.gameId,
-    required this.name,
-    required this.slug,
-    required this.url,
-    required this.iconUrl,
-    required this.dateModified,
-    required this.isClass,
-    required this.classId,
-    required this.parentCategoryId,
-  });
-
-  CurseForgeModCategorie copyWith({
-    int? id,
-    int? gameId,
-    String? name,
-    String? slug,
-    String? url,
-    String? iconUrl,
-    String? dateModified,
-    bool? isClass,
-    int? classId,
-    int? parentCategoryId,
-  }) {
-    return CurseForgeModCategorie(
-      id: id ?? this.id,
-      gameId: gameId ?? this.gameId,
-      name: name ?? this.name,
-      slug: slug ?? this.slug,
-      url: url ?? this.url,
-      iconUrl: iconUrl ?? this.iconUrl,
-      dateModified: dateModified ?? this.dateModified,
-      isClass: isClass ?? this.isClass,
-      classId: classId ?? this.classId,
-      parentCategoryId: parentCategoryId ?? this.parentCategoryId,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      "id": id,
-      "gameId": gameId,
-      "name": name,
-      "slug": slug,
-      "url": url,
-      "iconUrl": iconUrl,
-      "dateModified": dateModified,
-      "isClass": isClass,
-      "classId": classId,
-      "parentCategoryId": parentCategoryId,
-    };
-  }
-
-  factory CurseForgeModCategorie.fromMap(Map<String, dynamic> map) {
-    return CurseForgeModCategorie(
-      id: map["id"],
-      gameId: map["gameId"],
-      name: map["name"],
-      slug: map["slug"],
-      url: map["url"],
-      iconUrl: map["iconUrl"],
-      dateModified: map["dateModified"],
-      isClass: map["isClass"] ?? false,
-      classId: map["classId"],
-      parentCategoryId: map["parentCategoryId"],
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory CurseForgeModCategorie.fromJson(String source) =>
-      CurseForgeModCategorie.fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return "Categorie(id: $id, gameId: $gameId, name: $name, slug: $slug, url: $url, iconUrl: $iconUrl, dateModified: $dateModified, isClass: $isClass, classId: $classId, parentCategoryId: $parentCategoryId)";
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is CurseForgeModCategorie &&
-        other.id == id &&
-        other.gameId == gameId &&
-        other.name == name &&
-        other.slug == slug &&
-        other.url == url &&
-        other.iconUrl == iconUrl &&
-        other.dateModified == dateModified &&
-        other.isClass == isClass &&
-        other.classId == classId &&
-        other.parentCategoryId == parentCategoryId;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        gameId.hashCode ^
-        name.hashCode ^
-        slug.hashCode ^
-        url.hashCode ^
-        iconUrl.hashCode ^
-        dateModified.hashCode ^
-        isClass.hashCode ^
-        classId.hashCode ^
-        parentCategoryId.hashCode;
-  }
-}
-
 class CurseForgeModAuthor {
   final int id;
   final String name;
   final String url;
-  CurseForgeModAuthor({
+  const CurseForgeModAuthor({
     required this.id,
     required this.name,
     required this.url,
@@ -455,17 +337,17 @@ class CurseForgeModAuthor {
 
   Map<String, dynamic> toMap() {
     return {
-      "id": id,
-      "name": name,
-      "url": url,
+      'id': id,
+      'name': name,
+      'url': url,
     };
   }
 
   factory CurseForgeModAuthor.fromMap(Map<String, dynamic> map) {
     return CurseForgeModAuthor(
-      id: map["id"],
-      name: map["name"],
-      url: map["url"],
+      id: map['id'],
+      name: map['name'],
+      url: map['url'],
     );
   }
 
@@ -475,7 +357,7 @@ class CurseForgeModAuthor {
       CurseForgeModAuthor.fromMap(json.decode(source));
 
   @override
-  String toString() => "Author(id: $id, name: $name, url: $url)";
+  String toString() => 'Author(id: $id, name: $name, url: $url)';
 
   @override
   bool operator ==(Object other) {
@@ -498,7 +380,7 @@ class CurseForgeModLogo {
   final String description;
   final String thumbnailUrl;
   final String url;
-  CurseForgeModLogo({
+  const CurseForgeModLogo({
     required this.id,
     required this.modId,
     required this.title,
@@ -527,23 +409,23 @@ class CurseForgeModLogo {
 
   Map<String, dynamic> toMap() {
     return {
-      "id": id,
-      "modId": modId,
-      "title": title,
-      "description": description,
-      "thumbnailUrl": thumbnailUrl,
-      "url": url,
+      'id': id,
+      'modId': modId,
+      'title': title,
+      'description': description,
+      'thumbnailUrl': thumbnailUrl,
+      'url': url,
     };
   }
 
   factory CurseForgeModLogo.fromMap(Map<String, dynamic> map) {
     return CurseForgeModLogo(
-      id: map["id"],
-      modId: map["modId"],
-      title: map["title"],
-      description: map["description"],
-      thumbnailUrl: map["thumbnailUrl"],
-      url: map["url"],
+      id: map['id'],
+      modId: map['modId'],
+      title: map['title'],
+      description: map['description'],
+      thumbnailUrl: map['thumbnailUrl'],
+      url: map['url'],
     );
   }
 
@@ -554,7 +436,7 @@ class CurseForgeModLogo {
 
   @override
   String toString() {
-    return "Logo(id: $id, modId: $modId, title: $title, description: $description, thumbnailUrl: $thumbnailUrl, url: $url)";
+    return 'Logo(id: $id, modId: $modId, title: $title, description: $description, thumbnailUrl: $thumbnailUrl, url: $url)';
   }
 
   @override
@@ -588,7 +470,7 @@ class CurseForgeModScreenshot {
   final String description;
   final String thumbnailUrl;
   final String url;
-  CurseForgeModScreenshot({
+  const CurseForgeModScreenshot({
     required this.id,
     required this.modId,
     required this.title,
@@ -617,23 +499,23 @@ class CurseForgeModScreenshot {
 
   Map<String, dynamic> toMap() {
     return {
-      "id": id,
-      "modId": modId,
-      "title": title,
-      "description": description,
-      "thumbnailUrl": thumbnailUrl,
-      "url": url,
+      'id': id,
+      'modId': modId,
+      'title': title,
+      'description': description,
+      'thumbnailUrl': thumbnailUrl,
+      'url': url,
     };
   }
 
   factory CurseForgeModScreenshot.fromMap(Map<String, dynamic> map) {
     return CurseForgeModScreenshot(
-      id: map["id"],
-      modId: map["modId"],
-      title: map["title"],
-      description: map["description"],
-      thumbnailUrl: map["thumbnailUrl"],
-      url: map["url"],
+      id: map['id'],
+      modId: map['modId'],
+      title: map['title'],
+      description: map['description'],
+      thumbnailUrl: map['thumbnailUrl'],
+      url: map['url'],
     );
   }
 
@@ -644,7 +526,7 @@ class CurseForgeModScreenshot {
 
   @override
   String toString() {
-    return "Screenshot(id: $id, modId: $modId, title: $title, description: $description, thumbnailUrl: $thumbnailUrl, url: $url)";
+    return 'Screenshot(id: $id, modId: $modId, title: $title, description: $description, thumbnailUrl: $thumbnailUrl, url: $url)';
   }
 
   @override
@@ -678,7 +560,7 @@ class CurseForgeModLatestFile {
   final bool isAvailable;
   final String displayName;
   final String fileName;
-  final int releaseType;
+  final CurseForgeFileReleaseType releaseType;
   final int fileStatus;
   final List<CurseForgeModHashe> hashes;
   final String fileDate;
@@ -692,7 +574,7 @@ class CurseForgeModLatestFile {
   final bool isServerPack;
   final int fileFingerprint;
   final List<CurseForgeModModule> modules;
-  CurseForgeModLatestFile({
+  const CurseForgeModLatestFile({
     required this.id,
     required this.gameId,
     required this.modId,
@@ -722,7 +604,7 @@ class CurseForgeModLatestFile {
     bool? isAvailable,
     String? displayName,
     String? fileName,
-    int? releaseType,
+    CurseForgeFileReleaseType? releaseType,
     int? fileStatus,
     List<CurseForgeModHashe>? hashes,
     String? fileDate,
@@ -763,56 +645,57 @@ class CurseForgeModLatestFile {
 
   Map<String, dynamic> toMap() {
     return {
-      "id": id,
-      "gameId": gameId,
-      "modId": modId,
-      "isAvailable": isAvailable,
-      "displayName": displayName,
-      "fileName": fileName,
-      "releaseType": releaseType,
-      "fileStatus": fileStatus,
-      "hashes": hashes.map((x) => x.toMap()).toList(),
-      "fileDate": fileDate,
-      "fileLength": fileLength,
-      "downloadCount": downloadCount,
-      "downloadUrl": downloadUrl,
-      "gameVersions": gameVersions,
-      "sortableGameVersions":
+      'id': id,
+      'gameId': gameId,
+      'modId': modId,
+      'isAvailable': isAvailable,
+      'displayName': displayName,
+      'fileName': fileName,
+      'releaseType': releaseType.value,
+      'fileStatus': fileStatus,
+      'hashes': hashes.map((x) => x.toMap()).toList(),
+      'fileDate': fileDate,
+      'fileLength': fileLength,
+      'downloadCount': downloadCount,
+      'downloadUrl': downloadUrl,
+      'gameVersions': gameVersions,
+      'sortableGameVersions':
           sortableGameVersions.map((x) => x.toMap()).toList(),
-      "dependencies": dependencies,
-      "alternateFileId": alternateFileId,
-      "isServerPack": isServerPack,
-      "fileFingerprint": fileFingerprint,
-      "modules": modules.map((x) => x.toMap()).toList(),
+      'dependencies': dependencies,
+      'alternateFileId': alternateFileId,
+      'isServerPack': isServerPack,
+      'fileFingerprint': fileFingerprint,
+      'modules': modules.map((x) => x.toMap()).toList(),
     };
   }
 
   factory CurseForgeModLatestFile.fromMap(Map<String, dynamic> map) {
     return CurseForgeModLatestFile(
-      id: map["id"],
-      gameId: map["gameId"],
-      modId: map["modId"],
-      isAvailable: map["isAvailable"] ?? false,
-      displayName: map["displayName"],
-      fileName: map["fileName"],
-      releaseType: map["releaseType"],
-      fileStatus: map["fileStatus"],
+      id: map['id'],
+      gameId: map['gameId'],
+      modId: map['modId'],
+      isAvailable: map['isAvailable'],
+      displayName: map['displayName'],
+      fileName: map['fileName'],
+      releaseType: CurseForgeFileReleaseType.values
+          .firstWhere((e) => e.value == map['releaseType']),
+      fileStatus: map['fileStatus'],
       hashes: List<CurseForgeModHashe>.from(
-          map["hashes"]?.map((x) => CurseForgeModHashe.fromMap(x))),
-      fileDate: map["fileDate"],
-      fileLength: map["fileLength"],
-      downloadCount: map["downloadCount"],
-      downloadUrl: map["downloadUrl"],
-      gameVersions: List<String>.from(map["gameVersions"]),
+          map['hashes']?.map((x) => CurseForgeModHashe.fromMap(x))),
+      fileDate: map['fileDate'],
+      fileLength: map['fileLength'],
+      downloadCount: map['downloadCount'],
+      downloadUrl: map['downloadUrl'],
+      gameVersions: List<String>.from(map['gameVersions']),
       sortableGameVersions: List<CurseForgeModSortableGameVersion>.from(
-          map["sortableGameVersions"]
+          map['sortableGameVersions']
               ?.map((x) => CurseForgeModSortableGameVersion.fromMap(x))),
-      dependencies: List<dynamic>.from(map["dependencies"]),
-      alternateFileId: map["alternateFileId"],
-      isServerPack: map["isServerPack"] ?? false,
-      fileFingerprint: map["fileFingerprint"],
+      dependencies: List<dynamic>.from(map['dependencies']),
+      alternateFileId: map['alternateFileId'],
+      isServerPack: map['isServerPack'],
+      fileFingerprint: map['fileFingerprint'],
       modules: List<CurseForgeModModule>.from(
-          map["modules"]?.map((x) => CurseForgeModModule.fromMap(x))),
+          map['modules']?.map((x) => CurseForgeModModule.fromMap(x))),
     );
   }
 
@@ -823,7 +706,7 @@ class CurseForgeModLatestFile {
 
   @override
   String toString() {
-    return "LatestFile(id: $id, gameId: $gameId, modId: $modId, isAvailable: $isAvailable, displayName: $displayName, fileName: $fileName, releaseType: $releaseType, fileStatus: $fileStatus, hashes: $hashes, fileDate: $fileDate, fileLength: $fileLength, downloadCount: $downloadCount, downloadUrl: $downloadUrl, gameVersions: $gameVersions, sortableGameVersions: $sortableGameVersions, dependencies: $dependencies, alternateFileId: $alternateFileId, isServerPack: $isServerPack, fileFingerprint: $fileFingerprint, modules: $modules)";
+    return 'LatestFile(id: $id, gameId: $gameId, modId: $modId, isAvailable: $isAvailable, displayName: $displayName, fileName: $fileName, releaseType: $releaseType, fileStatus: $fileStatus, hashes: $hashes, fileDate: $fileDate, fileLength: $fileLength, downloadCount: $downloadCount, downloadUrl: $downloadUrl, gameVersions: $gameVersions, sortableGameVersions: $sortableGameVersions, dependencies: $dependencies, alternateFileId: $alternateFileId, isServerPack: $isServerPack, fileFingerprint: $fileFingerprint, modules: $modules)';
   }
 
   @override
@@ -882,7 +765,7 @@ class CurseForgeModLatestFile {
 class CurseForgeModHashe {
   final String value;
   final int algo;
-  CurseForgeModHashe({
+  const CurseForgeModHashe({
     required this.value,
     required this.algo,
   });
@@ -899,15 +782,15 @@ class CurseForgeModHashe {
 
   Map<String, dynamic> toMap() {
     return {
-      "value": value,
-      "algo": algo,
+      'value': value,
+      'algo': algo,
     };
   }
 
   factory CurseForgeModHashe.fromMap(Map<String, dynamic> map) {
     return CurseForgeModHashe(
-      value: map["value"],
-      algo: map["algo"],
+      value: map['value'],
+      algo: map['algo'],
     );
   }
 
@@ -917,7 +800,7 @@ class CurseForgeModHashe {
       CurseForgeModHashe.fromMap(json.decode(source));
 
   @override
-  String toString() => "Hashe(value: $value, algo: $algo)";
+  String toString() => 'Hashe(value: $value, algo: $algo)';
 
   @override
   bool operator ==(Object other) {
@@ -937,8 +820,8 @@ class CurseForgeModSortableGameVersion {
   final String gameVersionPadded;
   final String gameVersion;
   final String gameVersionReleaseDate;
-  final int gameVersionTypeId;
-  CurseForgeModSortableGameVersion({
+  final int? gameVersionTypeId;
+  const CurseForgeModSortableGameVersion({
     required this.gameVersionName,
     required this.gameVersionPadded,
     required this.gameVersion,
@@ -965,21 +848,21 @@ class CurseForgeModSortableGameVersion {
 
   Map<String, dynamic> toMap() {
     return {
-      "gameVersionName": gameVersionName,
-      "gameVersionPadded": gameVersionPadded,
-      "gameVersion": gameVersion,
-      "gameVersionReleaseDate": gameVersionReleaseDate,
-      "gameVersionTypeId": gameVersionTypeId,
+      'gameVersionName': gameVersionName,
+      'gameVersionPadded': gameVersionPadded,
+      'gameVersion': gameVersion,
+      'gameVersionReleaseDate': gameVersionReleaseDate,
+      'gameVersionTypeId': gameVersionTypeId,
     };
   }
 
   factory CurseForgeModSortableGameVersion.fromMap(Map<String, dynamic> map) {
     return CurseForgeModSortableGameVersion(
-      gameVersionName: map["gameVersionName"],
-      gameVersionPadded: map["gameVersionPadded"],
-      gameVersion: map["gameVersion"],
-      gameVersionReleaseDate: map["gameVersionReleaseDate"],
-      gameVersionTypeId: map["gameVersionTypeId"],
+      gameVersionName: map['gameVersionName'],
+      gameVersionPadded: map['gameVersionPadded'],
+      gameVersion: map['gameVersion'],
+      gameVersionReleaseDate: map['gameVersionReleaseDate'],
+      gameVersionTypeId: map['gameVersionTypeId'],
     );
   }
 
@@ -990,7 +873,7 @@ class CurseForgeModSortableGameVersion {
 
   @override
   String toString() {
-    return "SortableGameVersion(gameVersionName: $gameVersionName, gameVersionPadded: $gameVersionPadded, gameVersion: $gameVersion, gameVersionReleaseDate: $gameVersionReleaseDate, gameVersionTypeId: $gameVersionTypeId)";
+    return 'SortableGameVersion(gameVersionName: $gameVersionName, gameVersionPadded: $gameVersionPadded, gameVersion: $gameVersion, gameVersionReleaseDate: $gameVersionReleaseDate, gameVersionTypeId: $gameVersionTypeId)';
   }
 
   @override
@@ -1018,7 +901,7 @@ class CurseForgeModSortableGameVersion {
 class CurseForgeModModule {
   final String name;
   final int fingerprint;
-  CurseForgeModModule({
+  const CurseForgeModModule({
     required this.name,
     required this.fingerprint,
   });
@@ -1035,15 +918,15 @@ class CurseForgeModModule {
 
   Map<String, dynamic> toMap() {
     return {
-      "name": name,
-      "fingerprint": fingerprint,
+      'name': name,
+      'fingerprint': fingerprint,
     };
   }
 
   factory CurseForgeModModule.fromMap(Map<String, dynamic> map) {
     return CurseForgeModModule(
-      name: map["name"],
-      fingerprint: map["fingerprint"],
+      name: map['name'],
+      fingerprint: map['fingerprint'],
     );
   }
 
@@ -1053,7 +936,7 @@ class CurseForgeModModule {
       CurseForgeModModule.fromMap(json.decode(source));
 
   @override
-  String toString() => "Module(name: $name, fingerprint: $fingerprint)";
+  String toString() => 'Module(name: $name, fingerprint: $fingerprint)';
 
   @override
   bool operator ==(Object other) {
@@ -1068,14 +951,14 @@ class CurseForgeModModule {
   int get hashCode => name.hashCode ^ fingerprint.hashCode;
 }
 
-class CurseForgeModLatestFilesIndexe {
+class CurseForgeModLatestFilesIndex {
   final String gameVersion;
   final int fileId;
   final String filename;
-  final int releaseType;
-  final int gameVersionTypeId;
-  final int modLoader;
-  CurseForgeModLatestFilesIndexe({
+  final CurseForgeFileReleaseType releaseType;
+  final int? gameVersionTypeId;
+  final CurseForgeModLoaderType? modLoader;
+  const CurseForgeModLatestFilesIndex({
     required this.gameVersion,
     required this.fileId,
     required this.filename,
@@ -1084,15 +967,15 @@ class CurseForgeModLatestFilesIndexe {
     required this.modLoader,
   });
 
-  CurseForgeModLatestFilesIndexe copyWith({
+  CurseForgeModLatestFilesIndex copyWith({
     String? gameVersion,
     int? fileId,
     String? filename,
-    int? releaseType,
+    CurseForgeFileReleaseType? releaseType,
     int? gameVersionTypeId,
-    int? modLoader,
+    CurseForgeModLoaderType? modLoader,
   }) {
-    return CurseForgeModLatestFilesIndexe(
+    return CurseForgeModLatestFilesIndex(
       gameVersion: gameVersion ?? this.gameVersion,
       fileId: fileId ?? this.fileId,
       filename: filename ?? this.filename,
@@ -1104,41 +987,44 @@ class CurseForgeModLatestFilesIndexe {
 
   Map<String, dynamic> toMap() {
     return {
-      "gameVersion": gameVersion,
-      "fileId": fileId,
-      "filename": filename,
-      "releaseType": releaseType,
-      "gameVersionTypeId": gameVersionTypeId,
-      "modLoader": modLoader,
+      'gameVersion': gameVersion,
+      'fileId': fileId,
+      'filename': filename,
+      'releaseType': releaseType.value,
+      'gameVersionTypeId': gameVersionTypeId,
+      'modLoader': modLoader?.value,
     };
   }
 
-  factory CurseForgeModLatestFilesIndexe.fromMap(Map<String, dynamic> map) {
-    return CurseForgeModLatestFilesIndexe(
-      gameVersion: map["gameVersion"],
-      fileId: map["fileId"],
-      filename: map["filename"],
-      releaseType: map["releaseType"],
-      gameVersionTypeId: map["gameVersionTypeId"],
-      modLoader: map["modLoader"],
+  factory CurseForgeModLatestFilesIndex.fromMap(Map<String, dynamic> map) {
+    return CurseForgeModLatestFilesIndex(
+      gameVersion: map['gameVersion'],
+      fileId: map['fileId'],
+      filename: map['filename'],
+      releaseType: CurseForgeFileReleaseType.values
+          .firstWhere((e) => e.value == map['releaseType']),
+      gameVersionTypeId: map['gameVersionTypeId'],
+      modLoader: CurseForgeModLoaderType.values
+          .cast<CurseForgeModLoaderType?>()
+          .firstWhere((e) => e?.value == map['modLoader'], orElse: () => null),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory CurseForgeModLatestFilesIndexe.fromJson(String source) =>
-      CurseForgeModLatestFilesIndexe.fromMap(json.decode(source));
+  factory CurseForgeModLatestFilesIndex.fromJson(String source) =>
+      CurseForgeModLatestFilesIndex.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return "LatestFilesIndexe(gameVersion: $gameVersion, fileId: $fileId, filename: $filename, releaseType: $releaseType, gameVersionTypeId: $gameVersionTypeId, modLoader: $modLoader)";
+    return 'LatestFilesIndex(gameVersion: $gameVersion, fileId: $fileId, filename: $filename, releaseType: $releaseType, gameVersionTypeId: $gameVersionTypeId, modLoader: $modLoader)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is CurseForgeModLatestFilesIndexe &&
+    return other is CurseForgeModLatestFilesIndex &&
         other.gameVersion == gameVersion &&
         other.fileId == fileId &&
         other.filename == filename &&
