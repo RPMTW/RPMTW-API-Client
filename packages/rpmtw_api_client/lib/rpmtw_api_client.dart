@@ -24,6 +24,7 @@ export 'src/models/curseforge/curseforge_mod_file.dart';
 export 'src/models/curseforge/curseforge_file_release_type.dart';
 export 'src/models/curseforge/curseforge_category.dart';
 export 'src/models/curseforge/curseforge_folder_fingerprint.dart';
+export 'src/models/curseforge/curseforge_minecraft_game_version.dart';
 
 export 'src/models/universe_chat/universe_chat_message.dart';
 

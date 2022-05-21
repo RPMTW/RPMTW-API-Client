@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:rpmtw_api_client/rpmtw_api_client.dart';
 import 'package:rpmtw_api_client/src/http/api_http_client.dart';
 import 'package:rpmtw_api_client/src/http/api_http_response.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_folder_fingerprint.dart';
@@ -188,5 +189,24 @@ class CurseForgeResource extends APIResource {
     return (data['data'] as List)
         .map((category) => CurseForgeCategory.fromMap(category))
         .toList();
+  }
+
+  /// Get minecraft game versions
+  Future<List<CurseForgeMinecraftGameVersion>> getMinecraftVersions() async {
+    Map<String, dynamic> data =
+        (await _get(path: 'minecraft/version')).cast<String, dynamic>();
+
+    return (data['data'] as List)
+        .map((version) => CurseForgeMinecraftGameVersion.fromMap(version))
+        .toList();
+  }
+
+  /// Get specific minecraft game version
+  Future<CurseForgeMinecraftGameVersion> getMinecraftVersion(
+      String gameVersionString) async {
+    Map<String, dynamic> data =
+        (await _get(path: 'minecraft/version/$gameVersionString')).cast<String, dynamic>();
+
+    return CurseForgeMinecraftGameVersion.fromMap(data['data']);
   }
 }
