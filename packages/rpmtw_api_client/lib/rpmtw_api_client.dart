@@ -14,17 +14,25 @@ export 'src/models/minecraft/mod_integration.dart';
 export 'src/models/minecraft/mod_side.dart';
 export 'src/models/minecraft/relation_mod.dart';
 export 'src/models/minecraft/rpmwiki/wiki_change_log.dart';
+
 export 'src/models/curseforge/curseforge_mod.dart';
 export 'src/models/curseforge/curseforge_games.dart';
 export 'src/models/curseforge/curseforge_mod_loader_type.dart';
 export 'src/models/curseforge/curseforge_mods_search_sort.dart';
 export 'src/models/curseforge/curseforge_sort_order.dart';
 export 'src/models/curseforge/curseforge_mod_file.dart';
+export 'src/models/curseforge/curseforge_file_release_type.dart';
+export 'src/models/curseforge/curseforge_category.dart';
+export 'src/models/curseforge/curseforge_folder_fingerprint.dart';
+
 export 'src/models/universe_chat/universe_chat_message.dart';
+
 export 'src/models/auth/user_role_permission.dart';
 export 'src/models/auth/user_role.dart';
+
 export 'src/models/comment/comment.dart';
 export 'src/models/comment/comment_type.dart';
+
 export 'src/models/translate/glossary.dart';
 export 'src/models/translate/mod_source_info.dart';
 export 'src/models/translate/source_file.dart';
