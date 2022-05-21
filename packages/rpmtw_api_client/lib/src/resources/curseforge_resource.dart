@@ -157,7 +157,7 @@ class CurseForgeResource extends APIResource {
         .cast<String, dynamic>();
 
     return (data['data']['exactMatches'] as List)
-        .map((file) => CurseForgeModFile.fromMap(file))
+        .map((file) => CurseForgeModFile.fromMap(file['file']))
         .toList();
   }
 
@@ -172,7 +172,7 @@ class CurseForgeResource extends APIResource {
         .cast<String, dynamic>();
 
     return (data['data']['fuzzyMatches'] as List)
-        .map((file) => CurseForgeModFile.fromMap(file))
+        .map((file) => CurseForgeModFile.fromMap(file['file']))
         .toList();
   }
 
