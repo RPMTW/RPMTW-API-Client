@@ -59,8 +59,8 @@ class CurseForgeResource extends APIResource {
       int? categoryId,
       String? gameVersion,
       String? searchFilter,
-      CurseForgeModsSearchSort? sort,
-      CurseForgeSortOrder? sortOrder,
+      CurseForgeSortField? sortField,
+      CurseForgeSortOrder sortOrder = CurseForgeSortOrder.desc,
       CurseForgeModLoaderType? modLoaderType,
       int? gameVersionTypeId,
       String? slug,
@@ -72,8 +72,8 @@ class CurseForgeResource extends APIResource {
       if (categoryId != null) 'categoryId': categoryId.toString(),
       if (gameVersion != null) 'gameVersion': gameVersion,
       if (searchFilter != null) 'searchFilter': searchFilter,
-      if (sort != null) 'sort': sort.value.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder.toJson(),
+      if (sortField != null) 'sortField': sortField.value.toString(),
+      'sortOrder': sortOrder.name,
       if (modLoaderType != null)
         'modLoaderType': modLoaderType.value.toString(),
       if (gameVersionTypeId != null)

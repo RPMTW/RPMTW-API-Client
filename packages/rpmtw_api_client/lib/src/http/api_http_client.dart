@@ -23,8 +23,11 @@ class APIHttpClient {
       Map<String, String>? headers}) async {
     final String? _token = token ?? globalToken;
     final Uri uri =
-        Uri.parse(baseUrl + (path.startsWith('/') ? path : '/$path'))
-            .replace(queryParameters: query);
+        Uri.parse(baseUrl + (path.startsWith('/') ? path : '/$path')).replace(
+            query: query?.entries
+                .where((e) => e.value != null)
+                .map((e) => '${e.key}=${e.value}')
+                .join('&'));
 
     final Response response;
     final Map<String, String> _headers = {

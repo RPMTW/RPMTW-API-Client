@@ -1,4 +1,4 @@
-enum CurseForgeModsSearchSort {
+enum CurseForgeSortField {
   featured,
   popularity,
   lastUpdated,
@@ -9,24 +9,24 @@ enum CurseForgeModsSearchSort {
   gameVersion
 }
 
-extension ModsSearchSortExtension on CurseForgeModsSearchSort {
+extension ModsSearchSortExtension on CurseForgeSortField {
   int get value {
     switch (this) {
-      case CurseForgeModsSearchSort.featured:
+      case CurseForgeSortField.featured:
         return 1;
-      case CurseForgeModsSearchSort.popularity:
+      case CurseForgeSortField.popularity:
         return 2;
-      case CurseForgeModsSearchSort.lastUpdated:
+      case CurseForgeSortField.lastUpdated:
         return 3;
-      case CurseForgeModsSearchSort.name:
+      case CurseForgeSortField.name:
         return 4;
-      case CurseForgeModsSearchSort.author:
+      case CurseForgeSortField.author:
         return 5;
-      case CurseForgeModsSearchSort.totalDownloads:
+      case CurseForgeSortField.totalDownloads:
         return 6;
-      case CurseForgeModsSearchSort.category:
+      case CurseForgeSortField.category:
         return 7;
-      case CurseForgeModsSearchSort.gameVersion:
+      case CurseForgeSortField.gameVersion:
         return 8;
     }
   }

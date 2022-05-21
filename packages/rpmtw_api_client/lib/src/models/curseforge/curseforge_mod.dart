@@ -19,7 +19,7 @@ class CurseForgeMod {
   final List<CurseForgeCategory> categories;
   final int classId;
   final List<CurseForgeModAuthor> authors;
-  final CurseForgeModLogo logo;
+  final CurseForgeModLogo? logo;
   final List<CurseForgeModScreenshot> screenshots;
   final int mainFileId;
   final List<CurseForgeModLatestFile> latestFiles;
@@ -123,7 +123,7 @@ class CurseForgeMod {
       'categories': categories.map((x) => x.toMap()).toList(),
       'classId': classId,
       'authors': authors.map((x) => x.toMap()).toList(),
-      'logo': logo.toMap(),
+      'logo': logo?.toMap(),
       'screenshots': screenshots.map((x) => x.toMap()).toList(),
       'mainFileId': mainFileId,
       'latestFiles': latestFiles.map((x) => x.toMap()).toList(),
@@ -153,7 +153,7 @@ class CurseForgeMod {
       classId: map['classId'],
       authors: List<CurseForgeModAuthor>.from(
           map['authors']?.map((x) => CurseForgeModAuthor.fromMap(x))),
-      logo: CurseForgeModLogo.fromMap(map['logo']),
+      logo: map['logo'] != null ? CurseForgeModLogo.fromMap(map['logo']) : null,
       screenshots: List<CurseForgeModScreenshot>.from(
           map['screenshots']?.map((x) => CurseForgeModScreenshot.fromMap(x))),
       mainFileId: map['mainFileId'],
