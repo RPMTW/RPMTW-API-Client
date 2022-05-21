@@ -566,7 +566,7 @@ class CurseForgeModLatestFile {
   final String fileDate;
   final int fileLength;
   final int downloadCount;
-  final String downloadUrl;
+  final String? downloadUrl;
   final List<String> gameVersions;
   final List<CurseForgeModSortableGameVersion> sortableGameVersions;
   final List<dynamic> dependencies;

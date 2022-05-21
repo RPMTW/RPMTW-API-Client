@@ -20,9 +20,10 @@ class CurseForgeResource extends APIResource {
       {required String path,
       Map<String, String>? query,
       int apiVersion = 1}) async {
-    final Uri uri = Uri(path: 'v$apiVersion/$path/', queryParameters: query);
-    APIHttpResponse response = await httpClient
-        .get('/curseforge/', query: {'path': '${uri.path}?${uri.query}'});
+    APIHttpResponse response = await httpClient.get('/curseforge/', query: {
+      'path':
+          'v$apiVersion/$path?${query?.entries.map((e) => '${e.key}=${e.value}').join('%26')}'
+    });
 
     return response.data;
   }
@@ -67,19 +68,19 @@ class CurseForgeResource extends APIResource {
       int? pageSize}) async {
     Map data = (await _get(path: 'mods/search', query: {
       'gameId': game.id.toString(),
-      if (classId != null) 'classId': classId.toString(),
-      if (categoryId != null) 'categoryId': categoryId.toString(),
-      if (gameVersion != null) 'gameVersion': gameVersion,
-      if (searchFilter != null) 'searchFilter': searchFilter,
-      if (sort != null) 'sort': sort.value.toString(),
-      if (sortOrder != null) 'sortOrder': sortOrder.toJson(),
-      if (modLoaderType != null)
-        'modLoaderType': modLoaderType.value.toString(),
-      if (gameVersionTypeId != null)
-        'gameVersionTypeId': gameVersionTypeId.toString(),
-      if (slug != null) 'slug': slug,
-      if (index != null) 'index': index.toString(),
-      if (pageSize != null) 'pageSize': pageSize.toString()
+      // if (classId != null) 'classId': classId.toString(),
+      // if (categoryId != null) 'categoryId': categoryId.toString(),
+      // if (gameVersion != null) 'gameVersion': gameVersion,
+      // if (searchFilter != null) 'searchFilter': searchFilter,
+      // if (sort != null) 'sort': sort.value.toString(),
+      // if (sortOrder != null) 'sortOrder': sortOrder.toJson(),
+      // if (modLoaderType != null)
+      //   'modLoaderType': modLoaderType.value.toString(),
+      // if (gameVersionTypeId != null)
+      //   'gameVersionTypeId': gameVersionTypeId.toString(),
+      // if (slug != null) 'slug': slug,
+      // if (index != null) 'index': index.toString(),
+      // if (pageSize != null) 'pageSize': pageSize.toString()
     }));
 
     return (data['data'] as List)
