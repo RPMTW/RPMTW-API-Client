@@ -16,8 +16,12 @@ class CurseForgeResource extends APIResource {
       {required String path,
       Map<String, String>? query,
       int apiVersion = 1}) async {
-    String _path =
-        'v$apiVersion/$path?${query?.entries.map((e) => '${e.key}=${e.value}').join('%26')}';
+    String _path = 'v$apiVersion/$path';
+
+    if (query != null) {
+      _path +=
+          '?${query.entries.map((e) => '${e.key}=${e.value}').join('%26')}';
+    }
 
     if (_cfCoreApiKey != null) {
       Uri uri = Uri(scheme: 'https', host: 'api.curseforge.com', path: _path);
