@@ -1,17 +1,12 @@
 import 'dart:convert';
 
+import 'package:http/http.dart';
 import 'package:rpmtw_api_client/rpmtw_api_client.dart';
 import 'package:rpmtw_api_client/src/http/api_http_client.dart';
 import 'package:rpmtw_api_client/src/http/api_http_response.dart';
-import 'package:rpmtw_api_client/src/models/curseforge/curseforge_folder_fingerprint.dart';
-import 'package:rpmtw_api_client/src/models/curseforge/curseforge_games.dart';
-import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod.dart';
-import 'package:rpmtw_api_client/src/models/curseforge/curseforge_category.dart';
-import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod_file.dart';
-import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod_loader_type.dart';
-import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mods_search_sort.dart';
-import 'package:rpmtw_api_client/src/models/curseforge/curseforge_sort_order.dart';
 import 'package:rpmtw_api_client/src/resources/api_resource.dart';
+
+String? _cfCoreApiKey;
 
 /// CurseForge API Documentation: https://docs.curseforge.com
 class CurseForgeResource extends APIResource {
@@ -21,19 +16,51 @@ class CurseForgeResource extends APIResource {
       {required String path,
       Map<String, String>? query,
       int apiVersion = 1}) async {
-    APIHttpResponse response = await httpClient.get('/curseforge/', query: {
-      'path':
-          'v$apiVersion/$path?${query?.entries.map((e) => '${e.key}=${e.value}').join('%26')}'
-    });
+    String _path =
+        'v$apiVersion/$path?${query?.entries.map((e) => '${e.key}=${e.value}').join('%26')}';
 
-    return response.data;
+    if (_cfCoreApiKey != null) {
+      Uri uri = Uri(scheme: 'https', host: 'api.curseforge.com', path: _path);
+      Response response = await get(uri, headers: {
+        'X-Api-Key': _cfCoreApiKey!,
+      });
+
+      try {
+        return json.decode(response.body);
+      } catch (e) {
+        return null;
+      }
+    } else {
+      APIHttpResponse response =
+          await httpClient.get('/curseforge/', query: {'path': _path});
+      return response.data;
+    }
   }
 
   Future<dynamic> _post(
       {required String path, required Map body, int apiVersion = 1}) async {
-    APIHttpResponse response = await httpClient.post('/curseforge/',
-        query: {'path': 'v$apiVersion/$path'}, body: json.encode(body));
-    return response.data;
+    String _path = 'v$apiVersion/$path';
+
+    if (_cfCoreApiKey != null) {
+      Uri uri = Uri(scheme: 'https', host: 'api.curseforge.com', path: _path);
+      Response response = await post(uri, body: json.encode(body), headers: {
+        'X-Api-Key': _cfCoreApiKey!,
+      });
+
+      try {
+        return json.decode(response.body);
+      } catch (e) {
+        return null;
+      }
+    } else {
+      APIHttpResponse response = await httpClient.post('/curseforge/',
+          query: {'path': _path}, body: json.encode(body));
+      return response.data;
+    }
+  }
+
+  void setApiKey(String? apiKey) {
+    _cfCoreApiKey = apiKey;
   }
 
   /// Get a single mod.
@@ -205,7 +232,8 @@ class CurseForgeResource extends APIResource {
   Future<CurseForgeMinecraftGameVersion> getMinecraftVersion(
       String gameVersionString) async {
     Map<String, dynamic> data =
-        (await _get(path: 'minecraft/version/$gameVersionString')).cast<String, dynamic>();
+        (await _get(path: 'minecraft/version/$gameVersionString'))
+            .cast<String, dynamic>();
 
     return CurseForgeMinecraftGameVersion.fromMap(data['data']);
   }
