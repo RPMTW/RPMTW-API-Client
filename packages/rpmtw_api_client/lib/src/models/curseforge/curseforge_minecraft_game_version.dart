@@ -8,7 +8,7 @@ class CurseForgeMinecraftGameVersion {
   final String jsonDownloadUrl;
   final bool approved;
   final String dateModified;
-  final int gameVersionTypeId;
+  final int? gameVersionTypeId;
   final int gameVersionStatus;
   final int gameVersionTypeStatus;
 

@@ -21,10 +21,10 @@ class CurseForgeModFile {
   final List<String> gameVersions;
   final List<SortableGameVersion> sortableGameVersions;
   final List<Dependency> dependencies;
-  final bool exposeAsAlternative;
+  final bool? exposeAsAlternative;
   final int? parentProjectFileId;
-  final int alternateFileId;
-  final bool isServerPack;
+  final int? alternateFileId;
+  final bool? isServerPack;
   final int? serverPackFileId;
   final int fileFingerprint;
   final List<Module> modules;
@@ -297,7 +297,7 @@ class SortableGameVersion {
   final String gameVersionPadded;
   final String gameVersion;
   final String gameVersionReleaseDate;
-  final int gameVersionTypeId;
+  final int? gameVersionTypeId;
   const SortableGameVersion({
     required this.gameVersionName,
     required this.gameVersionPadded,

@@ -18,7 +18,7 @@ class CurseForgeMod {
   final bool isFeatured;
   final int primaryCategoryId;
   final List<CurseForgeCategory> categories;
-  final int classId;
+  final int? classId;
   final List<CurseForgeModAuthor> authors;
   final CurseForgeModLogo? logo;
   final List<CurseForgeModScreenshot> screenshots;
@@ -28,7 +28,7 @@ class CurseForgeMod {
   final String dateCreated;
   final String dateModified;
   final String dateReleased;
-  final bool allowModDistribution;
+  final bool? allowModDistribution;
   final int gamePopularityRank;
 
   const CurseForgeMod({
