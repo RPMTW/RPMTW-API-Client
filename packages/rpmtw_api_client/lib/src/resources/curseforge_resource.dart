@@ -141,12 +141,19 @@ class CurseForgeResource extends APIResource {
   Future<List<CurseForgeModFile>> getModFiles(int modID,
       {String? gameVersion,
       CurseForgeModLoaderType? modLoaderType,
-      String? gameVersionTypeId,
+      int? gameVersionTypeId,
       int? index,
       int? pageSize}) async {
-    Map<String, dynamic> data =
-        (await _get(path: 'mods/$modID/files', query: {}))
-            .cast<String, dynamic>();
+    Map<String, dynamic> data = (await _get(path: 'mods/$modID/files', query: {
+      if (gameVersion != null) 'gameVersion': gameVersion,
+      if (modLoaderType != null)
+        'modLoaderType': modLoaderType.value.toString(),
+      if (gameVersionTypeId != null)
+        'gameVersionTypeId': gameVersionTypeId.toString(),
+      if (index != null) 'index': index.toString(),
+      if (pageSize != null) 'pageSize': pageSize.toString()
+    }))
+        .cast<String, dynamic>();
 
     return (data['data'] as List)
         .map((file) => CurseForgeModFile.fromMap(file))
