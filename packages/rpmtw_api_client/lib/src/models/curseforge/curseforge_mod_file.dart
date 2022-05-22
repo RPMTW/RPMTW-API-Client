@@ -17,7 +17,7 @@ class CurseForgeModFile {
   final String fileDate;
   final int fileLength;
   final int downloadCount;
-  final String? downloadUrl;
+  final String downloadUrl;
   final List<String> gameVersions;
   final List<SortableGameVersion> sortableGameVersions;
   final List<Dependency> dependencies;
