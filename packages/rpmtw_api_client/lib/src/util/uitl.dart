@@ -1,6 +1,7 @@
 import 'package:pub_semver/pub_semver.dart';
+import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod_file.dart';
 
-class Utility {
+class Util {
   static bool get isWeb => identical(0, 0.0);
 
   /// https://github.com/RPMTW/RPMLauncher/blob/fa2523e3b006cd5e3dfca315be3c61debf48b40b/lib/Utility/Utility.dart#L381
@@ -112,5 +113,17 @@ class Utility {
     }
 
     return _comparableVersion;
+  }
+
+  static String fixCFFileDownloadUrl(
+      {required int fileId, required String fileName, required String? url}) {
+    if (url != null && url.isNotEmpty) {
+      return url;
+    }
+
+    String x1 = fileId.toString().substring(0, 4);
+    String x2 = fileId.toString().substring(4, 7);
+
+    return 'https://media.forgecdn.net/files/$x1/$x2/$fileName';
   }
 }

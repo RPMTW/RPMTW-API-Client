@@ -57,4 +57,4 @@ export 'src/resources/universe_chat_resource.dart';
 export 'src/resources/translate_resource.dart';
 export 'src/resources/comment_resource.dart';
 
-export 'src/utilities/exceptions.dart';
+export 'src/util/exceptions.dart';

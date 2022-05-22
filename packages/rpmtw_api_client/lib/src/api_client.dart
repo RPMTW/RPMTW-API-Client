@@ -7,7 +7,7 @@ import 'package:rpmtw_api_client/src/resources/minecraft_resource.dart';
 import 'package:rpmtw_api_client/src/resources/other_resource.dart';
 import 'package:rpmtw_api_client/src/resources/storage_resource.dart';
 import 'package:rpmtw_api_client/src/resources/translate_resource.dart';
-import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
+import 'package:rpmtw_api_client/src/util/exceptions.dart';
 
 class RPMTWApiClient {
   static String get version => '1.0.8-dev.11';

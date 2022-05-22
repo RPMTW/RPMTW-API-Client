@@ -4,7 +4,7 @@ import 'package:rpmtw_api_client/src/http/api_http_client.dart';
 import 'package:rpmtw_api_client/src/http/api_http_response.dart';
 import 'package:rpmtw_api_client/src/models/storage/storage.dart';
 import 'package:rpmtw_api_client/src/resources/api_resource.dart';
-import 'package:rpmtw_api_client/src/utilities/utility.dart';
+import 'package:rpmtw_api_client/src/util/uitl.dart';
 import 'package:universal_io/io.dart';
 
 class StorageResource extends APIResource {
@@ -36,7 +36,7 @@ class StorageResource extends APIResource {
 
   /// 透過檔案建立檔案儲存，如果建立成功將返回檔案儲存資訊
   Future<Storage> createStorageByFile(File file) {
-    if (Utility.isWeb) {
+    if (Util.isWeb) {
       throw Exception('Not support StorageResource#createStorageByFile on web');
     } else {
       return createStorageByBytes(file.readAsBytesSync());
@@ -55,7 +55,7 @@ class StorageResource extends APIResource {
   /// 下載檔案儲存至指定路徑
   Future<void> downloadStorage(
       {required String uuid, required File file}) async {
-    if (Utility.isWeb) {
+    if (Util.isWeb) {
       throw Exception('Not support StorageResource#downloadStorage on web');
     } else {
       if (!await file.exists()) {

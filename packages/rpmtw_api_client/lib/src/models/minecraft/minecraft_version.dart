@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:pub_semver/pub_semver.dart';
-import 'package:rpmtw_api_client/src/utilities/utility.dart';
+import 'package:rpmtw_api_client/src/util/uitl.dart';
 
 class MinecraftVersion {
   final String id;
@@ -22,7 +22,7 @@ class MinecraftVersion {
 
   DateTime get releaseDateTime => DateTime.parse(releaseTime);
 
-  Version get comparableVersion => Utility.parseMCComparableVersion(id);
+  Version get comparableVersion => Util.parseMCComparableVersion(id);
 
   String get mainVersion =>
       '${comparableVersion.major}.${comparableVersion.minor}';

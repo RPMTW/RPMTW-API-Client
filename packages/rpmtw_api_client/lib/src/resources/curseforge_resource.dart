@@ -5,6 +5,7 @@ import 'package:rpmtw_api_client/rpmtw_api_client.dart';
 import 'package:rpmtw_api_client/src/http/api_http_client.dart';
 import 'package:rpmtw_api_client/src/http/api_http_response.dart';
 import 'package:rpmtw_api_client/src/resources/api_resource.dart';
+import 'package:rpmtw_api_client/src/util/uitl.dart';
 
 String? _cfCoreApiKey;
 
@@ -48,7 +49,7 @@ class CurseForgeResource extends APIResource {
     if (_cfCoreApiKey != null) {
       Uri uri = Uri(scheme: 'https', host: 'api.curseforge.com', path: _path);
       Response response = await post(uri, body: json.encode(body), headers: {
-        'X-Api-Key': _cfCoreApiKey!,
+        'x-api-key': _cfCoreApiKey!,
       });
 
       try {
@@ -173,9 +174,9 @@ class CurseForgeResource extends APIResource {
   }
 
   /// Get a download url for a specific file.
-  Future<String> getModFileDownloadUrl(int modID, int fileID) async {
+  Future<String?> getModFileDownloadUrl(int modID, int fileId) async {
     Map<String, dynamic> data =
-        (await _get(path: 'mods/$modID/files/$fileID/download-url'))
+        (await _get(path: 'mods/$modID/files/$fileId/download-url'))
             .cast<String, dynamic>();
 
     return data['data'];

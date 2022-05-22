@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:rpmtw_api_client/src/models/curseforge/curseforge_file_release_type.dart';
+import 'package:rpmtw_api_client/src/util/uitl.dart';
 
 class CurseForgeModFile {
   final int id;
@@ -16,7 +17,7 @@ class CurseForgeModFile {
   final String fileDate;
   final int fileLength;
   final int downloadCount;
-  final String downloadUrl;
+  final String? downloadUrl;
   final List<String> gameVersions;
   final List<SortableGameVersion> sortableGameVersions;
   final List<Dependency> dependencies;
@@ -136,13 +137,17 @@ class CurseForgeModFile {
   }
 
   factory CurseForgeModFile.fromMap(Map<String, dynamic> map) {
+    int id = map['id'];
+    String fileName = map['fileName'];
+    String? downloadUrl = map['downloadUrl'];
+
     return CurseForgeModFile(
-      id: map['id'],
+      id: id,
       gameId: map['gameId'],
       modId: map['modId'],
       isAvailable: map['isAvailable'],
       displayName: map['displayName'],
-      fileName: map['fileName'],
+      fileName: fileName,
       releaseType: CurseForgeFileReleaseType.values
           .firstWhere((e) => e.value == map['releaseType']),
       fileStatus: map['fileStatus'],
@@ -150,7 +155,8 @@ class CurseForgeModFile {
       fileDate: map['fileDate'],
       fileLength: map['fileLength'],
       downloadCount: map['downloadCount'],
-      downloadUrl: map['downloadUrl'],
+      downloadUrl: Util.fixCFFileDownloadUrl(
+          fileId: id, fileName: fileName, url: downloadUrl),
       gameVersions: List<String>.from(map['gameVersions']),
       sortableGameVersions: List<SortableGameVersion>.from(
           map['sortableGameVersions']

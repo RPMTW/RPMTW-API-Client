@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart';
 import 'package:rpmtw_api_client/src/api_client.dart';
 import 'package:rpmtw_api_client/src/http/api_http_response.dart';
-import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
+import 'package:rpmtw_api_client/src/util/exceptions.dart';
 
 class APIHttpClient {
   final String baseUrl;

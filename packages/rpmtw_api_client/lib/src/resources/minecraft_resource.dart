@@ -8,7 +8,7 @@ import 'package:rpmtw_api_client/src/models/minecraft/mod_side.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/relation_mod.dart';
 import 'package:rpmtw_api_client/src/models/minecraft/rpmwiki/wiki_change_log.dart';
 import 'package:rpmtw_api_client/src/resources/api_resource.dart';
-import 'package:rpmtw_api_client/src/utilities/exceptions.dart';
+import 'package:rpmtw_api_client/src/util/exceptions.dart';
 
 class MinecraftResource extends APIResource {
   const MinecraftResource(APIHttpClient httpClient) : super(httpClient);
