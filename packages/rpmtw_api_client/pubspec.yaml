@@ -1,6 +1,6 @@
 name: rpmtw_api_client
 description: RPMTW api client library for Dart
-version: 1.0.8-beta.1
+version: 1.0.8-rc.1
 homepage: https://www.rpmtw.com
 repository: https://github.com/RPMTW/RPMTW-API-Client/tree/main/packages/rpmtw_api_client
 
