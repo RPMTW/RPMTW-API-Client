@@ -1,3 +1,4 @@
+import 'package:http/http.dart';
 import 'package:rpmtw_api_client/src/http/api_http_client.dart';
 import 'package:rpmtw_api_client/src/resources/auth_resource.dart';
 import 'package:rpmtw_api_client/src/resources/comment_resource.dart';
@@ -10,7 +11,7 @@ import 'package:rpmtw_api_client/src/resources/translate_resource.dart';
 import 'package:rpmtw_api_client/src/util/exceptions.dart';
 
 class RPMTWApiClient {
-  static String get version => '1.0.8-rc.4';
+  static String get version => '1.0.8-rc.5';
 
   late final APIHttpClient _httpClient;
   final String _apiBaseUrl;
@@ -36,7 +37,8 @@ class RPMTWApiClient {
       {bool development = false,
       String? apiBaseUrl,
       String? universeChatBaseUrl,
-      String? token})
+      String? token,
+      Client? httpClient})
       : _apiBaseUrl = apiBaseUrl ??
             (development
                 ? 'http://localhost:8080'
@@ -48,7 +50,7 @@ class RPMTWApiClient {
     _apiClient = this;
 
     if (token != null) _globalToken = token;
-    _httpClient = APIHttpClient(_apiBaseUrl);
+    _httpClient = APIHttpClient(_apiBaseUrl, client: httpClient);
   }
 
   AuthResource get authResource => AuthResource(_httpClient);
