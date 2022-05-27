@@ -146,7 +146,7 @@ class CurseForgeMod {
       links: CurseForgeModLinks.fromMap(map['links']),
       summary: map['summary'],
       status: map['status'],
-      downloadCount: (map['downloadCount'] as double).toInt(),
+      downloadCount: map['downloadCount'],
       isFeatured: map['isFeatured'],
       primaryCategoryId: map['primaryCategoryId'],
       categories: List<CurseForgeCategory>.from(
