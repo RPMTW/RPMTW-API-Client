@@ -123,8 +123,8 @@ class Util {
 
     String x1 = fileId.toString().substring(0, 4);
     String x2 = fileId.toString().substring(4, 7);
+    String encodeFileName = Uri.encodeComponent(fileName);
 
-    return Uri.encodeComponent(
-        'https://mediafiles.forgecdn.net/files/$x1/$x2/$fileName');
+    return 'https://mediafiles.forgecdn.net/files/$x1/$x2/$encodeFileName';
   }
 }

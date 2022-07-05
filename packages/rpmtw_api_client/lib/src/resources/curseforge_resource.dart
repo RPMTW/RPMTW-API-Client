@@ -5,7 +5,6 @@ import 'package:rpmtw_api_client/rpmtw_api_client.dart';
 import 'package:rpmtw_api_client/src/http/api_http_client.dart';
 import 'package:rpmtw_api_client/src/http/api_http_response.dart';
 import 'package:rpmtw_api_client/src/resources/api_resource.dart';
-import 'package:rpmtw_api_client/src/util/uitl.dart';
 
 String? _cfCoreApiKey;
 
