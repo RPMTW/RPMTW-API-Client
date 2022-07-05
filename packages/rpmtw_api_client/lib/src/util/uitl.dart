@@ -121,8 +121,8 @@ class Util {
       return url;
     }
 
-    String x1 = fileId.toString().substring(0, 4);
-    String x2 = fileId.toString().substring(4, 7);
+    int x1 = int.parse(fileId.toString().substring(0, 4));
+    int x2 = int.parse(fileId.toString().substring(4, 7));
     String encodeFileName = Uri.encodeComponent(fileName);
 
     return 'https://mediafiles.forgecdn.net/files/$x1/$x2/$encodeFileName';

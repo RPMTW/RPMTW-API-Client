@@ -26,7 +26,7 @@ class CurseForgeResource extends APIResource {
     if (_cfCoreApiKey != null) {
       Uri uri = Uri(scheme: 'https', host: 'api.curseforge.com', path: _path);
       Response response = await get(uri, headers: {
-        'X-Api-Key': _cfCoreApiKey!,
+        'x-api-key': _cfCoreApiKey!,
       });
 
       try {
