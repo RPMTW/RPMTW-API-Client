@@ -129,6 +129,25 @@ class UniverseChatResource extends APIResource {
     return status!;
   }
 
+  Future<void> sendDiscordMessage(
+      {required String message,
+      required String username,
+      String? avatarUrl,
+      String? nickname,
+      String? replyMessageUUID}) async {
+    _connectCheck();
+
+    _socket!.emit(
+        'discordMessage',
+        utf8.encode(json.encode({
+          'message': message,
+          'username': username,
+          if (avatarUrl != null) 'avatarUrl': avatarUrl,
+          if (nickname != null) 'nickname': nickname,
+          if (replyMessageUUID != null) 'replyMessageUUID': replyMessageUUID
+        })));
+  }
+
   /// Receive messages sent by other users
   Stream<UniverseChatMessage> get onMessageSent {
     _connectCheck(onlyListen: true);

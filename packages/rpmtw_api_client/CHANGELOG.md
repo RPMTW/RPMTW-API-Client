@@ -1,3 +1,5 @@
+# 1.0.9+1
+- Support send discord message to universe chat.
 # 1.0.9
 - feat: make `avatarUrl` optional in universe chat message
 # 1.0.8
