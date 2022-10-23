@@ -129,7 +129,7 @@ class UniverseChatResource extends APIResource {
     return status!;
   }
 
-  Future<void> sendDiscordMessage(
+  Future<String> sendDiscordMessage(
       {required String message,
       required String username,
       String? avatarUrl,
@@ -137,7 +137,9 @@ class UniverseChatResource extends APIResource {
       String? replyMessageUUID}) async {
     _connectCheck();
 
-    _socket!.emit(
+    String? uuid;
+
+    _socket!.emitWithAck(
         'discordMessage',
         utf8.encode(json.encode({
           'message': message,
@@ -145,7 +147,14 @@ class UniverseChatResource extends APIResource {
           if (avatarUrl != null) 'avatarUrl': avatarUrl,
           if (nickname != null) 'nickname': nickname,
           if (replyMessageUUID != null) 'replyMessageUUID': replyMessageUUID
-        })));
+        })), ack: (_uuid) {
+      uuid = _uuid;
+    });
+
+    while (uuid == null) {
+      await Future.delayed(Duration(milliseconds: 100));
+    }
+    return uuid!;
   }
 
   /// Receive messages sent by other users

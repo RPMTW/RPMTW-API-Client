@@ -1,3 +1,5 @@
+# 1.0.9+2
+- Send the discord message to universe chat will return the message uuid.
 # 1.0.9+1
 - Support send discord message to universe chat.
 # 1.0.9
