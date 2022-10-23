@@ -39,8 +39,7 @@ class UniverseChatResource extends APIResource {
 
     if (minecraftUUID != null) {
       baseOption.setExtraHeaders({'minecraft_uuid': minecraftUUID});
-    }
-    if (token != null) {
+    } else if (token != null) {
       baseOption.setExtraHeaders({'rpmtw_auth_token': token});
     }
 

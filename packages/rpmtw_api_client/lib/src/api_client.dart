@@ -11,7 +11,7 @@ import 'package:rpmtw_api_client/src/resources/translate_resource.dart';
 import 'package:rpmtw_api_client/src/util/exceptions.dart';
 
 class RPMTWApiClient {
-  static String get version => '1.0.8-rc.9';
+  static String get version => '1.0.9';
 
   late final APIHttpClient _httpClient;
   final String _apiBaseUrl;

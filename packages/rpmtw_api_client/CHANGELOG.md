@@ -1,3 +1,5 @@
+# 1.0.9
+- feat: make `avatarUrl` optional in universe chat message
 # 1.0.8
 - feat: support curseforge APIs
 - feat: get translator info by uuid/user

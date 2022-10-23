@@ -1,5 +1,4 @@
 import 'package:pub_semver/pub_semver.dart';
-import 'package:rpmtw_api_client/src/models/curseforge/curseforge_mod_file.dart';
 
 class Util {
   static bool get isWeb => identical(0, 0.0);
