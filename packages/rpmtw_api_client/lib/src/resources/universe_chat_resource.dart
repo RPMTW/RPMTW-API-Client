@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:rpmtw_api_client/src/http/api_http_client.dart';
-import 'package:rpmtw_api_client/src/http/api_http_response.dart';
 import 'package:rpmtw_api_client/src/models/universe_chat/universe_chat_info.dart';
 import 'package:rpmtw_api_client/src/models/universe_chat/universe_chat_message.dart';
 import 'package:rpmtw_api_client/src/resources/api_resource.dart';
@@ -132,6 +131,7 @@ class UniverseChatResource extends APIResource {
   Future<String> sendDiscordMessage(
       {required String message,
       required String username,
+      required String userId,
       String? avatarUrl,
       String? nickname,
       String? replyMessageUUID}) async {
@@ -144,6 +144,7 @@ class UniverseChatResource extends APIResource {
         utf8.encode(json.encode({
           'message': message,
           'username': username,
+          'userId': userId,
           if (avatarUrl != null) 'avatarUrl': avatarUrl,
           if (nickname != null) 'nickname': nickname,
           if (replyMessageUUID != null) 'replyMessageUUID': replyMessageUUID
@@ -175,14 +176,14 @@ class UniverseChatResource extends APIResource {
 
   /// Get message by message uuid
   Future<UniverseChatMessage> getMessage(String uuid) async {
-    APIHttpResponse response =
+    final response =
         await httpClient.get('/universe-chat/view/$uuid');
     return UniverseChatMessage.fromMap(response.data);
   }
 
   /// Get universe chat info (online users, protocolVersion, etc.)
   Future<UniverseChatInfo> getInfo() async {
-    APIHttpResponse response = await httpClient.get('/universe-chat/info');
+    final response = await httpClient.get('/universe-chat/info');
 
     return UniverseChatInfo.fromMap(response.data);
   }

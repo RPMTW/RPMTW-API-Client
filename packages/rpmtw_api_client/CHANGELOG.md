@@ -1,3 +1,6 @@
+# 1.0.9+3
+- Add user identifier field to universe chat message.
+- Support send the discord message with discord account id.
 # 1.0.9+2
 - Send the discord message to universe chat will return the message uuid.
 # 1.0.9+1

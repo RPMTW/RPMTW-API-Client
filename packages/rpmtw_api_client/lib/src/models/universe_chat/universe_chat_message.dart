@@ -10,6 +10,11 @@ class UniverseChatMessage implements APIModel {
   /// Username (not a nickname, may be the username of RPMTW account, Minecraft account or Discord account)
   final String username;
 
+  /// User identifier
+  /// May be the RPMTW account Uuid, Minecraft account Uuid or Discord account Id
+  /// Format: `rpmtw:uuid`, `minecraft:uuid` or `discord:id`
+  final String userIdentifier;
+
   /// message content
   final String message;
 
@@ -28,6 +33,7 @@ class UniverseChatMessage implements APIModel {
   const UniverseChatMessage({
     required this.uuid,
     required this.username,
+    required this.userIdentifier,
     required this.message,
     this.nickname,
     this.avatarUrl,
@@ -35,28 +41,6 @@ class UniverseChatMessage implements APIModel {
     required this.userType,
     this.replyMessageUUID,
   });
-
-  UniverseChatMessage copyWith({
-    String? uuid,
-    String? username,
-    String? message,
-    String? nickname,
-    String? avatarUrl,
-    DateTime? sentAt,
-    UniverseChatUserType? userType,
-    String? replyMessageUUID,
-  }) {
-    return UniverseChatMessage(
-      uuid: uuid ?? this.uuid,
-      username: username ?? this.username,
-      message: message ?? this.message,
-      nickname: nickname ?? this.nickname,
-      avatarUrl: avatarUrl ?? this.avatarUrl,
-      sentAt: sentAt ?? this.sentAt,
-      userType: userType ?? this.userType,
-      replyMessageUUID: replyMessageUUID ?? this.replyMessageUUID,
-    );
-  }
 
   @override
   Map<String, dynamic> toMap() {
@@ -76,6 +60,7 @@ class UniverseChatMessage implements APIModel {
     return UniverseChatMessage(
       uuid: map['uuid'],
       username: map['username'],
+      userIdentifier: map['userIdentifier'],
       message: map['message'],
       nickname: map['nickname'],
       avatarUrl: map['avatarUrl'],
@@ -84,8 +69,6 @@ class UniverseChatMessage implements APIModel {
       replyMessageUUID: map['replyMessageUUID'],
     );
   }
-
-  String toJson() => json.encode(toMap());
 
   factory UniverseChatMessage.fromJson(String source) =>
       UniverseChatMessage.fromMap(json.decode(source));
