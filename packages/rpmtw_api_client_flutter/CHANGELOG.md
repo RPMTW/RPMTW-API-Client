@@ -1,4 +1,7 @@
 
+# 1.0.10
+- Upgrade the `intl` package to `0.18.0`
+# 1.0.9
 # 1.0.8
 - Support new APIs in rpmtw_api_dart library 1.0.8
 # 1.0.7+1

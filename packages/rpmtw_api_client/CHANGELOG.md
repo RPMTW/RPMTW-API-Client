@@ -1,3 +1,5 @@
+# 1.0.10
+- Upgrade the `intl` package to `0.18.0`
 # 1.0.9+3
 - Add user identifier field to universe chat message.
 - Support send the discord message with discord account id.
